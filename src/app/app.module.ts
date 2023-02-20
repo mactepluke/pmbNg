@@ -12,6 +12,7 @@ import { HeaderComponent } from './header/header.component';
 import {AppRoutingModule} from "./app-routing.module";
 import { NotfoundPageComponent } from './notfound-page/notfound-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
+import {ButtonModule} from "primeng/button";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ButtonModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR'}

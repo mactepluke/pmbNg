@@ -1,5 +1,5 @@
 <header>
-  <h1>Pay My Buddy</h1>
+  <button (click)="onLogin()" pButton type="button" label="Pay My Buddy" class="p-button-success p-button-lg"></button>
   <nav>
     <a routerLink="paymybuddy" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true }">Home
     </a>
@@ -12,4 +12,6 @@
     <a routerLink="paymybuddy/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true }">Log in
     </a>
   </nav>
+  <div class="greyband">Home / <span class="grey">{{activePageName | titlecase}}</span>
+  </div>
 </header>

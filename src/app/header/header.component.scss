@@ -1,0 +1,32 @@
+header{
+  //background-color: #EEE;
+  padding: 2px;
+}
+
+.greyband{
+  background-color: #EEE;
+  padding: 10px;
+}
+
+.grey {
+  color: #666;
+}
+
+nav{
+  text-align: center;
+  padding: 10px;
+}
+
+a {
+  margin: 0 10px;
+  color: #333;
+  text-decoration: none;
+&:hover {
+   text-decoration: underline;
+ }
+}
+
+.active {
+  color: #666;
+  text-decoration: underline;
+}

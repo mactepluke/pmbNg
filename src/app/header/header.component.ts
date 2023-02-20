@@ -1,10 +1,21 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
+
 export class HeaderComponent {
+  @Input() activePageName = '';
+
+  constructor(private router: Router) {
+
+  }
+
+  onLogin() {
+    this.router.navigateByUrl('paymybuddy');
+  }
 
 }
