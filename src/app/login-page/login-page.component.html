@@ -1,1 +1,27 @@
-<p>login-page works!</p>
+<div class="login-block">
+
+  <p-card header="Pay My Buddy" subheader="Log-in with my account" [style]="{width: '360px'}"
+          styleClass="p-card-shadow">
+    <ng-template pTemplate="header">
+    </ng-template>
+
+    <span class="p-float-label margined">
+      <input id="float-input" type="text" pInputText/>
+    <label for="float-input">Email</label>
+</span>
+
+    <span class="p-float-label margined">
+    <p-password></p-password>
+    <label for="float-input">Password</label>
+    </span>
+
+    <div class="margined">
+      <p-checkbox name="groupname" value="val1" label="Remember me"></p-checkbox>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <p-button class="container" label="Log In"></p-button>
+    </ng-template>
+  </p-card>
+</div>
+

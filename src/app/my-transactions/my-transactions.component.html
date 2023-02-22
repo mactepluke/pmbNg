@@ -1,0 +1,38 @@
+<p-card class="transaction-block" header="My Transactions" [style]="{width: '1000px'}">
+  <div>
+
+  </div>
+  <div>
+    <p-table [value]="transactions" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+             currentPageReportTemplate="Showing {last} to {first} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
+      <ng-template pTemplate="header">
+        <tr>
+          <th id="date" style="width:14%">Date</th>
+          <th id="id" style="width:14%">Id</th>
+          <th id="connection" style="width:20%">Buddy</th>
+          <th id="description" style="width:25%">Description</th>
+          <th id="amount" style="width:8%">Amount</th>
+          <th id="fee" style="width:5%">Fee</th>
+          <th id="status" style="width:14%">Status</th>
+        </tr>
+      </ng-template>
+      <!--
+      <ng-template pTemplate="body" let-customer>
+        <tr>
+          <td>{{transactions.Date}}</td>
+          <td>{{transactions.Id}}</td>
+          <td>{{transactions.Connection}}</td>
+          <td>{{customer.representative.amount}}</td>
+        </tr>
+      </ng-template>
+      -->
+      <!--<ng-template pTemplate="paginatorleft">
+        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+      </ng-template>
+      <ng-template pTemplate="paginatorright">
+        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+      </ng-template>-->
+    </p-table>
+  </div>
+</p-card>
+

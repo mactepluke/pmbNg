@@ -1,1 +1,21 @@
-<p>profile-page works!</p>
+<p-card header="John Smith" class="profile-page-block" [style]="{width: '1000px'}">
+  <div class="main-block">
+    <p-avatar label="A" size="large"></p-avatar>
+    <div>
+      <p><b>Email:</b> john.smith@gmail.com</p>
+      <p><b>First Name:</b> John</p>
+      <p><b>Last Name:</b> Smith</p>
+      <p><b>Password:</b> *******</p>
+
+    </div>
+    <div>
+      <p-tag severity="success" value="Verified user" icon="pi pi-check"></p-tag>
+    </div>
+
+  </div>
+  <div class="button-block">
+    <p-button class="container" label="Edit profile"></p-button>
+    <p-button class="container" label="Log Out"></p-button>
+  </div>
+</p-card>
+

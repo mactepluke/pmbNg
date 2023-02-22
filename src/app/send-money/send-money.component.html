@@ -1,0 +1,20 @@
+<p-card header="Send Money" class="send-money-block" [style]="{width: '1000px'}">
+
+  <div class="horizontal-block">
+    <p> </p>
+    <div>
+      <p-button class="container" label="Add connection"></p-button>
+    </div>
+  </div>
+
+  <div class="horizontal-block grey-block">
+
+    <p-dropdown [options]="buddies" optionLabel="name" placeholder="<Choose a buddy>"></p-dropdown>
+
+    <p-inputNumber [showButtons]="true" mode="currency" currency="EUR" locale="fr-FR" [min]="0" [max]="1000" [step]="10" placeholder="0,00 €"></p-inputNumber>
+
+    <button pButton type="button" label="Pay" class="p-button-success" id="pay-button"></button>
+
+  </div>
+
+</p-card>
