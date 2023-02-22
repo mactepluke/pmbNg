@@ -4,9 +4,10 @@
   align-items: center;
   flex-direction: column;
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .margined {
-  margin: 0px 10px 0px 10px;
+  margin: 0 10px 0 10px;
 }
 

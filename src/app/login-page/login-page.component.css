@@ -1,10 +1,28 @@
 .login-block {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .margined {
-  margin: 10px 10px 30px 10px;
+  margin: 10px 10px 20px 10px;
+}
+
+.main-card  {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#checkbox-id  {
+  margin-bottom: 53px;
 }

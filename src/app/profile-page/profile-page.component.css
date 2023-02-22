@@ -3,13 +3,18 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .main-block {
   display: flex;
   justify-content: space-between;
+  margin-top: 50px;
+}
 
+.profile-contents {
+  display: flex;
+  justify-content: space-between;
 }
 
 .button-block  {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Transaction} from "../model/transaction";
+import {Transaction} from "../../model/transaction";
 
 @Component({
   selector: 'app-my-transactions',
