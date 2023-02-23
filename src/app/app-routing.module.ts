@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import {HomePageComponent} from "./home-page/home-page.component";
-import {TransferPageComponent} from "./transfer-page/transfer-page.component";
-import {ProfilePageComponent} from "./profile-page/profile-page.component";
-import {ContactPageComponent} from "./contact-page/contact-page.component";
-import {NotfoundPageComponent} from "./notfound-page/notfound-page.component";
-import {LoginPageComponent} from "./login-page/login-page.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {HomePageComponent} from "./pages/home-page/home-page.component";
+import {TransferPageComponent} from "./pages/transfer-page/transfer-page.component";
+import {ProfilePageComponent} from "./pages/profile-page/profile-page.component";
+import {ContactPageComponent} from "./pages/contact-page/contact-page.component";
+import {NotfoundPageComponent} from "./pages/notfound-page/notfound-page.component";
+import {LoginPageComponent} from "./pages/login-page/login-page.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/paymybuddy', pathMatch: 'full'},
@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'paymybuddy/profile', component: ProfilePageComponent},
   {path: 'paymybuddy/contact', component: ContactPageComponent},
   {path: 'paymybuddy/login', component: LoginPageComponent},
-  { path: '**', component: NotfoundPageComponent },
+  {path: '**', component: NotfoundPageComponent},
 ]
 
 @NgModule({
@@ -26,4 +26,5 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

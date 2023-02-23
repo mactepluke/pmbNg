@@ -1,0 +1,9 @@
+.centered {
+  flex-direction: column;
+  width: 480px;
+}
+
+.margined {
+  margin-bottom: 30px;
+}
+

@@ -14,7 +14,7 @@ export class HeaderComponent {
 
   }
 
-  onLogin() {
+  onReturnHome() {
     this.router.navigateByUrl('paymybuddy');
   }
 

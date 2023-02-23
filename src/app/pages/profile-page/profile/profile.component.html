@@ -1,0 +1,18 @@
+<p-card header="Profile">
+  <div class="profile-contents" [style]="{width: '1000px'}">
+    <div>
+      <p><b>Email: </b>{{currentUser.email}}</p>
+      <p><b>Password: </b>{{currentUser.password}}</p>
+      <p><b>First Name: </b>{{currentUser.firstName}}</p>
+      <p><b>Last Name: </b>{{currentUser.lastName}}</p>
+    </div>
+    <div>
+      <p-tag severity="success" value="Verified account" icon="pi pi-check"></p-tag>
+    </div>
+
+  </div>
+  <div class= "container button-block">
+    <button pButton class="p-button-secondary" type="button" label="Edit profile" ></button>
+    <button (click)="onLogout()" pButton class="p-button-primary" type="button" label="Log Out" ></button>
+  </div>
+</p-card>

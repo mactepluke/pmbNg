@@ -1,0 +1,18 @@
+<p-card header="Buddy">
+
+  <p-table [style]="{width: '1000px'}" [value]="buddies" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+           currentPageReportTemplate="Showing {last} to {first} of {totalRecords} entries"
+           [rowsPerPageOptions]="[10,25,50]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th id="email" style="width:33%">email</th>
+        <th id="first-name" style="width:33%">First Name</th>
+        <th id="last-name" style="width:33%">Last Name</th>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <div class="container button-block">
+    <p-button class="container" label="Add a Buddy"></p-button>
+  </div>
+</p-card>

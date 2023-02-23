@@ -1,0 +1,19 @@
+<p-card header="Bank Accounts">
+
+  <p-table [style]="{width: '1000px'}" [value]="bankAccounts" [paginator]="true" [rows]="3" [showCurrentPageReport]="true"
+           currentPageReportTemplate="Showing {last} to {first} of {totalRecords} entries"
+           [rowsPerPageOptions]="[3,5,10]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th id="name" style="width:30%">Name</th>
+        <th id="iban" style="width:55%">IBAN</th>
+        <th id="status" style="width:15%">Status</th>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <div class="container button-block">
+    <button pButton class="p-button-primary" pButton type="button" label="Add a Bank Account" ></button>
+  </div>
+
+</p-card>

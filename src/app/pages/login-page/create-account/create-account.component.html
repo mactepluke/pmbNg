@@ -1,0 +1,28 @@
+<p-card header="Create Account" subheader="If you are new"
+        styleClass="p-card-shadow">
+  <div class="container centered">
+
+    <span class="p-float-label margined">
+      <input id="float-new-email" type="text" pInputText/>
+    <label for="float-new-email">Email</label>
+</span>
+
+    <span class="p-float-label margined">
+    <p-password id="float-new-password"></p-password>
+    <label for="float-new-password">Password</label>
+    </span>
+
+    <span class="p-float-label margined">
+    <p-password id="float-new-password-confirm"></p-password>
+    <label for="float-new-password-confirm">Confirm password</label>
+    </span>
+
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="container centered">
+      <p-button label="Sign In"></p-button>
+    </div>
+  </ng-template>
+
+</p-card>

@@ -1,0 +1,20 @@
+<p-card header="Spot Accounts" >
+
+  <p-table [style]="{width: '1000px'}" [value]="spotAccounts" [paginator]="true" [rows]="3" [showCurrentPageReport]="true"
+           currentPageReportTemplate="Showing {last} to {first} of {totalRecords} entries"
+           [rowsPerPageOptions]="[3,5,10]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th id="currency" style="width:50%">Currency</th>
+        <th id="credit" style="width:50%">Credit</th>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <div class="container button-block">
+    <button pButton class="p-button-primary" pButton type="button" label="Add a Spot Account" ></button>
+    <button pButton class="p-button-secondary" pButton type="button" label="Credit funds from Bank Account" ></button>
+    <button pButton class="p-button-secondary" pButton type="button" label="Withdraw funds to Bank Account" ></button>
+  </div>
+
+</p-card>
