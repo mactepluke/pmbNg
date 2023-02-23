@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Buddy} from "../../../model/buddy";
 import {User} from "../../../model/user";
+import {BuddyService} from "../../../services/buddy.service";
 
 @Component({
   selector: 'app-buddies',
@@ -10,5 +11,8 @@ import {User} from "../../../model/user";
 export class BuddiesComponent {
   @Input() currentUser!: User;
   buddies!: Buddy[];
+
+  constructor(private buddyService: BuddyService) {
+  }
 
 }

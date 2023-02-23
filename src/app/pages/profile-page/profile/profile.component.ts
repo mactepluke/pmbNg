@@ -16,4 +16,8 @@ export class ProfileComponent {
   onLogout() {
     this.userService.logOut();
   }
+
+  onEditProfile() {
+
+  }
 }

@@ -21,8 +21,7 @@ export class UserService /*implements OnInit*/ {
     newUser.email = email;
     newUser.password = password;
 
-    //Save in DB
-    console.log("New user saved.")
+    this.persistUser(newUser);
   }
 
   logIn(email: string, password: string) {
@@ -55,6 +54,16 @@ export class UserService /*implements OnInit*/ {
       Session.loggedIn = false;
       console.log('User logged out.')
     }
+  }
+
+  persistUser(newUser: User)  {
+    //Save in DB
+    console.log("User info saved.")
+  }
+
+  persistCurrentUser()  {
+    //Save in DB
+    console.log("User info updated.")
   }
 
 }

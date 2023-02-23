@@ -9,12 +9,24 @@
         <th id="credit" style="width:50%">Credit</th>
       </tr>
     </ng-template>
+    <ng-template pTemplate="body" let-spotAccount>
+      <tr>
+        <td>{{spotAccount.currency}}</td>
+        <td>{{spotAccount.credit}}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+      <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+    </ng-template>
+    <ng-template pTemplate="paginatorright">
+      <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+    </ng-template>
   </p-table>
 
   <div class="container button-block">
-    <button pButton class="p-button-primary" pButton type="button" label="Add a Spot Account" ></button>
-    <button pButton class="p-button-secondary" pButton type="button" label="Credit funds from Bank Account" ></button>
-    <button pButton class="p-button-secondary" pButton type="button" label="Withdraw funds to Bank Account" ></button>
+    <button (click)="onAddSpotAccount()" pButton class="p-button-primary"  type="button" label="Add a Spot Account" ></button>
+    <button (click)="onCreditFunds()" pButton class="p-button-secondary"  type="button" label="Credit funds from Bank Account" ></button>
+    <button (click)="onWithDrawFunds()" pButton class="p-button-secondary"  type="button" label="Withdraw funds to Bank Account" ></button>
   </div>
 
 </p-card>
