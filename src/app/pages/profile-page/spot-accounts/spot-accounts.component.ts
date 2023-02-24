@@ -1,9 +1,8 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {SpotAccount} from "../../../model/spot-account";
 import {User} from "../../../model/user";
 import {SpotAccountService} from "../../../services/spot-account.service";
-import {Observable} from "rxjs";
-import {ProfilePageComponent} from "../profile-page.component";
+import {Table} from 'primeng/table';
 
 @Component({
   selector: 'app-spot-accounts',
@@ -13,44 +12,16 @@ import {ProfilePageComponent} from "../profile-page.component";
 })
 export class SpotAccountsComponent implements OnInit, OnChanges {
   @Input() currentUser!: User;
+  @ViewChild(Table) dt!: Table;
 
   public spotAccounts!: SpotAccount[]
-
-/*
-  spotAccounts: SpotAccount[] = [
-    {
-      currency: "EUR",
-      credit: 1900
-    },
-    {
-      currency: "USD",
-      credit: 1800
-    },
-    {
-      currency: "AUD",
-      credit: 1700
-    },
-    {
-      currency: "GBP",
-      credit: 1200
-    },
-    {
-      currency: "CHF",
-      credit: 800
-    },
-    {
-      currency: "BTC",
-      credit: 0.3
-    },
-    {
-      currency: "ETH",
-      credit: 2
-    }
-  ];*/
 
   constructor(private spotAccountService: SpotAccountService) {
   }
 
+  refresh() {
+    this.dt.reset(); // property "reset" does not exist on type "TableModule"
+  }
 
   //Observable<Array<SpotAccount>>
   ngOnInit() {
@@ -64,10 +35,13 @@ export class SpotAccountsComponent implements OnInit, OnChanges {
 
   onAddSpotAccount() {
     this.spotAccountService.createSpotAccount("EUR", 24099);
+    this.spotAccounts = this.currentUser.spotAccounts;
+    this.refresh();
   }
 
+
   ngOnChanges() {
-    this.spotAccounts = this.currentUser.spotAccounts;
+
   }
 
   onCreditFunds() {
