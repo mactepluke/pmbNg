@@ -31,6 +31,7 @@ import {BankAccountsComponent} from './pages/profile-page/bank-accounts/bank-acc
 import {BuddiesComponent} from './pages/profile-page/buddies/buddies.component';
 import {LoginComponent} from './pages/login-page/login/login.component';
 import {CreateAccountComponent} from './pages/login-page/create-account/create-account.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import {CreateAccountComponent} from './pages/login-page/create-account/create-a
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ButtonModule,
     CardModule,

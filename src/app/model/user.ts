@@ -2,6 +2,7 @@ import {Buddy} from "./buddy";
 import {SpotAccount} from "./spot-account";
 import {BankAccount} from "./bank-account";
 import {Transaction} from "./transaction";
+import {Observable} from "rxjs";
 
 export class User {
 
@@ -14,6 +15,7 @@ export class User {
   spotAccounts!: SpotAccount[];
   bankAccounts!: BankAccount[];
   transactions!: Transaction[];
+
 
 }
 

@@ -1,7 +1,7 @@
 <p-card header="Spot Accounts" >
 
   <p-table [style]="{width: '1000px'}" [value]="spotAccounts" [paginator]="true" [rows]="3" [showCurrentPageReport]="true"
-           currentPageReportTemplate="Showing {last} to {first} of {totalRecords} entries"
+           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
            [rowsPerPageOptions]="[3,5,10]">
     <ng-template pTemplate="header">
       <tr>
@@ -14,12 +14,6 @@
         <td>{{spotAccount.currency}}</td>
         <td>{{spotAccount.credit}}</td>
       </tr>
-    </ng-template>
-    <ng-template pTemplate="paginatorleft">
-      <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
-    </ng-template>
-    <ng-template pTemplate="paginatorright">
-      <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
     </ng-template>
   </p-table>
 

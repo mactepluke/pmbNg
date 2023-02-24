@@ -17,19 +17,35 @@ export class UserService /*implements OnInit*/ {
   }
 
   createAccount(email: string, password: string) {
-    let newUser = new User;
-    newUser.email = email;
-    newUser.password = password;
+    this.currentUser = {
+      email: email,
+      password: password,
+      firstName: 'anonymous',
+      lastName: 'anonymous',
+      verified: false,
+      buddies: new Array<Buddy>(),
+      spotAccounts: new Array<SpotAccount>(),
+      bankAccounts: new Array<BankAccount>(),
+      transactions: new Array<Transaction>()
+    }
 
-    this.persistUser(newUser);
+    this.persistUser(this.currentUser);
   }
 
   logIn(email: string, password: string) {
     if (!Session.loggedIn) {
       //Find in DB
-      this.currentUser = new User;
-      this.currentUser.email = email;
-      this.currentUser.password = password;
+      this.currentUser = {
+        email: email,
+        password: password,
+        firstName: 'anonymous',
+        lastName: 'anonymous',
+        verified: false,
+        buddies: new Array<Buddy>(),
+        spotAccounts: new Array<SpotAccount>(),
+        bankAccounts: new Array<BankAccount>(),
+        transactions: new Array<Transaction>()
+      }
 
       Session.currentUser = this.currentUser;
       Session.loggedIn = true;
@@ -39,31 +55,35 @@ export class UserService /*implements OnInit*/ {
 
   logOut() {
     if (Session.loggedIn) {
-      this.currentUser = {
-        email: 'not logged in',
-        password: 'not logged in',
-        firstName: 'anonymous',
-        lastName: 'anonymous',
-        verified: false,
-        buddies: new Array<Buddy>(),
-        spotAccounts: new Array<SpotAccount>(),
-        bankAccounts: new Array<BankAccount>(),
-        transactions: new Array<Transaction>()
-      }
+      this.currentUser = new User();
+      this.currentUser.email = 'not logged in';
+      this.currentUser.password = 'not logged in';
+      this.currentUser.firstName = 'anonymous';
+      this.currentUser.lastName = 'anonymous';
+      this.currentUser.verified = false;
+
       Session.currentUser = this.currentUser;
       Session.loggedIn = false;
       console.log('User logged out.')
     }
   }
 
-  persistUser(newUser: User)  {
-    //Save in DB
-    console.log("User info saved.")
+  persistUser(newUser: User) {
+    if (Session.loggedIn) {
+      //Save in DB
+      console.log("User info saved.")
+    }
   }
 
-  persistCurrentUser()  {
-    //Save in DB
-    console.log("User info updated.")
+  persistCurrentUser() {
+    if (Session.loggedIn) {
+      //Save in DB
+      console.log("User info updated.")
+    }
+  }
+
+  getCurrentUser(): User {
+    return Session.currentUser;
   }
 
 }

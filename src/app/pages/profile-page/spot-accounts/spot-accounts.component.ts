@@ -1,62 +1,76 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit} from '@angular/core';
 import {SpotAccount} from "../../../model/spot-account";
 import {User} from "../../../model/user";
 import {SpotAccountService} from "../../../services/spot-account.service";
+import {Observable} from "rxjs";
+import {ProfilePageComponent} from "../profile-page.component";
 
 @Component({
   selector: 'app-spot-accounts',
   templateUrl: './spot-accounts.component.html',
-  styleUrls: ['./spot-accounts.component.css']
+  styleUrls: ['./spot-accounts.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SpotAccountsComponent implements OnInit {
+export class SpotAccountsComponent implements OnInit, OnChanges {
   @Input() currentUser!: User;
 
-  spotAccounts!: SpotAccount[] = [
+  public spotAccounts!: SpotAccount[]
+
+/*
+  spotAccounts: SpotAccount[] = [
     {
       currency: "EUR",
-      credit: "1900"
+      credit: 1900
     },
     {
-
+      currency: "USD",
+      credit: 1800
+    },
+    {
+      currency: "AUD",
+      credit: 1700
+    },
+    {
+      currency: "GBP",
+      credit: 1200
+    },
+    {
+      currency: "CHF",
+      credit: 800
+    },
+    {
+      currency: "BTC",
+      credit: 0.3
+    },
+    {
+      currency: "ETH",
+      credit: 2
     }
-  ];
-
-  first = 0;
-  rows = 10;
+  ];*/
 
   constructor(private spotAccountService: SpotAccountService) {
   }
 
+
+  //Observable<Array<SpotAccount>>
   ngOnInit() {
-
+    this.spotAccounts = this.currentUser.spotAccounts;
+    //this.currentUser.spotAccounts = this.spotAccounts;
+    //this.spotAccountService.getSpotAccountData().subscribe((data) => {
+    //  this.spotAccounts = data
+    //});
   }
 
-  next() {
-    this.first = this.first + this.rows;
-  }
-
-  prev() {
-    this.first = this.first - this.rows;
-  }
-
-  reset() {
-    this.first = 0;
-  }
-
-  isLastPage(): boolean {
-    return this.spotAccounts ? this.first === (this.spotAccounts.length - this.rows): true;
-  }
-
-  isFirstPage(): boolean {
-    return this.spotAccounts ? this.first === 0 : true;
-  }
 
   onAddSpotAccount() {
     this.spotAccountService.createSpotAccount("EUR", 24099);
   }
 
-  onCreditFunds() {
+  ngOnChanges() {
+    this.spotAccounts = this.currentUser.spotAccounts;
+  }
 
+  onCreditFunds() {
   }
 
   onWithDrawFunds() {

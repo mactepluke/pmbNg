@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {SpotAccount} from "../model/spot-account";
 import {Session} from "../session";
 import {UserService} from "./user.service";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -16,4 +17,8 @@ export class SpotAccountService {
     console.log("Created spot account.");
     this.userService.persistCurrentUser();
   }
+/*
+  getSpotAccountData(): Observable<Array<SpotAccount>> {
+    return this.userService.getCurrentUser().spotAccounts;
+  }*/
 }
