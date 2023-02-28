@@ -1,11 +1,12 @@
 import {Injectable, OnInit} from '@angular/core';
 import {User} from "../model/user";
-import {ProfilePageComponent} from "../pages/profile-page/profile-page.component";
 import {Session} from "../session";
 import {Buddy} from "../model/buddy";
 import {SpotAccount} from "../model/spot-account";
 import {BankAccount} from "../model/bank-account";
 import {Transaction} from "../model/transaction";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {catchError, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +14,20 @@ import {Transaction} from "../model/transaction";
 export class UserService /*implements OnInit*/ {
   currentUser!: User;
 
-  constructor() {
+  // private httpOptions = {
+  //   headers: new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     'Authorization': 'Basic ' + btoa('user:password')
+  //   })
+  // };
+
+
+  constructor(private http: HttpClient) {
   }
 
-  createAccount(email: string, password: string) {
+  createAccount(formValue: { email: string, password: string }): Observable<User> {
     this.currentUser = {
-      email: email,
-      password: password,
+      ...formValue,
       firstName: 'anonymous',
       lastName: 'anonymous',
       verified: false,
@@ -28,16 +36,15 @@ export class UserService /*implements OnInit*/ {
       bankAccounts: new Array<BankAccount>(),
       transactions: new Array<Transaction>()
     }
-
-    this.persistUser(this.currentUser);
+    Session.currentUser = this.currentUser;
+    return this.saveCurrentUser();
   }
 
-  logIn(email: string, password: string) {
+  logIn(formValue: { email: string, password: string }) {
     if (!Session.loggedIn) {
       //Find in DB
       this.currentUser = {
-        email: email,
-        password: password,
+        ...formValue,
         firstName: 'anonymous',
         lastName: 'anonymous',
         verified: false,
@@ -49,7 +56,7 @@ export class UserService /*implements OnInit*/ {
 
       Session.currentUser = this.currentUser;
       Session.loggedIn = true;
-      console.log('User logged in with: ', email, password)
+      console.log('User logged in with: ', this.currentUser.email, this.currentUser.password)
     }
   }
 
@@ -68,18 +75,16 @@ export class UserService /*implements OnInit*/ {
     }
   }
 
-  persistUser(newUser: User) {
-    if (Session.loggedIn) {
-      //Save in DB
-      console.log("User info saved.")
-    }
-  }
-
-  persistCurrentUser() {
-    if (Session.loggedIn) {
-      //Save in DB
-      console.log("User info updated.")
-    }
+  saveCurrentUser(): Observable<User> {
+    // let headers_object = new HttpHeaders();
+    // headers_object.append('Content-Type', 'application/json');
+    // headers_object.append("Authorization", "Basic " + btoa("user:password"));
+    //
+    // const httpOptions = {
+    //   headers: headers_object
+    // };
+    console.log(`http://localhost:8080/pmbuser?email=${this.currentUser.email}&password=${this.currentUser.password}`);
+    return this.http.post<User>(`http://localhost:8080/pmbuser?email=${this.currentUser.email}&password=${this.currentUser.password}`, '', undefined);
   }
 
   getCurrentUser(): User {

@@ -1,28 +1,32 @@
 <p-card header="Create Account" subheader="If you are new"
         styleClass="p-card-shadow">
+
+  <form [formGroup]=createForm>
   <div class="container centered">
 
     <span class="p-float-label margined">
-      <input id="float-new-email" type="text" pInputText/>
-    <label for="float-new-email">Email</label>
+      <input id="float-new-email" type="text" formControlName="email" pInputText/>
+    <label for="float-new-email">Email *</label>
 </span>
 
     <span class="p-float-label margined">
-    <p-password id="float-new-password"></p-password>
-    <label for="float-new-password">Password</label>
+    <p-password id="float-new-password" formControlName="password"></p-password>
+    <label for="float-new-password">Password *</label>
     </span>
 
-    <span class="p-float-label margined">
-    <p-password id="float-new-password-confirm"></p-password>
-    <label for="float-new-password-confirm">Confirm password</label>
+    <span class="p-float-label margined2">
+    <p-password id="float-new-password-confirm" formControlName="confirmedPassword"></p-password>
+    <label for="float-new-password-confirm">Confirm password *</label>
     </span>
 
   </div>
 
-  <ng-template pTemplate="footer">
     <div class="container centered">
-      <p-button label="Sign In"></p-button>
+      <p-button [disabled]="createForm.invalid" (click)="onSubmitForm()" label="Sign In"></p-button>
     </div>
-  </ng-template>
 
+  </form>
+  <div>
+    <p>* Required</p>
+  </div>
 </p-card>

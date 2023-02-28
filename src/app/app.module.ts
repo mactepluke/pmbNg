@@ -16,7 +16,7 @@ import {CardModule} from 'primeng/card';
 import {InputTextModule} from 'primeng/inputtext';
 import {PasswordModule} from 'primeng/password';
 import {CheckboxModule} from "primeng/checkbox";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SendMoneyComponent} from './pages/transfer-page/send-money/send-money.component';
 import {MyTransactionsComponent} from './pages/transfer-page/my-transactions/my-transactions.component';
 import {CascadeSelectModule} from "primeng/cascadeselect";
@@ -31,7 +31,9 @@ import {BankAccountsComponent} from './pages/profile-page/bank-accounts/bank-acc
 import {BuddiesComponent} from './pages/profile-page/buddies/buddies.component';
 import {LoginComponent} from './pages/login-page/login/login.component';
 import {CreateAccountComponent} from './pages/login-page/create-account/create-account.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {AuthorizationHttpInterceptorService} from "./services/authorization-http-interceptor.service";
 
 
 @NgModule({
@@ -62,16 +64,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PasswordModule,
     CheckboxModule,
     FormsModule,
+    ReactiveFormsModule,
     InputTextModule,
     CascadeSelectModule,
     DropdownModule,
     InputNumberModule,
     TableModule,
     AvatarModule,
-    TagModule
+    TagModule,
+    HttpClientModule
   ],
   providers: [
-    {provide: LOCALE_ID, useValue: 'fr-FR'}
+    {provide: LOCALE_ID, useValue: 'fr-FR'},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthorizationHttpInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]
 })

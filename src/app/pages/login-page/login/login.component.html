@@ -1,27 +1,35 @@
 <p-card header="Log In" subheader="If you have an existing account"
         styleClass="p-card-shadow">
-  <div class="container centered">
+  <form [formGroup]=loginForm>
+    <div class="container centered">
 
     <span class="p-float-label margined">
-      <input id="float-email" type="text" [(ngModel)]="email" pInputText/>
-    <label for="float-email">Email</label>
+      <input id="float-email" type="email" formControlName="email" pInputText/>
+    <label for="float-email">Email *</label>
 </span>
 
-    <span class="p-float-label margined">
+      <span class="p-float-label margined">
 
-    <p-password id="float-password" [(ngModel)]="password"></p-password>
-    <label for="float-password">Password</label>
+    <p-password id="float-password" formControlName="password"></p-password>
+    <label for="float-password">Password *</label>
     </span>
 
-    <div class="margined2">
-      <p-checkbox name="groupname" value="val1" label="Remember me"></p-checkbox>
-    </div>
-  </div>
 
-  <ng-template pTemplate="footer">
+      <div class="margined2">
+        <p-checkbox [binary]="true" label="Remember me"
+                    formControlName="rememberMe"></p-checkbox>
+      </div>
+    </div>
+
+
     <div class="container centered">
-      <button (click)="onLogin()" pButton type="button" label="Log In" class="p-button-primay"></button>
+      <button [disabled]="loginForm.invalid" (click)="onSubmitForm()" pButton type="submit" label="Log In"
+              class="p-button-primary"></button>
     </div>
-  </ng-template>
 
+  </form>
+  <div>
+    <p>* Required</p>
+  </div>
 </p-card>
+

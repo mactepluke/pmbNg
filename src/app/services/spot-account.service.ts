@@ -15,7 +15,7 @@ export class SpotAccountService {
     let newSpotAccount = new SpotAccount(currency, credit);
     Session.currentUser.spotAccounts.push(newSpotAccount);
     console.log("Created spot account.");
-    this.userService.persistCurrentUser();
+    this.userService.saveCurrentUser();
   }
 /*
   getSpotAccountData(): Observable<Array<SpotAccount>> {
