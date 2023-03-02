@@ -10,7 +10,7 @@ import {ContactPageComponent} from './pages/contact-page/contact-page.component'
 import {HeaderComponent} from './header/header.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {NotfoundPageComponent} from './pages/notfound-page/notfound-page.component';
-import {LoginPageComponent} from './pages/login-page/login-page.component';
+import {AccountPageComponent} from './pages/account-page/account-page.component';
 import {ButtonModule} from "primeng/button";
 import {CardModule} from 'primeng/card';
 import {InputTextModule} from 'primeng/inputtext';
@@ -29,12 +29,12 @@ import {ProfileComponent} from './pages/profile-page/profile/profile.component';
 import {SpotAccountsComponent} from './pages/profile-page/spot-accounts/spot-accounts.component';
 import {BankAccountsComponent} from './pages/profile-page/bank-accounts/bank-accounts.component';
 import {BuddiesComponent} from './pages/profile-page/buddies/buddies.component';
-import {LoginComponent} from './pages/login-page/login/login.component';
-import {CreateAccountComponent} from './pages/login-page/create-account/create-account.component';
+import {LoginComponent} from './pages/account-page/login/login.component';
+import {CreateAccountComponent} from './pages/account-page/create-account/create-account.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthorizationHttpInterceptorService} from "./services/authorization-http-interceptor.service";
-
+import { LogoutComponent } from './pages/account-page/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,7 @@ import {AuthorizationHttpInterceptorService} from "./services/authorization-http
     ContactPageComponent,
     HeaderComponent,
     NotfoundPageComponent,
-    LoginPageComponent,
+    AccountPageComponent,
     SendMoneyComponent,
     MyTransactionsComponent,
     ProfileComponent,
@@ -54,6 +54,7 @@ import {AuthorizationHttpInterceptorService} from "./services/authorization-http
     BuddiesComponent,
     LoginComponent,
     CreateAccountComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

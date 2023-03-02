@@ -1,0 +1,6 @@
+<div class="container login-block">
+  <app-login *ngIf="isDisplayed" class="container"></app-login>
+  <app-logout *ngIf="!isDisplayed" [currentUser]="currentUser" class="container"></app-logout>
+  <app-create-account class="container main-card"></app-create-account>
+</div>
+

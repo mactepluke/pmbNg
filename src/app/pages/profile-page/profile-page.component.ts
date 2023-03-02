@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {User} from "../../model/user";
-import {Session} from "../../session";
+import {SessionService} from "../../services/session.service";
 
 @Component({
   selector: 'app-profile-page',
@@ -10,8 +10,12 @@ import {Session} from "../../session";
 
 export class ProfilePageComponent {
 
+  constructor(private sessionService: SessionService) {
+
+  }
+
   get currentUser(): User {
-    return Session.currentUser;
+    return this.sessionService.getCurrentUser();
   }
 
 }

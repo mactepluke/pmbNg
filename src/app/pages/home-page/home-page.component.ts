@@ -12,6 +12,6 @@ export class HomePageComponent {
   }
 
   onLogin() {
-    this.router.navigateByUrl('paymybuddy/login');
+    this.router.navigateByUrl('paymybuddy/account');
   }
 }

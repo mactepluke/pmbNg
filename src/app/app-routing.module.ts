@@ -5,7 +5,8 @@ import {TransferPageComponent} from "./pages/transfer-page/transfer-page.compone
 import {ProfilePageComponent} from "./pages/profile-page/profile-page.component";
 import {ContactPageComponent} from "./pages/contact-page/contact-page.component";
 import {NotfoundPageComponent} from "./pages/notfound-page/notfound-page.component";
-import {LoginPageComponent} from "./pages/login-page/login-page.component";
+import {AccountPageComponent} from "./pages/account-page/account-page.component";
+
 
 const routes: Routes = [
   {path: '', redirectTo: '/paymybuddy', pathMatch: 'full'},
@@ -13,7 +14,7 @@ const routes: Routes = [
   {path: 'paymybuddy/transfer', component: TransferPageComponent},
   {path: 'paymybuddy/profile', component: ProfilePageComponent},
   {path: 'paymybuddy/contact', component: ContactPageComponent},
-  {path: 'paymybuddy/login', component: LoginPageComponent},
+  {path: 'paymybuddy/account', component: AccountPageComponent},
   {path: '**', component: NotfoundPageComponent},
 ]
 

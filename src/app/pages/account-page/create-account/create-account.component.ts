@@ -38,7 +38,6 @@ export class CreateAccountComponent implements OnInit {
   onSubmitForm() {
     console.log(this.createForm.value);
     console.log(this.userService.createAccount(this.createForm.value).subscribe(user => this.user = user));
-    //console.log(this.user.email);
   }
 
   checkPasswords: ValidatorFn = (group: AbstractControl):  ValidationErrors | null => {

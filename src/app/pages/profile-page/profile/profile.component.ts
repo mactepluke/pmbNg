@@ -1,6 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {User} from "../../../model/user";
 import {UserService} from "../../../services/user.service";
+import {SessionService} from "../../../services/session.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile',
@@ -10,11 +12,12 @@ import {UserService} from "../../../services/user.service";
 export class ProfileComponent {
   @Input() currentUser!: User;
 
-  constructor(private userService: UserService) {
+  constructor(private sessionService: SessionService, private router: Router) {
   }
 
   onLogout() {
-    this.userService.logOut();
+    this.sessionService.logOut();
+    this.router.navigateByUrl('paymybuddy');
   }
 
   onEditProfile() {

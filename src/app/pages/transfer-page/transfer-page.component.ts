@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {User} from "../../model/user";
-import {Session} from "../../session";
+import {SessionService} from "../../services/session.service";
 
 @Component({
   selector: 'app-transfer-page',
@@ -9,7 +9,11 @@ import {Session} from "../../session";
 })
 export class TransferPageComponent {
 
+  constructor(private sessionService: SessionService) {
+  }
+
   get currentUser(): User {
-    return Session.currentUser;
+    //return SessionService.currentUser;
+    return this.sessionService.getCurrentUser();
   }
 }

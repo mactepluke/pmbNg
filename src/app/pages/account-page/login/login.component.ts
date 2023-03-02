@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from "../../../services/user.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {SessionService} from "../../../services/session.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder) {
+  constructor(private sessionService: SessionService, private formBuilder: FormBuilder, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit {
 
   onSubmitForm(): void  {
     console.log(this.loginForm.value);
-    this.userService.logIn(this.loginForm.value);
+    this.sessionService.logIn(this.loginForm.value);
+    this.router.navigateByUrl('paymybuddy/profile');
   }
 
 }
