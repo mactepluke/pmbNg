@@ -16,25 +16,16 @@ export class HeaderComponent {
 
   }
 
-//TODO implémenter plutôt les redirections sur le ngOnInit des différentes pages pour pas qu'on puisse taper l'url directement
-  onReturnHome() {
+ onReturnHome() {
     this.router.navigateByUrl('paymybuddy');
   }
 
   onGoToTransfer() {
-    if (!this.sessionService.isLoggedIn())  {
-      this.router.navigateByUrl('paymybuddy/account');
-    } else {
       this.router.navigateByUrl('paymybuddy/transfer');
-    }
   }
 
   onGoToProfile() {
-    if (!this.sessionService.isLoggedIn())  {
-      this.router.navigateByUrl('paymybuddy/account');
-    } else {
       this.router.navigateByUrl('paymybuddy/profile');
-    }
   }
 
   onGoToContact() {

@@ -4,6 +4,7 @@ import {SpotAccount} from "../model/spot-account";
 import {BankAccount} from "../model/bank-account";
 import {Transaction} from "../model/transaction";
 import {Injectable} from "@angular/core";
+import {UserService} from "./user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class SessionService {
   private static currentUser: User;
   private static loggedIn = false;
 
-  constructor() {
+  constructor(private userService: UserService) {
     SessionService.currentUser =
       {
         email: 'not logged in',
@@ -29,9 +30,9 @@ export class SessionService {
 
   isLoggedIn(): boolean {
     return SessionService.loggedIn;
-}
+  }
 
-  getCurrentUser(): User{
+  getCurrentUser(): User {
     return SessionService.currentUser;
   }
 
@@ -53,6 +54,9 @@ export class SessionService {
         bankAccounts: new Array<BankAccount>(),
         transactions: new Array<Transaction>()
       };
+
+      console.log(this.userService.loginUser(SessionService.currentUser.email, SessionService.currentUser.password).subscribe(user => SessionService.currentUser = user));
+
       SessionService.loggedIn = true;
 
       console.log('User logged in with: ', SessionService.currentUser.email, SessionService.currentUser.password)

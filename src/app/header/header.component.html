@@ -1,15 +1,15 @@
 <header>
   <button (click)="onReturnHome()" pButton type="button" label="Pay My Buddy" class="p-button-success p-button-lg"></button>
   <nav>
-    <a (click)="onReturnHome()">Home
+    <a routerLink="paymybuddy" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true }">Home
     </a>
-    <a (click)="onGoToTransfer()">Transfer
+    <a routerLink="paymybuddy/transfer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true }">Transfer
     </a>
-    <a (click)="onGoToProfile()">Profile
+    <a routerLink="paymybuddy/profile" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true }">Profile
     </a>
-    <a (click)="onGoToContact()">Contact
+    <a routerLink="paymybuddy/contact" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true }">Contact
     </a>
-    <a (click)="onGoToAccount()">Account
+    <a routerLink="paymybuddy/account" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true }">Account
     </a>
   </nav>
   <div class="greyband">Home / <span class="grey">{{activePageName | titlecase}}</span>

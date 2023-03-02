@@ -5,26 +5,17 @@ import {Buddy} from "../model/buddy";
 import {SpotAccount} from "../model/spot-account";
 import {BankAccount} from "../model/bank-account";
 import {Transaction} from "../model/transaction";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {catchError, Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService /*implements OnInit*/ {
+export class UserService {
   user!: User;
 
-  // private httpOptions = {
-  //   headers: new HttpHeaders({
-  //     'Content-Type': 'application/json',
-  //     'Authorization': 'Basic ' + btoa('user:password')
-  //   })
-  // };
-
-
-  constructor(private http: HttpClient, private sessionService: SessionService) {
+  constructor(private http: HttpClient) {
   }
-
 
   createAccount(formValue: { email: string, password: string }): Observable<User> {
     this.user = {
@@ -42,6 +33,11 @@ export class UserService /*implements OnInit*/ {
 
   saveUser(user: User): Observable<User> {
     return this.http.post<User>(`http://localhost:8080/pmbuser/create?email=${user.email}&password=${user.password}`, '', undefined);
+  }
+
+  loginUser(email: string, password: string): Observable<User>  {
+    return this.http.get<User>(`http://localhost:8080/pmbuser/login?email=${email}&password=${password}`, undefined);
+
   }
 
 }
