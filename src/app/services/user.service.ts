@@ -31,17 +31,22 @@ export class UserService {
   }
 
   loginUser(email: string, password: string): Observable<User>  {
-    return this.http.get<User>(`http://localhost:8080/pmbuser/login?email=${email}&password=${password}`, undefined);
+    return this.http.get<User>(`http://localhost:8080/pmbuser/login?email=${email}&password=${password}`);
   }
+
+/*  loginUser2(email: string, password: string): User  {
+    return this.http.get<User>(`http://localhost:8080/pmbuser/login?email=${email}&password=${password}`);
+  }*/
 
   saveUser(user: User): Observable<User> {
     console.log(user);
-    return this.http.post<User>(`http://localhost:8080/pmbuser/create?email=${user.email}&password=${user.password}`, '', undefined);
+    return this.http.post<User>(`http://localhost:8080/pmbuser/create?email=${user.email}&password=${user.password}`, '');
   }
 
   updateUser(user: User): Observable<User> {
     console.log(user);
-    return this.http.put<User>(`http://localhost:8080/pmbuser/update?email=${user.email}&password=${user.password}`, '', undefined);
+    return this.http.put<User>(`http://localhost:8080/pmbuser/update?email=${user.email}&password=${user.password}`, '');
   }
+//TODO créer une requête getUser pour récupérer les infos d'un utilisateur donné quand on en a besoin hors log in, voir splitter créer des requêtes par champs spécifiques dans d'autres services ?
 
 }

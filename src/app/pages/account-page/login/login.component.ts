@@ -30,8 +30,11 @@ export class LoginComponent implements OnInit {
 
   onSubmitForm(): void  {
     console.log(this.loginForm.value);
-    this.sessionService.logIn(this.loginForm.value);
-    this.router.navigateByUrl('paymybuddy/profile');
+    this.sessionService.logIn(this.loginForm.value).subscribe( (user) => {
+      SessionService.currentUser = user;
+      //TODO transformer la variable statique en simple boolen
+      this.router.navigateByUrl('paymybuddy/profile');
+    });
   }
 
 }

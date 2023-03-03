@@ -11,34 +11,41 @@ import {Transaction} from "../model/transaction";
   providedIn: 'root'
 })
 export class SessionService {
+  static get currentUser(): User {
+    return this._currentUser;
+  }
 
-  private static currentUser: User;
+  static set currentUser(value: User) {
+    this._currentUser = value;
+  }
+
+  private static _currentUser: User;
   private static _currentUser$: Observable<User>;
-  private unsubscribe$ = new Subject<void>();
-  private static _subjectUser$: Subject<User>;
+  //private unsubscribe$ = new Subject<void>();
+  //private static _subjectUser$: Subject<User>;
 
   constructor(private userService: UserService) {
-    SessionService.currentUser = new User();
-    SessionService.currentUser.email = 'not logged in';
+    // SessionService.currentUser = new User();
+    // SessionService.currentUser.email = 'not logged in';
   }
 
   static get currentUser$(): Observable<User> {
     return this._currentUser$;
   }
 
-  static get subjectUser$(): Subject<User> {
+/*  static get subjectUser$(): Subject<User> {
     return this._subjectUser$;
-  }
+  }*/
 
-  getCurrentUser(): User {
+/*  getCurrentUser(): User {
     return SessionService.currentUser;
   }
 
   updateCurrentUser(user: User) {
     SessionService.currentUser = user;
-  }
+  }*/
 
-  logIn(formValue: { email: string, password: string }) {
+  logIn(formValue: { email: string, password: string }): Observable<User> {
     let attemptUser: User;
 
     attemptUser = {
@@ -52,9 +59,10 @@ export class SessionService {
       transactions: new Array<Transaction>()
     };
 
-    SessionService._currentUser$ = this.userService.loginUser(attemptUser.email, attemptUser.password);
+    //SessionService._currentUser$ = this.userService.loginUser(attemptUser.email, attemptUser.password);
+    return this.userService.loginUser(attemptUser.email, attemptUser.password);
   }
-
+//TODO rajouter des unsubscribe partout où il faut
   logOut() {
     SessionService._currentUser$ = EMPTY;
     console.log('User logged out.')

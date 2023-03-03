@@ -15,7 +15,7 @@ export class AccountPageComponent implements OnInit {
 
   constructor() {
   }
-
+//TODO revoir la navigation au complet pour se rapprocher des wireframes et éviter de faire des requêtes get inutiles
   ngOnInit(): void {
     this.currentUser$ = SessionService.currentUser$;
   }
