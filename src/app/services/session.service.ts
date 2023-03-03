@@ -1,35 +1,33 @@
 import {User} from "../model/user";
+import {Injectable} from "@angular/core";
+import {UserService} from "./user.service";
+import {EMPTY, exhaustMap, NEVER, Observable, of, Subject, switchMap, takeUntil, tap} from "rxjs";
 import {Buddy} from "../model/buddy";
 import {SpotAccount} from "../model/spot-account";
 import {BankAccount} from "../model/bank-account";
 import {Transaction} from "../model/transaction";
-import {Injectable} from "@angular/core";
-import {UserService} from "./user.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
+
   private static currentUser: User;
-  private static loggedIn = false;
+  private static _currentUser$: Observable<User>;
+  private unsubscribe$ = new Subject<void>();
+  private static _subjectUser$: Subject<User>;
 
   constructor(private userService: UserService) {
-    SessionService.currentUser =
-      {
-        email: 'not logged in',
-        password: 'not logged in',
-        firstName: 'anonymous',
-        lastName: 'anonymous',
-        verified: false,
-        buddies: new Array<Buddy>(),
-        spotAccounts: new Array<SpotAccount>(),
-        bankAccounts: new Array<BankAccount>(),
-        transactions: new Array<Transaction>()
-      };
+    SessionService.currentUser = new User();
+    SessionService.currentUser.email = 'not logged in';
   }
 
-  isLoggedIn(): boolean {
-    return SessionService.loggedIn;
+  static get currentUser$(): Observable<User> {
+    return this._currentUser$;
+  }
+
+  static get subjectUser$(): Subject<User> {
+    return this._subjectUser$;
   }
 
   getCurrentUser(): User {
@@ -41,40 +39,25 @@ export class SessionService {
   }
 
   logIn(formValue: { email: string, password: string }) {
-    if (!SessionService.loggedIn) {
-      //TODO userService.findUser
+    let attemptUser: User;
 
-      SessionService.currentUser = {
-        ...formValue,
-        firstName: 'anonymous',
-        lastName: 'anonymous',
-        verified: false,
-        buddies: new Array<Buddy>(),
-        spotAccounts: new Array<SpotAccount>(),
-        bankAccounts: new Array<BankAccount>(),
-        transactions: new Array<Transaction>()
-      };
+    attemptUser = {
+      ...formValue,
+      firstName: 'anonymous',
+      lastName: 'anonymous',
+      verified: false,
+      buddies: new Array<Buddy>(),
+      spotAccounts: new Array<SpotAccount>(),
+      bankAccounts: new Array<BankAccount>(),
+      transactions: new Array<Transaction>()
+    };
 
-      console.log(this.userService.loginUser(SessionService.currentUser.email, SessionService.currentUser.password).subscribe(user => SessionService.currentUser = user));
-
-      SessionService.loggedIn = true;
-
-      console.log('User logged in with: ', SessionService.currentUser.email, SessionService.currentUser.password)
-    }
+    SessionService._currentUser$ = this.userService.loginUser(attemptUser.email, attemptUser.password);
   }
 
   logOut() {
-    if (SessionService.loggedIn) {
-      SessionService.currentUser.email = 'not logged in';
-      SessionService.currentUser.password = 'not logged in';
-      SessionService.currentUser.firstName = 'anonymous';
-      SessionService.currentUser.lastName = 'anonymous';
-      SessionService.currentUser.verified = false;
-
-      SessionService.loggedIn = false;
-
-      console.log('User logged out.')
-    }
+    SessionService._currentUser$ = EMPTY;
+    console.log('User logged out.')
   }
 
 }

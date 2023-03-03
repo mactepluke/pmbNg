@@ -9,20 +9,15 @@ import {User} from "../model/user";
   providedIn: 'root'
 })
 export class SpotAccountService {
-  private user!: User;
 
   constructor(private sessionService: SessionService, private userService: UserService) { }
 
-  createSpotAccount(currency: string, credit: number) {
+  createSpotAccount(user: User, currency: string, credit: number): Observable<User> {
     let newSpotAccount = new SpotAccount(currency, credit);
-    this.user = this.sessionService.getCurrentUser();
-    this.user.spotAccounts.push(newSpotAccount);
-    this.sessionService.updateCurrentUser(this.user);
+    user.spotAccounts.push(newSpotAccount);
     console.log("Created spot account.");
-    this.userService.saveUser(this.user);
+
+    return this.userService.updateUser(user);
   }
-/*
-  getSpotAccountData(): Observable<Array<SpotAccount>> {
-    return this.userService.getCurrentUser().spotAccounts;
-  }*/
+
 }

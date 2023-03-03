@@ -1,4 +1,4 @@
-<div class="column">
+<div *ngIf="currentUser$ | async as currentUser" class="column">
   <div class="container margined-card">
     <app-send-money [currentUser]="currentUser"></app-send-money>
   </div>

@@ -1,4 +1,4 @@
-<p-card header="Logged in" subheader="as a registered user"
+<p-card *ngIf="currentUser$ | async as currentUser" header="Logged in" subheader="as a registered user"
         styleClass="p-card-shadow">
 
   <p><b>Email: </b>{{currentUser.email}}</p>

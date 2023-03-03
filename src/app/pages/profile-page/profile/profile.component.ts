@@ -1,8 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {User} from "../../../model/user";
-import {UserService} from "../../../services/user.service";
 import {SessionService} from "../../../services/session.service";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-profile',

@@ -1,6 +1,5 @@
 import {Injectable, OnInit} from '@angular/core';
 import {User} from "../model/user";
-import {SessionService} from "./session.service";
 import {Buddy} from "../model/buddy";
 import {SpotAccount} from "../model/spot-account";
 import {BankAccount} from "../model/bank-account";
@@ -31,13 +30,18 @@ export class UserService {
     return this.saveUser(this.user);
   }
 
+  loginUser(email: string, password: string): Observable<User>  {
+    return this.http.get<User>(`http://localhost:8080/pmbuser/login?email=${email}&password=${password}`, undefined);
+  }
+
   saveUser(user: User): Observable<User> {
+    console.log(user);
     return this.http.post<User>(`http://localhost:8080/pmbuser/create?email=${user.email}&password=${user.password}`, '', undefined);
   }
 
-  loginUser(email: string, password: string): Observable<User>  {
-    return this.http.get<User>(`http://localhost:8080/pmbuser/login?email=${email}&password=${password}`, undefined);
-
+  updateUser(user: User): Observable<User> {
+    console.log(user);
+    return this.http.put<User>(`http://localhost:8080/pmbuser/update?email=${user.email}&password=${user.password}`, '', undefined);
   }
 
 }

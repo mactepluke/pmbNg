@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {User} from "../../../model/user";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-send-money',

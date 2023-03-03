@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {BankAccount} from "../../../model/bank-account";
 import {User} from "../../../model/user";
 import {BankAccountService} from "../../../services/bank-account.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-bank-accounts',

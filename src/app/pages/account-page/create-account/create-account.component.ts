@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
-  FormControl,
-  FormGroup, FormGroupDirective, NgForm,
+  FormGroup,
   ValidationErrors,
   ValidatorFn,
   Validators
@@ -18,7 +17,7 @@ import {User} from "../../../model/user";
 })
 export class CreateAccountComponent implements OnInit {
   createForm!: FormGroup;
-  user!: User;
+  //user!: User;
 
   constructor(private userService: UserService, private formBuilder: FormBuilder) {
   }
@@ -34,10 +33,10 @@ export class CreateAccountComponent implements OnInit {
         validators: this.checkPasswords
       });
   }
-//TODO gérer l'observable ?
+
   onSubmitForm() {
     console.log(this.createForm.value);
-    console.log(this.userService.createAccount(this.createForm.value).subscribe(user => this.user = user));
+    this.userService.createAccount(this.createForm.value).subscribe(/*user => this.user = user*/);
   }
 
   checkPasswords: ValidatorFn = (group: AbstractControl):  ValidationErrors | null => {

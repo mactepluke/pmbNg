@@ -1,6 +1,6 @@
 <p-card header="Spot Accounts" >
 
-  <p-table #dt [style]="{width: '1000px'}" [value]="spotAccounts" [paginator]="true" [rows]="3" [showCurrentPageReport]="true"
+  <p-table #dt [style]="{width: '1000px'}" [value]="currentUser.spotAccounts" [paginator]="true" [rows]="3" [showCurrentPageReport]="true"
            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
            [rowsPerPageOptions]="[3,5,10]">
     <ng-template pTemplate="header">

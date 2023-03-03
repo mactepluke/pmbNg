@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Transaction} from "../../../model/transaction";
 import {User} from "../../../model/user";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-my-transactions',

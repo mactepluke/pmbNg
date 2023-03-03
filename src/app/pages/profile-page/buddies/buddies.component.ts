@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {Buddy} from "../../../model/buddy";
 import {User} from "../../../model/user";
 import {BuddyService} from "../../../services/buddy.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-buddies',

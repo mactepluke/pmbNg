@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {SessionService} from "../../services/session.service";
 import {User} from "../../model/user";
+import {Observable, Subject} from "rxjs";
 
 
 @Component({
@@ -10,17 +11,13 @@ import {User} from "../../model/user";
 })
 export class AccountPageComponent implements OnInit {
 
-  protected isDisplayed!: boolean;
+  currentUser$!: Observable<User>;
 
-  constructor(private sessionService: SessionService) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.isDisplayed = !this.sessionService.isLoggedIn();
-  }
-
-  get currentUser(): User {
-    return this.sessionService.getCurrentUser();
+    this.currentUser$ = SessionService.currentUser$;
   }
 
 }

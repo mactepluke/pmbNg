@@ -54,7 +54,7 @@ import { LogoutComponent } from './pages/account-page/logout/logout.component';
     BuddiesComponent,
     LoginComponent,
     CreateAccountComponent,
-    LogoutComponent
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

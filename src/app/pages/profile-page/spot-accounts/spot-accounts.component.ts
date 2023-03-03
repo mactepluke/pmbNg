@@ -3,6 +3,7 @@ import {SpotAccount} from "../../../model/spot-account";
 import {User} from "../../../model/user";
 import {SpotAccountService} from "../../../services/spot-account.service";
 import {Table} from 'primeng/table';
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-spot-accounts',
@@ -11,26 +12,25 @@ import {Table} from 'primeng/table';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SpotAccountsComponent implements OnInit {
+
   @Input() currentUser!: User;
   @ViewChild(Table) dt!: Table;
 
-  public spotAccounts!: SpotAccount[]
-
   constructor(private spotAccountService: SpotAccountService) {
+  }
+
+  ngOnInit(): void {
+
   }
 
   refresh() {
     this.dt.reset();
   }
 
-  ngOnInit() {
-    this.spotAccounts = this.currentUser.spotAccounts;
-  }
-
 
   onAddSpotAccount() {
-    this.spotAccountService.createSpotAccount("EUR", 24099);
-    this.spotAccounts = this.currentUser.spotAccounts;
+    this.spotAccountService.createSpotAccount(this.currentUser, "EUR", 24099)
+      .subscribe();
     this.refresh();
   }
 
@@ -38,6 +38,5 @@ export class SpotAccountsComponent implements OnInit {
   }
 
   onWithDrawFunds() {
-
   }
 }

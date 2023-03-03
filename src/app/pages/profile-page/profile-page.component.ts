@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../model/user";
 import {SessionService} from "../../services/session.service";
-import {Router} from "@angular/router";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-profile-page',
@@ -11,16 +11,12 @@ import {Router} from "@angular/router";
 
 export class ProfilePageComponent implements OnInit {
 
-  constructor(private sessionService: SessionService, private router: Router) {
-  }
+  currentUser$!: Observable<User>;
 
-  get currentUser(): User {
-    return this.sessionService.getCurrentUser();
+  constructor() {
   }
 
   ngOnInit(): void {
-    if (!this.sessionService.isLoggedIn()) {
-      this.router.navigateByUrl('paymybuddy');
-    }
+    this.currentUser$ = SessionService.currentUser$;
   }
 }
