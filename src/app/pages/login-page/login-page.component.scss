@@ -1,0 +1,27 @@
+.centered {
+  flex-direction: column;
+  width: 480px;
+}
+
+.margined {
+  margin-top: 50px;
+}
+
+.margined2 {
+  margin-top: 30px;
+  margin-bottom: 55px;
+}
+
+a {
+  margin: 0 10px;
+  color: #333;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.active {
+  color: #666;
+  text-decoration: underline;
+}

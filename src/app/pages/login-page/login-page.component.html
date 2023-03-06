@@ -1,5 +1,7 @@
-<p-card *ngIf="!(currentUser$ | async) as currentUser" header="Log In" subheader="If you have an existing account"
-        styleClass="p-card-shadow">
+<p-card *ngIf="!(currentUser$ | async) as currentUser" header="Log in" subheader="with an existing account"
+        styleClass="p-card-shadow" class="container margined">
+
+
   <form [formGroup]=loginForm>
     <div class="container centered">
 
@@ -13,7 +15,6 @@
     <p-password id="float-password" formControlName="password"></p-password>
     <label for="float-password">Password *</label>
     </span>
-
 
       <div class="margined2">
         <p-checkbox [binary]="true" label="Remember me"
@@ -30,6 +31,7 @@
   </form>
   <div>
     <p>* Required</p>
+      <a routerLink="../create-account" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true }">No account yet? Create one!
+      </a>
   </div>
 </p-card>
-

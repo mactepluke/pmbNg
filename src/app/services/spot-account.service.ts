@@ -1,23 +1,25 @@
 import { Injectable } from '@angular/core';
 import {SpotAccount} from "../model/spot-account";
-import {SessionService} from "./session.service";
-import {UserService} from "./user.service";
 import {Observable} from "rxjs";
 import {User} from "../model/user";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpotAccountService {
 
-  constructor(private sessionService: SessionService, private userService: UserService) { }
+  constructor(private http: HttpClient) { }
 
-  createSpotAccount(user: User, currency: string, credit: number): Observable<User> {
-    let newSpotAccount = new SpotAccount(currency, credit);
+  createSpotAccount(user: User, currency: string): Observable<SpotAccount> {
+    let newSpotAccount = new SpotAccount(currency);
     user.spotAccounts.push(newSpotAccount);
-    console.log("Created spot account.");
 
-    return this.userService.updateUser(user);
+    return this.http.post<SpotAccount>(`http://localhost:8080/spotaccount/create?email=${user.email}&currency=${currency}`, '');
+  }
+
+  findSpotAccounts(email: string): Observable<SpotAccount[]> {
+    return this.http.get<SpotAccount[]>(`http://localhost:8080/spotaccount/findAll/${email}`);
   }
 
 }

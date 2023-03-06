@@ -15,22 +15,24 @@ export class SpotAccountsComponent implements OnInit {
 
   @Input() currentUser!: User;
   @ViewChild(Table) dt!: Table;
+  spotAccounts$!: Observable<SpotAccount[]>;
 
   constructor(private spotAccountService: SpotAccountService) {
   }
 
   ngOnInit(): void {
-
+    this.spotAccounts$ = this.spotAccountService.findSpotAccounts(this.currentUser.email);
   }
 
   refresh() {
     this.dt.reset();
   }
 
-
   onAddSpotAccount() {
-    this.spotAccountService.createSpotAccount(this.currentUser, "EUR", 24099)
-      .subscribe();
+
+    this.spotAccountService.createSpotAccount(this.currentUser, "EUR").subscribe();
+    this.spotAccounts$ = this.spotAccountService.findSpotAccounts(this.currentUser.email);
+
     this.refresh();
   }
 

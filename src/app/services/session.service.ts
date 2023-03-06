@@ -11,6 +11,9 @@ import {Transaction} from "../model/transaction";
   providedIn: 'root'
 })
 export class SessionService {
+  private static _currentUser: User;
+  private static _isLoggedIn = false;
+
   static get currentUser(): User {
     return this._currentUser;
   }
@@ -19,31 +22,18 @@ export class SessionService {
     this._currentUser = value;
   }
 
-  private static _currentUser: User;
-  private static _currentUser$: Observable<User>;
-  //private unsubscribe$ = new Subject<void>();
-  //private static _subjectUser$: Subject<User>;
+  static get isLoggedIn(): boolean {
+    return this._isLoggedIn;
+  }
+
+  static set isLoggedIn(value: boolean) {
+    this._isLoggedIn = value;
+  }
 
   constructor(private userService: UserService) {
-    // SessionService.currentUser = new User();
-    // SessionService.currentUser.email = 'not logged in';
+    console.log(SessionService.currentUser);
   }
 
-  static get currentUser$(): Observable<User> {
-    return this._currentUser$;
-  }
-
-/*  static get subjectUser$(): Subject<User> {
-    return this._subjectUser$;
-  }*/
-
-/*  getCurrentUser(): User {
-    return SessionService.currentUser;
-  }
-
-  updateCurrentUser(user: User) {
-    SessionService.currentUser = user;
-  }*/
 
   logIn(formValue: { email: string, password: string }): Observable<User> {
     let attemptUser: User;
@@ -59,12 +49,12 @@ export class SessionService {
       transactions: new Array<Transaction>()
     };
 
-    //SessionService._currentUser$ = this.userService.loginUser(attemptUser.email, attemptUser.password);
     return this.userService.loginUser(attemptUser.email, attemptUser.password);
   }
+
 //TODO rajouter des unsubscribe partout où il faut
   logOut() {
-    SessionService._currentUser$ = EMPTY;
+    SessionService.isLoggedIn = false;
     console.log('User logged out.')
   }
 

@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {User} from "../model/user";
+import {SessionService} from "../services/session.service";
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ export class HeaderComponent {
   @Input() activePageName = '';
   currentUser$!: Observable<User>;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private sessionService: SessionService) {
 
   }
 
