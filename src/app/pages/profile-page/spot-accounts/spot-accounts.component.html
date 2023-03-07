@@ -1,6 +1,6 @@
 <p-card header="Spot Accounts" >
 
-  <p-table *ngIf="spotAccounts$ | async as spotAccounts" #dt [style]="{width: '1000px'}" [value]="spotAccounts" [paginator]="true" [rows]="3" [showCurrentPageReport]="true"
+  <p-table *ngIf="spotAccounts$ | async as spotAccounts" [style]="{width: '1000px'}" [value]="spotAccounts" [paginator]="true" [rows]="3" [showCurrentPageReport]="true"
            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
            [rowsPerPageOptions]="[3,5,10]">
     <ng-template pTemplate="header">
@@ -18,7 +18,7 @@
 
   </p-table>
 
-  <div class="container button-block">
+  <div class="container button-block" [style]="{width: '1000px'}">
     <button (click)="onAddSpotAccount()" pButton class="p-button-primary"  type="button" label="Add a Spot Account" ></button>
     <button (click)="onCreditFunds()" pButton class="p-button-secondary"  type="button" label="Credit funds from Bank Account" ></button>
     <button (click)="onWithDrawFunds()" pButton class="p-button-secondary"  type="button" label="Withdraw funds to Bank Account" ></button>

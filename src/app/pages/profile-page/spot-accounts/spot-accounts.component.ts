@@ -3,7 +3,7 @@ import {SpotAccount} from "../../../model/spot-account";
 import {User} from "../../../model/user";
 import {SpotAccountService} from "../../../services/spot-account.service";
 import {Table} from 'primeng/table';
-import {Observable} from "rxjs";
+import {Observable, switchMap} from "rxjs";
 
 @Component({
   selector: 'app-spot-accounts',
@@ -14,7 +14,6 @@ import {Observable} from "rxjs";
 export class SpotAccountsComponent implements OnInit {
 
   @Input() currentUser!: User;
-  @ViewChild(Table) dt!: Table;
   spotAccounts$!: Observable<SpotAccount[]>;
 
   constructor(private spotAccountService: SpotAccountService) {
@@ -24,16 +23,9 @@ export class SpotAccountsComponent implements OnInit {
     this.spotAccounts$ = this.spotAccountService.findSpotAccounts(this.currentUser.email);
   }
 
-  refresh() {
-    this.dt.reset();
-  }
-
   onAddSpotAccount() {
-
-    this.spotAccountService.createSpotAccount(this.currentUser, "EUR").subscribe();
-    this.spotAccounts$ = this.spotAccountService.findSpotAccounts(this.currentUser.email);
-
-    this.refresh();
+    this.spotAccounts$ = this.spotAccountService.createSpotAccount(this.currentUser, "EUR")
+      .pipe(switchMap(() => this.spotAccounts$ = this.spotAccountService.findSpotAccounts(this.currentUser.email)));
   }
 
   onCreditFunds() {
