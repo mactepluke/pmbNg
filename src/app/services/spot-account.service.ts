@@ -12,8 +12,8 @@ export class SpotAccountService {
   constructor(private http: HttpClient) { }
 
   createSpotAccount(user: User, currency: string): Observable<SpotAccount> {
-    let newSpotAccount = new SpotAccount(currency);
-    user.spotAccounts.push(newSpotAccount);
+    //let newSpotAccount = new SpotAccount(currency);
+    //user.spotAccounts.push(newSpotAccount);
 
     return this.http.post<SpotAccount>(`http://localhost:8080/spotaccount/create?email=${user.email}&currency=${currency}`, '');
   }
