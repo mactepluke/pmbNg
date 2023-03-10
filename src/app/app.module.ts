@@ -27,12 +27,12 @@ import {TagModule} from "primeng/tag";
 import {ProfileComponent} from './pages/profile-page/profile/profile.component';
 import {SpotAccountsComponent} from './pages/profile-page/spot-accounts/spot-accounts.component';
 import {BankAccountsComponent} from './pages/profile-page/bank-accounts/bank-accounts.component';
-import {BuddiesComponent} from './pages/profile-page/buddies/buddies.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthorizationHttpInterceptorService} from "./services/authorization-http-interceptor.service";
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import {CreateAccountPageComponent} from "./pages/create-account-page/create-account-page.component";
+import {RecipientsComponent} from "./pages/profile-page/recipients/recipients.component";
 
 @NgModule({
   declarations: [
@@ -48,9 +48,10 @@ import {CreateAccountPageComponent} from "./pages/create-account-page/create-acc
     ProfileComponent,
     SpotAccountsComponent,
     BankAccountsComponent,
-    BuddiesComponent,
+    RecipientsComponent,
     LoginPageComponent,
-    CreateAccountPageComponent
+    CreateAccountPageComponent,
+    RecipientsComponent
   ],
   imports: [
     BrowserModule,

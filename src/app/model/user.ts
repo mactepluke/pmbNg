@@ -1,8 +1,7 @@
-import {Buddy} from "./buddy";
+import {Recipient} from "./recipient";
 import {SpotAccount} from "./spot-account";
 import {BankAccount} from "./bank-account";
-import {Transaction} from "./transaction";
-import {Observable} from "rxjs";
+import {Payment} from "./Payment";
 
 export class User {
 
@@ -11,12 +10,10 @@ export class User {
   firstName = 'anonymous';
   lastName = 'anonymous';
   verified = false;
-  buddies!: Buddy[];
+  recipients!: Recipient[];
   spotAccounts!: SpotAccount[];
   bankAccounts!: BankAccount[];
-  transactions!: Transaction[];
-
-
+  transactions!: Payment[];
 }
 
 

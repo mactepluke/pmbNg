@@ -31,8 +31,7 @@ export class SpotAccountsComponent implements OnInit {
 /*    this.spotAccountService.createSpotAccount(this.currentUser, "EUR").subscribe(
       () => {
         this.spotAccounts$ = this.spotAccountService.findSpotAccounts(this.currentUser.email);
-        this.spotAccounts$.subscribe();
-      }
+       }
     );*/
 
   }

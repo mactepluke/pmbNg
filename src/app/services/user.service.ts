@@ -1,9 +1,9 @@
 import {Injectable, OnInit} from '@angular/core';
 import {User} from "../model/user";
-import {Buddy} from "../model/buddy";
+import {Recipient} from "../model/recipient";
 import {SpotAccount} from "../model/spot-account";
 import {BankAccount} from "../model/bank-account";
-import {Transaction} from "../model/transaction";
+import {Payment} from "../model/Payment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
@@ -22,10 +22,10 @@ export class UserService {
       firstName: 'anonymous',
       lastName: 'anonymous',
       verified: false,
-      buddies: new Array<Buddy>(),
+      recipients: new Array<Recipient>(),
       spotAccounts: new Array<SpotAccount>(),
       bankAccounts: new Array<BankAccount>(),
-      transactions: new Array<Transaction>()
+      transactions: new Array<Payment>()
     }
     return this.http.post<User>(`http://localhost:8080/pmbuser/create?email=${this.user.email}&password=${this.user.password}`, '');
   }

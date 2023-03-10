@@ -2,10 +2,10 @@ import {User} from "../model/user";
 import {Injectable} from "@angular/core";
 import {UserService} from "./user.service";
 import {EMPTY, exhaustMap, NEVER, Observable, of, Subject, switchMap, takeUntil, tap} from "rxjs";
-import {Buddy} from "../model/buddy";
+import {Recipient} from "../model/recipient";
 import {SpotAccount} from "../model/spot-account";
 import {BankAccount} from "../model/bank-account";
-import {Transaction} from "../model/transaction";
+import {Payment} from "../model/Payment";
 
 @Injectable({
   providedIn: 'root'
@@ -43,10 +43,10 @@ export class SessionService {
       firstName: 'anonymous',
       lastName: 'anonymous',
       verified: false,
-      buddies: new Array<Buddy>(),
+      buddies: new Array<Recipient>(),
       spotAccounts: new Array<SpotAccount>(),
       bankAccounts: new Array<BankAccount>(),
-      transactions: new Array<Transaction>()
+      transactions: new Array<Payment>()
     };
 
     return this.userService.loginUser(attemptUser.email, attemptUser.password);
