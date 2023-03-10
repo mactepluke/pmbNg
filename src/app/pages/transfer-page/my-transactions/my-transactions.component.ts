@@ -21,11 +21,9 @@ export class MyTransactionsComponent implements OnInit {
     this.payments$ = this.paymentService.findPayments(this.currentUser.email);
   }
 
-  onAddSpotAccount() {
-/*
-    this.spotAccounts$ = this.spotAccountService.createSpotAccount(this.currentUser, "EUR")
-      .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.currentUser.email)));*/
-
+  onAddPayment() {
+    this.payments$ = this.paymentService.createPayment(this.currentUser, "1@front.fr", "paiement test", 10, "EUR")
+      .pipe(switchMap(() => this.paymentService.findPayments(this.currentUser.email)));
   }
 
 }

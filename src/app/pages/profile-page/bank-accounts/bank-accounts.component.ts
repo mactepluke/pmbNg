@@ -20,7 +20,7 @@ export class BankAccountsComponent implements OnInit {
     this.bankAccounts$ = this.bankAccountService.findBankAccounts(this.currentUser.email);
   }
 
-  onAddSpotAccount() {
+  onAddBankAccount() {
 
     this.bankAccounts$ = this.bankAccountService.createBankAccount(this.currentUser, "SG","SOGEFRPP13130942132128")
       .pipe(switchMap(() => this.bankAccountService.findBankAccounts(this.currentUser.email)));

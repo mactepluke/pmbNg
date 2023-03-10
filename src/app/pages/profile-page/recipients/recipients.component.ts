@@ -21,9 +21,7 @@ export class RecipientsComponent implements OnInit {
   }
 
   onAddBuddy() {
-
-    this.recipients$ = this.recipientService.createBuddy(this.currentUser, "email")
+    this.recipients$ = this.recipientService.createRecipient(this.currentUser, '1@front.fr')
       .pipe(switchMap(() => this.recipientService.findRecipients(this.currentUser.email)));
-
   }
 }

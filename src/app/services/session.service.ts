@@ -43,7 +43,7 @@ export class SessionService {
       firstName: 'anonymous',
       lastName: 'anonymous',
       verified: false,
-      buddies: new Array<Recipient>(),
+      recipients: new Array<Recipient>(),
       spotAccounts: new Array<SpotAccount>(),
       bankAccounts: new Array<BankAccount>(),
       transactions: new Array<Payment>()

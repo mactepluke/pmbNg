@@ -11,8 +11,8 @@ export class RecipientService {
 
   constructor(private http: HttpClient) { }
 
-  createBuddy(user: User, recipientEmail: string): Observable<Recipient> {
-    return this.http.post<Recipient>(`http://localhost:8080/recipient/create?email=${user.email}&recipient=${recipientEmail}`, '');
+  createRecipient(user: User, recipientEmail: string): Observable<Recipient> {
+    return this.http.post<Recipient>(`http://localhost:8080/recipient/create?user=${user.email}&recipient=${recipientEmail}`, '');
   }
 
   findRecipients(email: string): Observable<Recipient[]> {
