@@ -27,7 +27,7 @@ export class UserService {
       bankAccounts: new Array<BankAccount>(),
       transactions: new Array<Payment>()
     }
-    return this.http.post<User>(`http://localhost:8080/pmbuser/create?email=${this.user.email}&password=${this.user.password}`, '');
+    return this.http.post<User>('http://localhost:8080/pmbuser/create', {"email":`${this.user.email}`, "password":`${this.user.password}`});
   }
 
   findUser(email: string): Observable<User> {
@@ -41,7 +41,4 @@ export class UserService {
     updateUser(user: User, item: string): Observable<User> {
     return this.http.put<User>(`http://localhost:8080/pmbuser/update?email=${user.email}&item=${item}`, '');
   }
-
-//TODO créer une requête getUser pour récupérer les infos d'un utilisateur donné quand on en a besoin hors log in, voir splitter créer des requêtes par champs spécifiques dans d'autres services ?
-
 }

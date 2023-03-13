@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {SpotAccount} from "../../../model/spot-account";
 import {User} from "../../../model/user";
 import {SpotAccountService} from "../../../services/spot-account.service";
-import {Table} from 'primeng/table';
-import {Observable, share, switchMap} from "rxjs";
+import {Observable, switchMap, tap} from "rxjs";
+import {ConfirmationService, MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-spot-accounts',
@@ -16,24 +16,36 @@ export class SpotAccountsComponent implements OnInit {
   @Input() currentUser!: User;
   spotAccounts$!: Observable<SpotAccount[]>;
 
-  constructor(private spotAccountService: SpotAccountService) {
+  constructor(private spotAccountService: SpotAccountService, private confirmationService: ConfirmationService, private messageService: MessageService) {
   }
 
   ngOnInit(): void {
     this.spotAccounts$ = this.spotAccountService.findSpotAccounts(this.currentUser.email);
   }
-// TODO identifier pourquoi le subscribe ne fonctionne pas à la place du switchMap (on ne rafraichissait le table qu'un seul clic de bouton sur deux)
+
   onAddSpotAccount() {
 
     this.spotAccounts$ = this.spotAccountService.createSpotAccount(this.currentUser, "EUR")
       .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.currentUser.email)));
 
-/*    this.spotAccountService.createSpotAccount(this.currentUser, "EUR").subscribe(
-      () => {
-        this.spotAccounts$ = this.spotAccountService.findSpotAccounts(this.currentUser.email);
-       }
-    );*/
+  }
 
+  deleteSpotAccount(spotAccount: SpotAccount) {
+    console.log("Delete button is hit.");
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + spotAccount.currency + '?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.spotAccounts$ = this.spotAccountService.deleteSpotAccount(spotAccount.currency)
+          .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.currentUser.email)),
+            tap(
+              () => {
+                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000})
+              }
+            ))
+      }
+    });
   }
 
   onCreditFunds() {

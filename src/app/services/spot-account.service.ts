@@ -19,4 +19,8 @@ export class SpotAccountService {
     return this.http.get<SpotAccount[]>(`http://localhost:8080/spotaccount/findAll/${email}`);
   }
 
+  deleteSpotAccount(currency: string): Observable<SpotAccount>  {
+    return this.http.delete<SpotAccount>(`http://localhost:8080/spotaccount/delete/${currency}`);
+  }
+
 }

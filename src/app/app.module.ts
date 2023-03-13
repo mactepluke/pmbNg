@@ -22,6 +22,8 @@ import {CascadeSelectModule} from "primeng/cascadeselect";
 import {DropdownModule} from "primeng/dropdown";
 import {InputNumberModule} from "primeng/inputnumber";
 import {TableModule} from "primeng/table";
+import {ConfirmationService} from 'primeng/api';
+import {MessageService } from 'primeng/api';
 import {AvatarModule} from "primeng/avatar";
 import {TagModule} from "primeng/tag";
 import {ProfileComponent} from './pages/profile-page/profile/profile.component';
@@ -30,9 +32,13 @@ import {BankAccountsComponent} from './pages/profile-page/bank-accounts/bank-acc
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthorizationHttpInterceptorService} from "./services/authorization-http-interceptor.service";
-import { LoginPageComponent } from './pages/login-page/login-page.component';
+import {LoginPageComponent} from './pages/login-page/login-page.component';
 import {CreateAccountPageComponent} from "./pages/create-account-page/create-account-page.component";
 import {RecipientsComponent} from "./pages/profile-page/recipients/recipients.component";
+import {ToastModule} from "primeng/toast";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {RippleModule} from "primeng/ripple";
+
 
 @NgModule({
   declarations: [
@@ -70,9 +76,14 @@ import {RecipientsComponent} from "./pages/profile-page/recipients/recipients.co
     TableModule,
     AvatarModule,
     TagModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastModule,
+    ConfirmDialogModule,
+    RippleModule
   ],
   providers: [
+    ConfirmationService,
+    MessageService,
     {provide: LOCALE_ID, useValue: 'fr-FR'},
     {provide: HTTP_INTERCEPTORS, useClass: AuthorizationHttpInterceptorService, multi: true}
   ],

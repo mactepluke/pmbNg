@@ -13,7 +13,8 @@ export class PaymentService {
   }
 
   createPayment(user: User, recipient: string, description: string, netAmount: number, currency: string): Observable<Payment> {
-    return this.http.post<Payment>(`http://localhost:8080/payment/create?email=${user.email}&recipient=${recipient}&description=${description}&net_amount=${netAmount}&currency=${currency}`, '');
+    return this.http.post<Payment>(`http://localhost:8080/payment/create?email=${user.email}&recipient=${recipient}`,
+      {"description":`${description}`, "netAmount":`${netAmount}`, "currency":`${currency}`});
   }
 
   findPayments(email: string): Observable<Payment[]> {

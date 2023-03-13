@@ -26,12 +26,13 @@ export class CreateAccountPageComponent implements OnInit {
       });
   }
 
-  //TODO unsubscribe
   onSubmitForm() {
     console.log(this.createForm.value);
     this.userService
       .createAccount(this.createForm.value)
-      .subscribe(() => this.router.navigateByUrl('paymybuddy/login'));
+      .subscribe(() => {
+        this.router.navigateByUrl('paymybuddy/login')
+  });
   }
 
   checkPasswords: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
