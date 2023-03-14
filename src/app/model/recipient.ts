@@ -4,10 +4,7 @@ export class Recipient {
   firstName!: string;
   lastName!: string;
 
+  constructor() {
 
-
-  constructor(recipientEmail: string, enabled: boolean) {
-    this.recipientEmail = recipientEmail;
-    this.enabled = enabled;
   }
 }

@@ -1,3 +1,4 @@
+
 <p-card header="Bank Accounts">
 
   <p-table *ngIf="bankAccounts$ | async as bankAccounts" [style]="{width: '1000px'}" [value]="bankAccounts" [paginator]="true" [rows]="3" [showCurrentPageReport]="true"
@@ -8,6 +9,7 @@
         <th id="name" style="width:30%">Name</th>
         <th id="iban" style="width:55%">IBAN</th>
         <th id="verified" style="width:15%">Verified</th>
+        <th></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-bankAccount>
@@ -15,6 +17,10 @@
         <td>{{bankAccount.name}}</td>
         <td>{{bankAccount.iban}}</td>
         <td>{{bankAccount.verified}}</td>
+        <td>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                  (click)="deleteBankAccount(bankAccount)"></button>
+        </td>
       </tr>
     </ng-template>
   </p-table>
@@ -24,3 +30,25 @@
   </div>
 
 </p-card>
+
+<p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Create New Spot Account" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+
+    <div class="field">
+      <label for="name">Name</label>
+      <input type="text" pInputText id="dialogname" [(ngModel)]="bankAccount.name" required autofocus />
+      <small class="p-error" *ngIf="submitted && !(bankAccount.name.length > 0)">Name is required.</small>
+    </div>
+    <div class="field">
+      <label for="name">IBAN</label>
+      <input type="text" pInputText id="dialogiban" [(ngModel)]="bankAccount.iban" required autofocus />
+      <small class="p-error" *ngIf="submitted && ((bankAccount.iban.length > 34) || (bankAccount.iban.length < 30))">IBAN must be between 30-34 characters.</small>
+    </div>
+
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveSpotAccount()"></button>
+  </ng-template>
+</p-dialog>

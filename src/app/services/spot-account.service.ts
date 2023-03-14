@@ -15,12 +15,12 @@ export class SpotAccountService {
     return this.http.post<SpotAccount>(`http://localhost:8080/spotaccount/create?email=${user.email}&currency=${currency}`, '');
   }
 
-  findSpotAccounts(email: string): Observable<SpotAccount[]> {
-    return this.http.get<SpotAccount[]>(`http://localhost:8080/spotaccount/findAll/${email}`);
+  findSpotAccounts(user: User): Observable<SpotAccount[]> {
+    return this.http.get<SpotAccount[]>(`http://localhost:8080/spotaccount/findAll/${user.email}`);
   }
 
-  deleteSpotAccount(currency: string): Observable<SpotAccount>  {
-    return this.http.delete<SpotAccount>(`http://localhost:8080/spotaccount/delete/${currency}`);
+  deleteSpotAccount(user: User, currency: string): Observable<SpotAccount>  {
+    return this.http.delete<SpotAccount>(`http://localhost:8080/spotaccount/delete?email=${user.email}&currency=${currency}`);
   }
 
 }

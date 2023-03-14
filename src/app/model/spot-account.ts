@@ -2,8 +2,8 @@ export class SpotAccount {
   currency!: string;
   credit!: number;
 
-  constructor(currency: string) {
-    this.currency = currency;
+  constructor() {
+    this.currency = 'EUR';
     this.credit = 0;
   }
 }

@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div *ngIf="currentUser$ | async as currentUser" class="column">
   <div  class="container margined-card">
     <app-profile [currentUser]="currentUser"></app-profile>
@@ -13,3 +14,4 @@
   </div>
 </div>
 
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

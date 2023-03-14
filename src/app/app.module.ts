@@ -38,6 +38,7 @@ import {RecipientsComponent} from "./pages/profile-page/recipients/recipients.co
 import {ToastModule} from "primeng/toast";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {RippleModule} from "primeng/ripple";
+import {DialogModule} from "primeng/dialog";
 
 
 @NgModule({
@@ -59,28 +60,29 @@ import {RippleModule} from "primeng/ripple";
     CreateAccountPageComponent,
     RecipientsComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    ButtonModule,
-    CardModule,
-    PasswordModule,
-    CheckboxModule,
-    FormsModule,
-    ReactiveFormsModule,
-    InputTextModule,
-    CascadeSelectModule,
-    DropdownModule,
-    InputNumberModule,
-    TableModule,
-    AvatarModule,
-    TagModule,
-    HttpClientModule,
-    ToastModule,
-    ConfirmDialogModule,
-    RippleModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        ButtonModule,
+        CardModule,
+        PasswordModule,
+        CheckboxModule,
+        FormsModule,
+        ReactiveFormsModule,
+        InputTextModule,
+        CascadeSelectModule,
+        DropdownModule,
+        InputNumberModule,
+        TableModule,
+        AvatarModule,
+        TagModule,
+        HttpClientModule,
+        ToastModule,
+        ConfirmDialogModule,
+        RippleModule,
+        DialogModule
+    ],
   providers: [
     ConfirmationService,
     MessageService,
