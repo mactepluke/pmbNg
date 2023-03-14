@@ -35,7 +35,7 @@ export class BankAccountsComponent implements OnInit {
     this.submitted = false;
   }
 
-  saveSpotAccount() {
+  saveBankAccount() {
     this.submitted = true;
 
     this.bankAccounts$ = this.bankAccountService.createBankAccount(this.currentUser, this.bankAccount.name,this.bankAccount.iban)
@@ -59,6 +59,7 @@ export class BankAccountsComponent implements OnInit {
       message: 'Are you sure you want to delete ' + bankAccount.name + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
+      key: 'bankaccountdialog',
       accept: () => {
         this.bankAccounts$ = this.bankAccountService.deleteBankAccount(this.currentUser, bankAccount.iban)
           .pipe(switchMap(() => this.bankAccountService.findBankAccounts(this.currentUser)),

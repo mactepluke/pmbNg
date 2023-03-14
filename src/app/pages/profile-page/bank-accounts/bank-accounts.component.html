@@ -1,8 +1,9 @@
 
 <p-card header="Bank Accounts">
 
-  <p-table *ngIf="bankAccounts$ | async as bankAccounts" [style]="{width: '1000px'}" [value]="bankAccounts" [paginator]="true" [rows]="3" [showCurrentPageReport]="true"
-           currentPageReportTemplate="Showing {last} to {first} of {totalRecords} entries"
+  <p-table *ngIf="bankAccounts$ | async as bankAccounts" [style]="{width: '1000px'}"
+           [value]="bankAccounts" [paginator]="true" [rows]="3" [showCurrentPageReport]="true"
+           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
            [rowsPerPageOptions]="[3,5,10]">
     <ng-template pTemplate="header">
       <tr>
@@ -31,7 +32,7 @@
 
 </p-card>
 
-<p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Create New Spot Account" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Create New Bank Account" [modal]="true" styleClass="p-fluid">
   <ng-template pTemplate="content">
 
     <div class="field">
@@ -49,6 +50,8 @@
 
   <ng-template pTemplate="footer">
     <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveSpotAccount()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveBankAccount()"></button>
   </ng-template>
 </p-dialog>
+
+<p-confirmDialog key= "bankaccountdialog" [style]="{width: '450px'}"></p-confirmDialog>

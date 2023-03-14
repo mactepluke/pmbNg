@@ -1,8 +1,8 @@
 
-<p-card header="Spot Accounts">
+<p-card *ngIf="visible" header="Spot Accounts">
 
-  <p-table *ngIf="spotAccounts$ | async as spotAccounts" [style]="{width: '1000px'}" [value]="spotAccounts"
-           [paginator]="true" [rows]="3" [showCurrentPageReport]="true"
+  <p-table *ngIf="spotAccounts$ | async as spotAccounts" [style]="{width: '1000px'}"
+           [value]="spotAccounts" [paginator]="true" [rows]="3" [showCurrentPageReport]="true"
            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
            [rowsPerPageOptions]="[3,5,10]">
     <ng-template pTemplate="header">
@@ -54,3 +54,5 @@
     <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveSpotAccount()"></button>
   </ng-template>
 </p-dialog>
+
+<p-confirmDialog key= "spotaccountdialog" [style]="{width: '450px'}"></p-confirmDialog>

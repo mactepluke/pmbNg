@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {SpotAccount} from "../../../model/spot-account";
 import {User} from "../../../model/user";
 import {SpotAccountService} from "../../../services/spot-account.service";
@@ -19,6 +19,7 @@ export class SpotAccountsComponent implements OnInit {
   submitted!: boolean;
   spotAccount!: SpotAccount;
   currencies!: any[];
+  visible: boolean = true;
 
   constructor(private spotAccountService: SpotAccountService, private confirmationService: ConfirmationService, private messageService: MessageService) {
   }
@@ -44,7 +45,7 @@ export class SpotAccountsComponent implements OnInit {
     this.dialog = false;
     this.submitted = false;
   }
-//TODO les opérations sur le spot account ne sont plus rafraichies automatiquement
+
   saveSpotAccount() {
     this.submitted = true;
 
@@ -62,13 +63,14 @@ export class SpotAccountsComponent implements OnInit {
       );
     this.dialog = false;
   }
-
+//TODO les opérations sur le spot account ne sont plus rafraichies automatiquement
   deleteSpotAccount(spotAccount: SpotAccount) {
     console.log("Delete button is hit.");
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + spotAccount.currency + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
+      key: 'spotaccountdialog',
       accept: () => {
         this.spotAccounts$ = this.spotAccountService.deleteSpotAccount(this.currentUser, spotAccount.currency)
           .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.currentUser)),

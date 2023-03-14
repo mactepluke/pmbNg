@@ -3,7 +3,7 @@
 <p-card header="Buddy">
 
   <p-table *ngIf="recipients$ | async as recipients" [style]="{width: '1000px'}" [value]="recipients" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
-           currentPageReportTemplate="Showing {last} to {first} of {totalRecords} entries"
+           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
            [rowsPerPageOptions]="[10,25,50]">
     <ng-template pTemplate="header">
       <tr>
@@ -32,7 +32,7 @@
 </p-card>
 
 
-<p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Create New Spot Account" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Add A buddy" [modal]="true" styleClass="p-fluid">
   <ng-template pTemplate="content">
 
     <div class="field">
@@ -45,6 +45,8 @@
 
   <ng-template pTemplate="footer">
     <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveSpotAccount()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveRecipient()"></button>
   </ng-template>
 </p-dialog>
+
+<p-confirmDialog key= "recipientdialog" [style]="{width: '450px'}"></p-confirmDialog>

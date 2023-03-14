@@ -37,7 +37,7 @@ export class RecipientsComponent implements OnInit {
     this.submitted = false;
   }
 
-  saveSpotAccount() {
+  saveRecipient() {
     this.submitted = true;
 
     this.recipients$ = this.recipientService.createRecipient(this.currentUser, this.recipient.recipientEmail)
@@ -61,6 +61,7 @@ export class RecipientsComponent implements OnInit {
       message: 'Are you sure you want to delete ' + recipient.recipientEmail + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
+      key: 'recipientdialog',
       accept: () => {
         this.recipients$ = this.recipientService.deleteRecipient(this.currentUser, recipient.recipientEmail)
           .pipe(switchMap(() => this.recipientService.findRecipients(this.currentUser)),
