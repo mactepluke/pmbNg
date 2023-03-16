@@ -16,10 +16,8 @@ export class SpotAccountsComponent implements OnInit {
   @Input() currentUser!: User;
   spotAccounts$!: Observable<SpotAccount[]>;
   dialog!: boolean;
-  submitted!: boolean;
   spotAccount!: SpotAccount;
   currencies!: any[];
-  visible: boolean = true;
 
   constructor(private spotAccountService: SpotAccountService, private confirmationService: ConfirmationService, private messageService: MessageService) {
   }
@@ -37,17 +35,14 @@ export class SpotAccountsComponent implements OnInit {
 
   onAddSpotAccount() {
     this.spotAccount = new SpotAccount();
-    this.submitted = false;
     this.dialog = true;
   }
 
   hideDialog() {
     this.dialog = false;
-    this.submitted = false;
   }
 
   saveSpotAccount() {
-    this.submitted = true;
 
     this.spotAccounts$ = this.spotAccountService.createSpotAccount(this.currentUser, this.spotAccount.currency)
       .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.currentUser)),
@@ -63,7 +58,7 @@ export class SpotAccountsComponent implements OnInit {
       );
     this.dialog = false;
   }
-//TODO les opérations sur le spot account ne sont plus rafraichies automatiquement
+
   deleteSpotAccount(spotAccount: SpotAccount) {
     console.log("Delete button is hit.");
     this.confirmationService.confirm({

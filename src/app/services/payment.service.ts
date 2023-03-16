@@ -13,7 +13,7 @@ export class PaymentService {
   }
 
   createPayment(user: User, recipient: string, description: string, netAmount: number, currency: string): Observable<Payment> {
-    return this.http.post<Payment>(`http://localhost:8080/payment/create?email=${user.email}&recipient=${recipient}`,
+    return this.http.post<Payment>(`http://localhost:8080/payment/create?user=${user.email}&recipient=${recipient}`,
       {"description":`${description}`, "netAmount":`${netAmount}`, "currency":`${currency}`});
   }
 

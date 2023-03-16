@@ -1,0 +1,20 @@
+<ng-template *ngIf="recipientUsers$ | async"></ng-template>
+
+<p-button (click)="onAddBuddy()" class="container" label="Add a Buddy"></p-button>
+
+<p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Add A buddy" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+
+    <div class="field">
+      <label for="name">Buddy email</label>
+      <input type="text" pInputText id="name" [(ngModel)]="recipientUser.email" required autofocus />
+      <small class="p-error" *ngIf="submitted && !recipientUser.email">Email is required.</small>
+    </div>
+
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveRecipient()"></button>
+  </ng-template>
+</p-dialog>

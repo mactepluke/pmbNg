@@ -7,8 +7,8 @@ export class User {
 
   email!: string;
   password!: string;
-  firstName = 'anonymous';
-  lastName = 'anonymous';
+  firstName = '(unknown)';
+  lastName = '(unknown)';
   verified = false;
   recipients!: Recipient[];
   spotAccounts!: SpotAccount[];

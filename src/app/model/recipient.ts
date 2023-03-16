@@ -1,8 +1,8 @@
+import {User} from "./user";
+
 export class Recipient {
-  recipientEmail!: string;
+  recipientPmbUser!: User;
   enabled!: boolean;
-  firstName!: string;
-  lastName!: string;
 
   constructor() {
 

@@ -16,8 +16,6 @@ import {InputTextModule} from 'primeng/inputtext';
 import {PasswordModule} from 'primeng/password';
 import {CheckboxModule} from "primeng/checkbox";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {SendMoneyComponent} from './pages/transfer-page/send-money/send-money.component';
-import {MyTransactionsComponent} from './pages/transfer-page/my-transactions/my-transactions.component';
 import {CascadeSelectModule} from "primeng/cascadeselect";
 import {DropdownModule} from "primeng/dropdown";
 import {InputNumberModule} from "primeng/inputnumber";
@@ -39,6 +37,7 @@ import {ToastModule} from "primeng/toast";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {RippleModule} from "primeng/ripple";
 import {DialogModule} from "primeng/dialog";
+import { AddbuddyDialogComponent } from './dialogs/addbuddy-dialog/addbuddy-dialog.component';
 
 
 @NgModule({
@@ -50,15 +49,14 @@ import {DialogModule} from "primeng/dialog";
     ContactPageComponent,
     HeaderComponent,
     NotfoundPageComponent,
-    SendMoneyComponent,
-    MyTransactionsComponent,
     ProfileComponent,
     SpotAccountsComponent,
     BankAccountsComponent,
     RecipientsComponent,
     LoginPageComponent,
     CreateAccountPageComponent,
-    RecipientsComponent
+    RecipientsComponent,
+    AddbuddyDialogComponent
   ],
     imports: [
         BrowserModule,

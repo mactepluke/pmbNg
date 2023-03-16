@@ -15,8 +15,8 @@ export class RecipientService {
     return this.http.post<Recipient>(`http://localhost:8080/recipient/create?user=${user.email}&recipient=${recipientEmail}`, '');
   }
 
-  findRecipients(user: User): Observable<Recipient[]> {
-    return this.http.get<Recipient[]>(`http://localhost:8080/recipient/findAll/${user.email}`);
+  findRecipients(user: User): Observable<User[]> {
+    return this.http.get<User[]>(`http://localhost:8080/recipient/findAll/${user.email}`);
   }
 
   deleteRecipient(user: User, recipientEmail: string): Observable<Recipient>  {

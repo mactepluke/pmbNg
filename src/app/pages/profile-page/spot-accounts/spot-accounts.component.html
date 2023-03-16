@@ -1,5 +1,5 @@
 
-<p-card *ngIf="visible" header="Spot Accounts">
+<p-card header="Spot Accounts">
 
   <p-table *ngIf="spotAccounts$ | async as spotAccounts" [style]="{width: '1000px'}"
            [value]="spotAccounts" [paginator]="true" [rows]="3" [showCurrentPageReport]="true"

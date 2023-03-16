@@ -1,8 +1,60 @@
-<div *ngIf="currentUser$ | async as currentUser" class="column">
-  <div class="container margined-card">
-    <app-send-money [currentUser]="currentUser"></app-send-money>
+<p-toast></p-toast>
+
+<p-card class="container margined-card" header="Send Money">
+  <div class="horizontal-block" [style]="{width: '1000px'}">
+    <p></p>
+    <app-addbuddy-dialog [(recipientUsers$)]="recipientUsers$"></app-addbuddy-dialog>
   </div>
-  <div class="container margined-card">
-    <app-my-transactions [currentUser]="currentUser"></app-my-transactions>
+
+  <div *ngIf="recipientUsers$ | async as recipientUsers" class="horizontal-block grey-block">
+    <p-dropdown placeholder="<Choose a buddy>" inputId="email" optionLabel="email" [options]="recipientUsers">
+      <ng-template let-option pTemplate="item">
+        <span [class]="option.email">{{option.email}}</span>
+      </ng-template>
+    </p-dropdown>
+
+    <p-inputNumber [showButtons]="true" mode="currency" currency="EUR" locale="fr-FR" [min]="0" [max]="1000"
+                   [step]="10" placeholder="0,00 €"></p-inputNumber>
+
+    <ng-template *ngIf="true" let-recipientUser pTemplate="button">
+      <button (click)="OnPay(recipientUser.email)" pButton type="button" label="Pay" class="p-button-success"
+              id="pay-button"></button>
+    </ng-template>
   </div>
-</div>
+
+</p-card>
+
+<p-card *ngIf="payments$  | async as payments" class="container margined-card" header="My Transactions">
+  <p-table [style]="{width: '1000px'}" [value]="payments"
+           [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+           currentPageReportTemplate="Showing {last} to {first} of {totalRecords} entries"
+           [rowsPerPageOptions]="[10,25,50]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th id="dateTime" style="width:14%">Date</th>
+        <th id="recipient" style="width:14%">Recipient</th>
+        <th id="description" style="width:20%">Description</th>
+        <th id="netAmount" style="width:25%">Amount</th>
+        <th id="feePercent" style="width:8%">Fee %</th>
+        <th id="currency" style="width:5%">Currency</th>
+        <th id="processed" style="width:14%">Processed</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-payment>
+      <tr>
+        <td>{{payment.dateTime}}</td>
+        <td>{{payment.recipient}}</td>
+        <td>{{payment.description}}</td>
+        <td>{{payment.netAmount}}</td>
+        <td>{{payment.feePercent}}</td>
+        <td>{{payment.currency}}</td>
+        <td>{{payment.processed}}</td>
+      </tr>
+    </ng-template>
+
+    <div [style]="{width: '1000px'}">
+      <p></p>
+    </div>
+  </p-table>
+</p-card>
