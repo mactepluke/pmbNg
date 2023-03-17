@@ -1,4 +1,4 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {User} from "../model/user";
 import {Recipient} from "../model/recipient";
 import {SpotAccount} from "../model/spot-account";
@@ -38,7 +38,8 @@ export class UserService {
     return this.http.get<User>(`http://localhost:8080/pmbuser/login?email=${email}&password=${password}`);
   }
 
-    updateUser(user: User, item: string): Observable<User> {
-    return this.http.put<User>(`http://localhost:8080/pmbuser/update?email=${user.email}&item=${item}`, '');
+    updateUser(email: string, updatedUser: User): Observable<User> {
+    return this.http.put<User>(`http://localhost:8080/pmbuser/update?email=${email}`,
+      {"email":`${updatedUser.email}`, "password":`${updatedUser.password}`, "firstName":`${updatedUser.firstName}`, "lastName":`${updatedUser.lastName}`});
   }
 }

@@ -21,7 +21,7 @@ import {DropdownModule} from "primeng/dropdown";
 import {InputNumberModule} from "primeng/inputnumber";
 import {TableModule} from "primeng/table";
 import {ConfirmationService} from 'primeng/api';
-import {MessageService } from 'primeng/api';
+import {MessageService} from 'primeng/api';
 import {AvatarModule} from "primeng/avatar";
 import {TagModule} from "primeng/tag";
 import {ProfileComponent} from './pages/profile-page/profile/profile.component';
@@ -37,10 +37,10 @@ import {ToastModule} from "primeng/toast";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {RippleModule} from "primeng/ripple";
 import {DialogModule} from "primeng/dialog";
-import { AddbuddyDialogComponent } from './dialogs/addbuddy-dialog/addbuddy-dialog.component';
-import { ProcessedPipe } from './pages/transfer-page/processed.pipe';
-import { MePipe } from './pages/transfer-page/me.pipe';
-import { AmountPipe } from './pages/transfer-page/amount.pipe';
+import {AddbuddyDialogComponent} from './dialogs/addbuddy-dialog/addbuddy-dialog.component';
+import {ProcessedPipe} from './pages/transfer-page/processed.pipe';
+import {TransactionPipe} from './pages/transfer-page/transaction.pipe';
+import {AmountPipe} from './pages/transfer-page/amount.pipe';
 
 
 @NgModule({
@@ -61,32 +61,32 @@ import { AmountPipe } from './pages/transfer-page/amount.pipe';
     RecipientsComponent,
     AddbuddyDialogComponent,
     ProcessedPipe,
-    MePipe,
-    AmountPipe
+    TransactionPipe,
+    AmountPipe,
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        ButtonModule,
-        CardModule,
-        PasswordModule,
-        CheckboxModule,
-        FormsModule,
-        ReactiveFormsModule,
-        InputTextModule,
-        CascadeSelectModule,
-        DropdownModule,
-        InputNumberModule,
-        TableModule,
-        AvatarModule,
-        TagModule,
-        HttpClientModule,
-        ToastModule,
-        ConfirmDialogModule,
-        RippleModule,
-        DialogModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    ButtonModule,
+    CardModule,
+    PasswordModule,
+    CheckboxModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    CascadeSelectModule,
+    DropdownModule,
+    InputNumberModule,
+    TableModule,
+    AvatarModule,
+    TagModule,
+    HttpClientModule,
+    ToastModule,
+    ConfirmDialogModule,
+    RippleModule,
+    DialogModule
+  ],
   providers: [
     ConfirmationService,
     MessageService,

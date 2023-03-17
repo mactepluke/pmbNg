@@ -16,3 +16,41 @@
     <button (click)="onLogout()" pButton class="p-button-primary" type="button" label="Log Out" ></button>
   </div>
 </p-card>
+
+<p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Edit profile" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+
+    <div class="field">
+      <label>Email</label>
+      <input [defaultValue]="currentUser.email" type="text" pInputText id="dialogemail" [(ngModel)]="currentUser.email" required autofocus />
+      <small class="p-error" *ngIf="submitted && !(currentUser.email.length < 0)">Email is required.</small>
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input [defaultValue]="currentUser.password" type="password" pInputText id="dialogpassword" [(ngModel)]="currentUser.password" required autofocus />
+      <small class="p-error" *ngIf="submitted && ((currentUser.password.length < 6) || (currentUser.password.length > 20))">Password must be between 6-20 characters.</small>
+    </div>
+    <div class="field">
+      <label>Confirm password</label>
+      <input [defaultValue]="currentUser.password" type="password" pInputText id="dialogconfirmpassword" [(ngModel)]="confirmedPassword" required autofocus />
+      <small class="p-error" *ngIf="submitted && (confirmedPassword != currentUser.password)">Password fields don't match.</small>
+    </div>
+    <div class="field">
+      <label>First Name</label>
+      <input [defaultValue]="currentUser.firstName" type="text" pInputText id="firstname" [(ngModel)]="currentUser.firstName" required autofocus />
+      <small class="p-error" *ngIf="submitted && (currentUser.firstName.length > 20)">First name must be 20 characters max.</small>
+    </div>
+
+    <div class="field">
+      <label>First Name</label>
+      <input [defaultValue]="currentUser.lastName" type="text" pInputText id="lastname" [(ngModel)]="currentUser.lastName" required autofocus />
+      <small class="p-error" *ngIf="submitted && (currentUser.lastName.length > 20)">Last name must be 20 characters max.</small>
+    </div>
+
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProfile()"></button>
+  </ng-template>
+</p-dialog>

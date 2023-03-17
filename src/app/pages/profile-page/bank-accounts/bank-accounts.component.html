@@ -10,7 +10,7 @@
         <th id="name" style="width:30%">Name</th>
         <th id="iban" style="width:55%">IBAN</th>
         <th id="verified" style="width:15%">Verified</th>
-        <th></th>
+        <th id="empty"></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-bankAccount>
@@ -35,13 +35,15 @@
 <p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Create New Bank Account" [modal]="true" styleClass="p-fluid">
   <ng-template pTemplate="content">
 
+    <p>The IBAN number must contain between 30-34 characters.</p>
+
     <div class="field">
       <label for="name">Name</label>
       <input type="text" pInputText id="dialogname" [(ngModel)]="bankAccount.name" required autofocus />
       <small class="p-error" *ngIf="submitted && !(bankAccount.name.length > 0)">Name is required.</small>
     </div>
     <div class="field">
-      <label for="name">IBAN</label>
+      <label for="iban">IBAN</label>
       <input type="text" pInputText id="dialogiban" [(ngModel)]="bankAccount.iban" required autofocus />
       <small class="p-error" *ngIf="submitted && ((bankAccount.iban.length > 34) || (bankAccount.iban.length < 30))">IBAN must be between 30-34 characters.</small>
     </div>

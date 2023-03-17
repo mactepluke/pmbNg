@@ -38,18 +38,28 @@ export class BankAccountsComponent implements OnInit {
   saveBankAccount() {
     this.submitted = true;
 
-    this.bankAccounts$ = this.bankAccountService.createBankAccount(this.currentUser, this.bankAccount.name,this.bankAccount.iban)
-      .pipe(switchMap(() => this.bankAccountService.findBankAccounts(this.currentUser)),
-        tap(
-          () => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Successful',
-              detail: 'Bank account Created',
-              life: 3000
-            });
-          })
-      );
+    if ((this.bankAccount.name != null)
+      && (this.bankAccount.iban.length <= 34)
+      && (this.bankAccount.iban.length >= 30)) {
+      this.bankAccounts$ = this.bankAccountService.createBankAccount(this.currentUser, this.bankAccount.name, this.bankAccount.iban)
+        .pipe(switchMap(() => this.bankAccountService.findBankAccounts(this.currentUser)),
+          tap(
+            () => {
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Successful',
+                detail: 'Bank account Created',
+                life: 3000
+              });
+            })
+        );
+    } else {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Cannot create account',
+        detail: 'Invalid values',
+        life: 3000})
+    }
     this.dialog = false;
   }
 

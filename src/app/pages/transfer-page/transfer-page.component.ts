@@ -56,31 +56,42 @@ export class TransferPageComponent implements OnInit {
 
   OnPay() {
 
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to send '
-        + this.paymentForm.controls['amount'].value
-        +' '
-        + this.paymentForm.controls['selectedCurrency'].value
-        +' to '
-        + this.paymentForm.controls['selectedEmail'].value
-        +'?',
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      key: 'paymentdialog',
-      accept: () => {
-        this.payments$ = this.paymentService.createPayment(this.currentUser, this.paymentForm.controls['selectedEmail'].value, this.paymentForm.controls['description'].value, this.paymentForm.controls['amount'].value, this.paymentForm.controls['selectedCurrency'].value)
-          .pipe(switchMap(() => this.paymentService.findPayments(this.currentUser.email)),
-            tap(
-              () => {
-                this.messageService.add({
-                  severity: 'success',
-                  summary: 'Successful',
-                  detail: 'Payment sent',
-                  life: 3000
-                })
-              }
-            ))
-      }
-    });
+    if ((this.paymentForm.controls['selectedEmail'].value != null)
+      && (this.paymentForm.controls['selectedCurrency'].value != null)
+      && (this.paymentForm.controls['amount'].value > 0)) {
+
+      this.confirmationService.confirm({
+        message: 'Are you sure you want to send '
+          + this.paymentForm.controls['amount'].value
+          + ' '
+          + this.paymentForm.controls['selectedCurrency'].value
+          + ' to '
+          + this.paymentForm.controls['selectedEmail'].value
+          + '?',
+        header: 'Confirm',
+        icon: 'pi pi-exclamation-triangle',
+        key: 'paymentdialog',
+        accept: () => {
+          this.payments$ = this.paymentService.createPayment(this.currentUser, this.paymentForm.controls['selectedEmail'].value, this.paymentForm.controls['description'].value, this.paymentForm.controls['amount'].value, this.paymentForm.controls['selectedCurrency'].value)
+            .pipe(switchMap(() => this.paymentService.findPayments(this.currentUser.email)),
+              tap(
+                () => {
+                  this.messageService.add({
+                    severity: 'success',
+                    summary: 'Successful',
+                    detail: 'Payment sent',
+                    life: 3000
+                  })
+                }
+              ))
+        }
+      });
+    } else {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Cannot send payment',
+        detail: 'Invalid values',
+        life: 3000})
+    }
   }
 }

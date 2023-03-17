@@ -6,7 +6,8 @@ import {SessionService} from "../../services/session.service";
 })
 export class AmountPipe implements PipeTransform {
 
-  transform(email: string, amount: number): string {
-    return email === SessionService.currentUser.email ? '+ ' + amount.toString() : '- ' + amount.toString();
+  transform(amount: string | null, email: string): string {
+
+    return email === SessionService.currentUser.email ? '+' + amount : '-' + amount;
   }
 }
