@@ -46,16 +46,21 @@ export class ProfileComponent implements OnInit {
   saveProfile() {
     this.submitted = true;
 
-    if ((this.currentUser.email != null) && (this.currentUser.password === this.confirmedPassword))
-       {
+    if ((this.currentUser.email.length > 0) && (this.currentUser.password === this.confirmedPassword)) {
       this.userService.updateUser(this.email, this.currentUser)
-        .subscribe(() => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Successful',
-            detail: 'User profile Updated',
-            life: 3000});
-          SessionService.currentUser = this.currentUser;
+        .subscribe({
+          next: () => {
+            this.messageService.add({
+                severity: 'success',
+                summary: 'Successful',
+                detail: 'User profile Updated',
+                life: 3000
+              }
+            );
+            SessionService.currentUser = this.currentUser;
+            this.dialog = false;
+          },
+          error: () => {}
         });
     } else {
       this.messageService.add({
@@ -65,7 +70,6 @@ export class ProfileComponent implements OnInit {
         life: 3000
       })
     }
-    this.dialog = false;
   }
 }
 
