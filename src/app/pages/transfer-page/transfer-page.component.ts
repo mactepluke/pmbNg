@@ -1,12 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../model/user";
 import {SessionService} from "../../services/session.service";
-import {Observable, shareReplay, switchMap} from "rxjs";
+import {Observable, shareReplay, switchMap, tap} from "rxjs";
 import {Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {Payment} from "../../model/Payment";
 import {PaymentService} from "../../services/payment.service";
 import {RecipientService} from "../../services/recipient.service";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {SpotAccount} from "../../model/spot-account";
+import {SpotAccountService} from "../../services/spot-account.service";
+import {ConfirmationService, MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-transfer-page',
@@ -16,9 +20,19 @@ import {RecipientService} from "../../services/recipient.service";
 export class TransferPageComponent implements OnInit {
   currentUser!: User;
   recipientUsers$!: Observable<User[]>;
+  spotAccounts$!: Observable<SpotAccount[]>;
   payments$!: Observable<Payment[]>;
+  paymentForm!: FormGroup;
+  cur!: string;
 
-  constructor(private router: Router, private userService: UserService, private paymentService: PaymentService, private recipientService: RecipientService) {
+  constructor(private fb: FormBuilder,
+              private router: Router,
+              private userService: UserService,
+              private paymentService: PaymentService,
+              private recipientService: RecipientService,
+              private spotAccountService: SpotAccountService,
+              private confirmationService: ConfirmationService,
+              private messageService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -26,15 +40,47 @@ export class TransferPageComponent implements OnInit {
       this.router.navigateByUrl('paymybuddy/login');
     } else {
       this.currentUser = SessionService.currentUser;
+      this.spotAccounts$ = this.spotAccountService.findSpotAccounts(this.currentUser);
       this.payments$ = this.paymentService.findPayments(this.currentUser.email);
       this.recipientUsers$ = this.recipientService
         .findRecipients(this.currentUser)
         .pipe(shareReplay({bufferSize: 1, refCount: true}))
     }
+    this.paymentForm = new FormGroup({
+      selectedEmail: new FormControl(),
+      selectedCurrency: new FormControl(),
+      amount: new FormControl(),
+      description: new FormControl()
+    });
   }
 
-  OnPay(email: string) {
-    this.payments$ = this.paymentService.createPayment(this.currentUser, email, "paiement test", 10, "EUR")
-      .pipe(switchMap(() => this.paymentService.findPayments(this.currentUser.email)));
+  OnPay() {
+
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to send '
+        + this.paymentForm.controls['amount'].value
+        +' '
+        + this.paymentForm.controls['selectedCurrency'].value
+        +' to '
+        + this.paymentForm.controls['selectedEmail'].value
+        +'?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      key: 'paymentdialog',
+      accept: () => {
+        this.payments$ = this.paymentService.createPayment(this.currentUser, this.paymentForm.controls['selectedEmail'].value, this.paymentForm.controls['description'].value, this.paymentForm.controls['amount'].value, this.paymentForm.controls['selectedCurrency'].value)
+          .pipe(switchMap(() => this.paymentService.findPayments(this.currentUser.email)),
+            tap(
+              () => {
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Successful',
+                  detail: 'Payment sent',
+                  life: 3000
+                })
+              }
+            ))
+      }
+    });
   }
 }

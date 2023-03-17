@@ -14,12 +14,24 @@
   margin-top: 10px;
 }
 
-#pay-button {
-  padding-right: 80px;
-  padding-left: 80px;
+.margined {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .button-block  {
   justify-content: space-evenly;
   margin-top: 50px;
+}
+
+.status-processed {
+  border-radius: 3px;
+  padding : 2px 4px 2px 4px;
+  background-color: rgb(190, 225, 195);
+}
+
+.status-pending {
+  border-radius: 3px;
+  padding : 2px 4px 2px 4px;
+  background-color: rgb(255, 200, 200);
 }

@@ -38,6 +38,9 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {RippleModule} from "primeng/ripple";
 import {DialogModule} from "primeng/dialog";
 import { AddbuddyDialogComponent } from './dialogs/addbuddy-dialog/addbuddy-dialog.component';
+import { ProcessedPipe } from './pages/transfer-page/processed.pipe';
+import { MePipe } from './pages/transfer-page/me.pipe';
+import { AmountPipe } from './pages/transfer-page/amount.pipe';
 
 
 @NgModule({
@@ -56,7 +59,10 @@ import { AddbuddyDialogComponent } from './dialogs/addbuddy-dialog/addbuddy-dial
     LoginPageComponent,
     CreateAccountPageComponent,
     RecipientsComponent,
-    AddbuddyDialogComponent
+    AddbuddyDialogComponent,
+    ProcessedPipe,
+    MePipe,
+    AmountPipe
   ],
     imports: [
         BrowserModule,

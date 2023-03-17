@@ -8,9 +8,9 @@ export class Payment {
   currency!: string;
   dateTime!: Date;
   processed!: boolean;
-  recipient!: Recipient;
+  recipientEmail!: string;
 
-  constructor(description: string, grossAmount: number, netAmount: number, feePercent: number, currency: string, dateTime: Date, processed: boolean, recipient: Recipient) {
+  constructor(description: string, grossAmount: number, netAmount: number, feePercent: number, currency: string, dateTime: Date, processed: boolean, recipientEmail: string) {
     this.description = description;
     this.grossAmount = grossAmount;
     this.netAmount = netAmount;
@@ -18,6 +18,6 @@ export class Payment {
     this.currency = currency;
     this.dateTime = dateTime;
     this.processed = processed;
-    this.recipient = recipient;
+    this.recipientEmail = recipientEmail;
   }
 }

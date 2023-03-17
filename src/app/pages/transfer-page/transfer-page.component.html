@@ -1,55 +1,61 @@
 <p-toast></p-toast>
 
-<p-card class="container margined-card" header="Send Money">
+<p-card *ngIf="spotAccounts$ | async as spotAccounts" class="container margined-card" header="Send Money">
   <div class="horizontal-block" [style]="{width: '1000px'}">
     <p></p>
     <app-addbuddy-dialog [(recipientUsers$)]="recipientUsers$"></app-addbuddy-dialog>
   </div>
 
-  <div *ngIf="recipientUsers$ | async as recipientUsers" class="horizontal-block grey-block">
-    <p-dropdown placeholder="<Choose a buddy>" inputId="email" optionLabel="email" [options]="recipientUsers">
+  <div *ngIf="recipientUsers$ | async as recipientUsers" class="horizontal-block grey-block" [formGroup]="paymentForm">
+    <p-dropdown placeholder="<Buddy>" [required]="true" optionValue="email" optionLabel="email" [options]="recipientUsers" formControlName="selectedEmail">
       <ng-template let-option pTemplate="item">
-        <span [class]="option.email">{{option.email}}</span>
+        <span>{{option.email}}</span>
       </ng-template>
     </p-dropdown>
 
-    <p-inputNumber [showButtons]="true" mode="currency" currency="EUR" locale="fr-FR" [min]="0" [max]="1000"
-                   [step]="10" placeholder="0,00 €"></p-inputNumber>
+    <p-dropdown class="margined" placeholder="<Account>" [required]="true" optionValue="currency" optionLabel="currency" [options]="spotAccounts" formControlName="selectedCurrency">
+      <ng-template let-option pTemplate="item">
+        <span>{{option.currency}}</span>
+      </ng-template>
+    </p-dropdown>
 
-    <ng-template *ngIf="true" let-recipientUser pTemplate="button">
-      <button (click)="OnPay(recipientUser.email)" pButton type="button" label="Pay" class="p-button-success"
-              id="pay-button"></button>
-    </ng-template>
+    <p-inputNumber class="margined" formControlName="amount" [showButtons]="true" [required]="true" mode="decimal" locale="fr-FR" [min]="0" [max]="1000"
+                   [step]="10" placeholder="0,00"></p-inputNumber>
+
+    <input placeholder="<Description>" class="margined" type="text" pInputText formControlName="description"/>
+
+    <button [style]="{width: '200px'}" class="margined" (click)="OnPay()" pButton type="button" label="Pay" class="p-button-success"></button>
+
   </div>
 
 </p-card>
 
 <p-card *ngIf="payments$  | async as payments" class="container margined-card" header="My Transactions">
-  <p-table [style]="{width: '1000px'}" [value]="payments"
+  <p-table [style]="{width: '1000px'}" [value]="payments" sortField="dateTime" [sortOrder]="-1"
            [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
            currentPageReportTemplate="Showing {last} to {first} of {totalRecords} entries"
            [rowsPerPageOptions]="[10,25,50]">
     <ng-template pTemplate="header">
       <tr>
-        <th id="dateTime" style="width:14%">Date</th>
-        <th id="recipient" style="width:14%">Recipient</th>
-        <th id="description" style="width:20%">Description</th>
-        <th id="netAmount" style="width:25%">Amount</th>
-        <th id="feePercent" style="width:8%">Fee %</th>
-        <th id="currency" style="width:5%">Currency</th>
-        <th id="processed" style="width:14%">Processed</th>
+        <th id="datetime" style="width:20%">Date</th>
+        <th id="recipient" style="width:25%">Recipient</th>
+        <th id="description" style="width:25%">Description</th>
+        <th id="netAmount" style="width:15%">Amount</th>
+        <th id="feePercent" style="width:5%">Fee %</th>
+        <th id="currency" style="width:5%">Account</th>
+        <th id="status" style="width:5%">Status</th>
       </tr>
     </ng-template>
-
+<!--    | amount: payment.recipientEmail:payment.netAmount-->
     <ng-template pTemplate="body" let-payment>
       <tr>
-        <td>{{payment.dateTime}}</td>
-        <td>{{payment.recipient}}</td>
-        <td>{{payment.description}}</td>
+        <td>{{payment.dateTime | date: 'dd/MM/yyyy HH:mm'}}</td>
+        <td>{{payment.recipientEmail | me}}</td>
+        <td>{{payment.description | titlecase}}</td>
         <td>{{payment.netAmount}}</td>
         <td>{{payment.feePercent}}</td>
         <td>{{payment.currency}}</td>
-        <td>{{payment.processed}}</td>
+        <td><span [class]="'status-' + (payment.processed ? 'processed' : 'pending')">{{payment.processed | processed}}</span></td>
       </tr>
     </ng-template>
 
@@ -58,3 +64,5 @@
     </div>
   </p-table>
 </p-card>
+
+<p-confirmDialog key="paymentdialog" [style]="{width: '450px'}"></p-confirmDialog>
