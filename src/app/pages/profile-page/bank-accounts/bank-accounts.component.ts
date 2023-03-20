@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {BankAccount} from "../../../model/bank-account";
 import {User} from "../../../model/user";
 import {BankAccountService} from "../../../services/bank-account.service";
-import {catchError, Observable, switchMap, tap} from "rxjs";
+import {Observable, switchMap, tap} from "rxjs";
 import {ConfirmationService, MessageService} from "primeng/api";
 
 @Component({

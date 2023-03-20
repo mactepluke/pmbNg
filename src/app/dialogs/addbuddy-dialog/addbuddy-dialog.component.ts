@@ -4,6 +4,7 @@ import {Observable, shareReplay, switchMap, tap} from "rxjs";
 import {RecipientService} from "../../services/recipient.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {SessionService} from "../../services/session.service";
+import {Recipient} from "../../model/recipient";
 
 @Component({
   selector: 'app-addbuddy-dialog',
@@ -14,6 +15,7 @@ export class AddbuddyDialogComponent {
   dialog!: boolean;
   submitted!: boolean;
   recipientUser!: User;
+  recipient!: Recipient;
   @Input() recipientUsers$!: Observable<User[]>;
   @Output() recipientUsers$Change: EventEmitter<Observable<User[]>> = new EventEmitter<Observable<User[]>>();
 
@@ -31,10 +33,11 @@ export class AddbuddyDialogComponent {
     this.submitted = false;
   }
 
+
   saveRecipient() {
     this.submitted = true;
 
-    if (this.recipientUser.email.length != 0) {
+   if (this.recipientUser.email.length != 0) {
       this.recipientUsers$ = this.recipientService.createRecipient(SessionService.currentUser, this.recipientUser.email)
         .pipe(switchMap(() => this.recipientService.findRecipients(SessionService.currentUser)),
           tap(
@@ -43,7 +46,7 @@ export class AddbuddyDialogComponent {
               this.messageService.add({
                 severity: 'success',
                 summary: 'Successful',
-                detail: 'Buddy Added',
+                detail: 'Buddy Added (if exists)',
                 life: 3000
               });
               this.dialog = false;
@@ -59,4 +62,6 @@ export class AddbuddyDialogComponent {
       })
     }
   }
+
+
 }

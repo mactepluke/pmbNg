@@ -20,6 +20,7 @@ export class SpotAccountsComponent implements OnInit {
   spotAccount!: SpotAccount;
   currencies!: string[];
   fundsCreditOrWithdrawal!: boolean;
+  spotAccountsNumber!: number;
 
   constructor(private spotAccountService: SpotAccountService, private confirmationService: ConfirmationService, private messageService: MessageService) {
   }
