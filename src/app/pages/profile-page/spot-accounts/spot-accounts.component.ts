@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {SpotAccount} from "../../../model/spot-account";
 import {User} from "../../../model/user";
 import {SpotAccountService} from "../../../services/spot-account.service";
-import {Observable, switchMap, tap} from "rxjs";
+import {Observable, shareReplay, switchMap, tap} from "rxjs";
 import {ConfirmationService, MessageService} from "primeng/api";
 
 @Component({
@@ -15,48 +15,60 @@ export class SpotAccountsComponent implements OnInit {
 
   @Input() currentUser!: User;
   spotAccounts$!: Observable<SpotAccount[]>;
-  dialog!: boolean;
+  addDialog!: boolean;
+  fundsDialog!: boolean;
   spotAccount!: SpotAccount;
-  currencies!: any[];
+  currencies!: string[];
+  fundsCreditOrWithdrawal!: boolean;
 
   constructor(private spotAccountService: SpotAccountService, private confirmationService: ConfirmationService, private messageService: MessageService) {
   }
 
   ngOnInit(): void {
-    this.spotAccounts$ = this.spotAccountService.findSpotAccounts(this.currentUser);
-    this.currencies =  [
-      {label: 'EUR', value: 'EUR'},
-      {label: 'USD', value: 'USD'},
-      {label: 'GBP', value: 'GBP'},
-      {label: 'CHF', value: 'CHF'},
-      {label: 'AUD', value: 'AUD'},
-    ];
+    this.spotAccount = new SpotAccount();
+    this.spotAccounts$ = this.spotAccountService
+      .findSpotAccounts(this.currentUser)
+      .pipe(shareReplay({bufferSize: 1, refCount: true}),
+        tap((spotAccounts) => this.updateCurrencies(spotAccounts)));
+  }
+
+  updateCurrencies(spotAccounts: SpotAccount[]): void {
+
+    this.currencies = ['EUR', 'USD', 'GBP', 'CHF', 'AUD'];
+
+    for (let spotAccount of spotAccounts) {
+      this.currencies = this.currencies.filter(currency => currency !== spotAccount.currency);
+    }
   }
 
   onAddSpotAccount() {
     this.spotAccount = new SpotAccount();
-    this.dialog = true;
+    this.addDialog = true;
   }
 
-  hideDialog() {
-    this.dialog = false;
+  hideAddDialog() {
+    this.addDialog = false;
   }
 
   saveSpotAccount() {
 
     this.spotAccounts$ = this.spotAccountService.createSpotAccount(this.currentUser, this.spotAccount.currency)
-      .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.currentUser)),
+      .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.currentUser).pipe(shareReplay({
+          bufferSize: 1,
+          refCount: true
+        }))),
         tap(
-          () => {
+          (spotAccounts) => {
             this.messageService.add({
               severity: 'success',
               summary: 'Successful',
               detail: 'Spot account Created',
               life: 3000
             });
+            this.updateCurrencies(spotAccounts);
           })
       );
-    this.dialog = false;
+    this.addDialog = false;
   }
 
   deleteSpotAccount(spotAccount: SpotAccount) {
@@ -68,15 +80,19 @@ export class SpotAccountsComponent implements OnInit {
       key: 'spotaccountdialog',
       accept: () => {
         this.spotAccounts$ = this.spotAccountService.deleteSpotAccount(this.currentUser, spotAccount.currency)
-          .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.currentUser)),
+          .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.currentUser).pipe(shareReplay({
+              bufferSize: 1,
+              refCount: true
+            }))),
             tap(
-              () => {
+              (spotAccounts) => {
                 this.messageService.add({
                   severity: 'success',
                   summary: 'Successful',
                   detail: 'Spot Account Deleted',
                   life: 3000
-                })
+                });
+                this.updateCurrencies(spotAccounts);
               }
             ))
       }
@@ -84,8 +100,23 @@ export class SpotAccountsComponent implements OnInit {
   }
 
   onCreditFunds() {
+    this.fundsCreditOrWithdrawal = true;
+    this.fundsDialog = true;
   }
 
   onWithDrawFunds() {
+    this.fundsCreditOrWithdrawal = false;
+    this.fundsDialog = true;
   }
+
+  hideFundsDialog() {
+    this.fundsDialog = false;
+  }
+
+  processFunds() {
+    if (this.fundsCreditOrWithdrawal) {
+
+    }
+  }
+
 }

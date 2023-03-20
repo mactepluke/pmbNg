@@ -16,14 +16,10 @@
     <label for="float-password">Password *</label>
     </span>
 
-      <div class="margined2">
-        <p-checkbox [binary]="true" label="Remember me"
-                    formControlName="rememberMe"></p-checkbox>
-      </div>
     </div>
 
 
-    <div class="container centered">
+    <div class="container centered margined">
       <button [disabled]="loginForm.invalid" (click)="onSubmitForm()" pButton type="submit" label="Log In"
               class="p-button-primary"></button>
     </div>
