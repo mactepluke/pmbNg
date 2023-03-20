@@ -5,5 +5,7 @@ export class BankAccount {
 
   constructor() {
     this.name = '';
+    this.iban = '';
+    this.verified = false;
   }
 }

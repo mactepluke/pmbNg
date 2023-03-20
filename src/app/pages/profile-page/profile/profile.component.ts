@@ -14,8 +14,12 @@ export class ProfileComponent implements OnInit {
   @Input() currentUser!: User;
   dialog!: boolean;
   submitted!: boolean;
+  oldEmail!: string;
   email!: string;
+  password!: string;
   confirmedPassword!: string;
+  firstName!: string;
+  lastName!: string;
 
   constructor(private sessionService: SessionService,
               private router: Router,
@@ -25,7 +29,11 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.oldEmail = this.currentUser.email;
     this.email = this.currentUser.email;
+    this.password = this.currentUser.password;
+    this.firstName = this.currentUser.firstName;
+    this.lastName = this.currentUser.lastName;
   }
 
   onLogout() {
@@ -46,8 +54,20 @@ export class ProfileComponent implements OnInit {
   saveProfile() {
     this.submitted = true;
 
-    if ((this.currentUser.email.length > 0) && (this.currentUser.password === this.confirmedPassword)) {
-      this.userService.updateUser(this.email, this.currentUser)
+    if ((this.email.length > 0)
+      && (this.password === this.confirmedPassword)
+      && (this.firstName.length != 0)
+      && (this.lastName.length != 0)
+    ) {
+
+      let updatedUser = new User();
+      updatedUser = SessionService.currentUser;
+      updatedUser.email = this.email;
+      updatedUser.password = this.password;
+      updatedUser.firstName = this.firstName;
+      updatedUser.lastName = this.lastName;
+
+      this.userService.updateUser(this.oldEmail, updatedUser)
         .subscribe({
           next: () => {
             this.messageService.add({
@@ -57,10 +77,13 @@ export class ProfileComponent implements OnInit {
                 life: 3000
               }
             );
-            SessionService.currentUser = this.currentUser;
+            this.oldEmail = this.email;
+            SessionService.currentUser = updatedUser;
+            this.currentUser = updatedUser;
             this.dialog = false;
           },
-          error: () => {}
+          error: () => {
+          }
         });
     } else {
       this.messageService.add({

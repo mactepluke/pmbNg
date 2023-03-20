@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {BankAccount} from "../../../model/bank-account";
 import {User} from "../../../model/user";
 import {BankAccountService} from "../../../services/bank-account.service";
-import {Observable, switchMap, tap} from "rxjs";
+import {catchError, Observable, switchMap, tap} from "rxjs";
 import {ConfirmationService, MessageService} from "primeng/api";
 
 @Component({
@@ -16,12 +16,13 @@ export class BankAccountsComponent implements OnInit {
   dialog!: boolean;
   submitted!: boolean;
   bankAccount!: BankAccount;
+  bankAccountsLength!: number;
 
   constructor(private bankAccountService: BankAccountService, private confirmationService: ConfirmationService, private messageService: MessageService) {
   }
 
   ngOnInit(): void {
-    this.bankAccounts$ = this.bankAccountService.findBankAccounts(this.currentUser);
+    this.bankAccounts$ = this.bankAccountService.findBankAccounts(this.currentUser).pipe(tap((banksAccounts)=> {this.bankAccountsLength = banksAccounts.length}));
   }
 
   onAddBankAccount() {
@@ -38,19 +39,31 @@ export class BankAccountsComponent implements OnInit {
   saveBankAccount() {
     this.submitted = true;
 
-    if ((this.bankAccount.name != null)
+    if ((this.bankAccount.name.length > 0)
       && (this.bankAccount.iban.length <= 34)
       && (this.bankAccount.iban.length >= 30)) {
       this.bankAccounts$ = this.bankAccountService.createBankAccount(this.currentUser, this.bankAccount.name, this.bankAccount.iban)
         .pipe(switchMap(() => this.bankAccountService.findBankAccounts(this.currentUser)),
-          tap(
-            () => {
+          tap((banksAccounts) => {
+
+            if (banksAccounts.length > this.bankAccountsLength) {
               this.messageService.add({
                 severity: 'success',
                 summary: 'Successful',
                 detail: 'Bank account Created',
                 life: 3000
               });
+              this.bankAccountsLength = banksAccounts.length;
+            }
+            else {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Could not create account',
+                detail: 'IBAN may already exist',
+                life: 3000
+              });
+            }
+              this.dialog = false;
             })
         );
     } else {
@@ -60,7 +73,6 @@ export class BankAccountsComponent implements OnInit {
         detail: 'Invalid values',
         life: 3000})
     }
-    this.dialog = false;
   }
 
   deleteBankAccount(bankAccount: BankAccount) {

@@ -34,21 +34,29 @@ export class AddbuddyDialogComponent {
   saveRecipient() {
     this.submitted = true;
 
-    this.recipientUsers$ = this.recipientService.createRecipient(SessionService.currentUser, this.recipientUser.email)
-      .pipe(switchMap(() => this.recipientService.findRecipients(SessionService.currentUser)),
-        tap(
-          () => {
-            this.recipientUsers$Change.emit(this.recipientUsers$);
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Successful',
-              detail: 'Buddy Added',
-              life: 3000
-            });
-          }),
-      shareReplay({ bufferSize: 1, refCount: true })
-      );
-    this.dialog = false;
+    if (this.recipientUser.email.length != 0) {
+      this.recipientUsers$ = this.recipientService.createRecipient(SessionService.currentUser, this.recipientUser.email)
+        .pipe(switchMap(() => this.recipientService.findRecipients(SessionService.currentUser)),
+          tap(
+            () => {
+              this.recipientUsers$Change.emit(this.recipientUsers$);
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Successful',
+                detail: 'Buddy Added',
+                life: 3000
+              });
+              this.dialog = false;
+            }),
+          shareReplay({bufferSize: 1, refCount: true})
+        );
+    } else {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Cannot add buddy',
+        detail: 'Invalid parameter',
+        life: 3000
+      })
+    }
   }
-
 }

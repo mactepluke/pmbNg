@@ -5,8 +5,8 @@ import {Payment} from "./Payment";
 
 export class User {
 
-  email!: string;
-  password!: string;
+  email = '';
+  password = '';
   firstName = '(unknown)';
   lastName = '(unknown)';
   verified = false;

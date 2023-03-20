@@ -8,7 +8,7 @@
     <div class="field">
       <label for="name">Buddy email</label>
       <input type="text" pInputText id="name" [(ngModel)]="recipientUser.email" required autofocus />
-      <small class="p-error" *ngIf="submitted && !recipientUser.email">Email is required.</small>
+      <small class="p-error" *ngIf="submitted && (recipientUser.email.length === 0)">Email is required.</small>
     </div>
 
   </ng-template>
