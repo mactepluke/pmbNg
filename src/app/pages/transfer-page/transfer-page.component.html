@@ -14,15 +14,16 @@
       </ng-template>
     </p-dropdown>
 
+
     <p-dropdown class="margined" placeholder="<Account>" [required]="true" optionValue="currency" optionLabel="currency"
-                [options]="spotAccounts" formControlName="selectedCurrency">
+                [options]="spotAccounts" formControlName="selectedCurrency" (onChange)="setAvailableAmount(spotAccounts)">
       <ng-template let-option pTemplate="item">
         <span>{{option.currency}}</span>
       </ng-template>
     </p-dropdown>
 
-    <p-inputNumber class="margined" formControlName="amount" [showButtons]="true" [required]="true" mode="decimal"
-                   locale="fr-FR" [min]="0" [max]="1000"
+    <p-inputNumber class="margined" formControlName="amount" [showButtons]="true" [required]="true" mode="currency" [currency]="selectedCurrency"
+                   locale="fr-FR" [min]="0" [max]="availableAmount"
                    [step]="10" placeholder="0,00"></p-inputNumber>
 
     <input placeholder="<Description>" class="margined" type="text" pInputText formControlName="description"/>
@@ -54,7 +55,7 @@
         <td>{{payment.dateTime | date: 'dd/MM/yyyy HH:mm'}}</td>
         <td>{{payment.recipientEmail | transaction: payment.emitterEmail}}</td>
         <td>{{payment.description}}</td>
-        <td>{{payment.netAmount | currency: payment.currency : true : '1.2-2' | amount: payment.recipientEmail}}</td>
+        <td>{{payment.netAmount | currency: payment.currency : "symbol" : '1.2-2' | amount: payment.recipientEmail}}</td>
         <td>{{payment.grossAmount - payment.netAmount | currency: payment.currency : "symbol" : '1.2-2'}}</td>
         <td><span
           [class]="'status-' + (payment.processed ? 'processed' : 'pending')">{{payment.processed | processed}}</span>

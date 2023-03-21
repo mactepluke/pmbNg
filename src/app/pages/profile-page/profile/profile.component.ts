@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from "../../../model/user";
 import {SessionService} from "../../../services/session.service";
 import {Router} from "@angular/router";
@@ -11,7 +11,6 @@ import {ConfirmationService, MessageService} from "primeng/api";
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  @Input() currentUser!: User;
   dialog!: boolean;
   submitted!: boolean;
   oldEmail!: string;
@@ -29,11 +28,16 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.oldEmail = this.currentUser.email;
-    this.email = this.currentUser.email;
-    this.password = this.currentUser.password;
-    this.firstName = this.currentUser.firstName;
-    this.lastName = this.currentUser.lastName;
+    this.oldEmail = SessionService.currentUser.email;
+    this.email = SessionService.currentUser.email;
+    this.password = SessionService.currentUser.password;
+    this.firstName = SessionService.currentUser.firstName;
+    this.lastName = SessionService.currentUser.lastName;
+    this.confirmedPassword = '';
+  }
+
+  currentUser(): User{
+    return SessionService.currentUser;
   }
 
   onLogout() {
@@ -79,8 +83,8 @@ export class ProfileComponent implements OnInit {
             );
             this.oldEmail = this.email;
             SessionService.currentUser = updatedUser;
-            this.currentUser = updatedUser;
             this.dialog = false;
+            this.confirmedPassword = '';
           },
           error: () => {
           }

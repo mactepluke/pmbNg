@@ -1,16 +1,16 @@
 <p-toast></p-toast>
-<div *ngIf="currentUser$ | async as currentUser" class="column">
+<div *ngIf="currentUser$ | async" class="column">
   <div  class="container margined-card">
-    <app-profile [currentUser]="currentUser"></app-profile>
+    <app-profile></app-profile>
   </div>
   <div class="container margined-card">
-    <app-spot-accounts [currentUser]="currentUser"></app-spot-accounts>
+    <app-spot-accounts></app-spot-accounts>
   </div>
   <div class="container margined-card">
-    <app-bank-accounts [currentUser]="currentUser"></app-bank-accounts>
+    <app-bank-accounts></app-bank-accounts>
   </div>
   <div class="container margined-card">
-    <app-recipients [currentUser]="currentUser"></app-recipients>
+    <app-recipients></app-recipients>
   </div>
 </div>
 

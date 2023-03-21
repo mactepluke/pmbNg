@@ -6,4 +6,5 @@ export class SpotAccount {
     this.currency = 'EUR';
     this.credit = 0;
   }
+
 }

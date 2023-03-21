@@ -23,7 +23,8 @@ export class TransferPageComponent implements OnInit {
   spotAccounts$!: Observable<SpotAccount[]>;
   payments$!: Observable<Payment[]>;
   paymentForm!: FormGroup;
-  cur!: string;
+  availableAmount!: number;
+  selectedCurrency!: string;
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -52,6 +53,18 @@ export class TransferPageComponent implements OnInit {
       amount: new FormControl(),
       description: new FormControl()
     });
+    this.availableAmount = 0;
+    this.selectedCurrency = "EUR";
+  }
+
+
+  setAvailableAmount(spotAccounts: SpotAccount[])  {
+    for (let spotAccount of spotAccounts) {
+      if (spotAccount.currency === this.paymentForm.controls['selectedCurrency'].value) {
+        this.availableAmount = spotAccount.credit;
+        this.selectedCurrency = spotAccount.currency;
+      }
+    }
   }
 
   OnPay() {
@@ -87,6 +100,7 @@ export class TransferPageComponent implements OnInit {
         }
       });
     } else {
+      console.log("INVALID VALUES");
       this.messageService.add({
         severity: 'warn',
         summary: 'Cannot send payment',

@@ -15,7 +15,7 @@
     <ng-template pTemplate="body" let-spotAccount>
       <tr>
         <td>{{spotAccount.currency}}</td>
-        <td>{{spotAccount.credit}}</td>
+        <td>{{spotAccount.credit | currency: spotAccount.currency : "symbol" : '1.2-2' }}</td>
         <td>
             <button [disabled]="spotAccount.credit != 0" pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
                     (click)="deleteSpotAccount(spotAccount)"></button>
@@ -27,8 +27,10 @@
     <div class="container button-block" [style]="{width: '1000px'}">
       <button (click)="onAddSpotAccount()" pButton class="p-button-primary" type="button"
               label="Add a Spot Account"></button>
+
       <button (click)="onCreditFunds()" pButton class="p-button-secondary" type="button"
               label="Credit funds from Bank Account"></button>
+
       <button (click)="onWithDrawFunds()" pButton class="p-button-secondary" type="button"
               label="Withdraw funds to Bank Account"></button>
     </div>
@@ -39,9 +41,9 @@
   <ng-template pTemplate="content">
     <div class="field" [style]="{height: '250px'}">
       <label for="currency">Currency</label>
-      <p-dropdown [(ngModel)]="spotAccount.currency" inputId="currency" [options]="currencies" placeholder="Select">
+      <p-dropdown [(ngModel)]="spotAccount.currency" inputId="currency" [options]="notAddedYetSpotAccounts" placeholder="Select">
         <ng-template let-option pTemplate="item">
-          <span [class]="'Currency: ' + option">{{option}}</span>
+          <span>{{option}}</span>
         </ng-template>
       </p-dropdown>
     </div>
@@ -53,25 +55,50 @@
   </ng-template>
 </p-dialog>
 
-<p-dialog [(visible)]="fundsDialog" [style]="{width: '450px'}" header="Manage funds" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="fundsDialog" header="Manage funds" [modal]="true" styleClass="p-fluid">
   <ng-template pTemplate="content">
 
     <p *ngIf="fundsCreditOrWithdrawal">Select the amount you want to credit to your spot account and the bank account you wish to credit from.</p>
     <p *ngIf="!fundsCreditOrWithdrawal">Select the amount you want to withdraw from your spot account and the bank account to wish to withdraw to.</p>
-    <div class="field" [style]="{height: '250px'}">
-      <label for="currency">Currency</label>
-      <p-dropdown [(ngModel)]="spotAccount.currency" inputId="currency" [options]="currencies" placeholder="Select">
+
+    <div class="items">
+    <p-inputNumber *ngIf="fundsCreditOrWithdrawal" [(ngModel)]="spotAccount.credit" class="margined" [showButtons]="true" [required]="true" mode="currency" [currency]="spotAccount.currency"
+                   locale="fr-FR" [min]="0" [max]="1000"
+                   [step]="10" placeholder="0,00"></p-inputNumber>
+
+    <p-inputNumber *ngIf="!fundsCreditOrWithdrawal" class="margined" [showButtons]="true" [required]="true" mode="currency" [currency]="spotAccount.currency"
+                   locale="fr-FR" [min]="0" [max]="spotAccount.credit"
+                   [step]="10" placeholder="0,00"></p-inputNumber>
+    </div>
+
+    <div class="main-block">
+      <div class="items">
+      <label>Spot Account</label>
+      <p-dropdown [(ngModel)]="spotAccount.currency" inputId="currency" optionValue="currency" optionLabel="currency" [options]="alreadyAddedSpotAccounts" placeholder="Select">
         <ng-template let-option pTemplate="item">
-          <span [class]="'Currency: ' + option.value">{{option.label}}</span>
+          <span>{{option.currency}}</span>
         </ng-template>
       </p-dropdown>
     </div>
+    <div class="items">
+    <label>Bank Account</label>
+    <div *ngIf="bankAccounts$ | async as bankAccounts">
+      <p-dropdown (onChange)="setBankAccounts(bankAccounts)" placeholder="Select" [required]="true" inputId="iban" optionValue="name" optionLabel="name"
+                  [options]="bankAccounts">
+        <ng-template let-option pTemplate="item">
+          <span>{{option.name}}</span>
+        </ng-template>
+      </p-dropdown>
+    </div>
+    </div>
+    </div>
+
 
   </ng-template>
 
   <ng-template pTemplate="footer">
     <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideFundsDialog()"></button>
-    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="processFunds()"></button>
+    <button pButton pRipple label="Confirm" icon="pi pi-check" class="p-button-text" (click)="processFunds()"></button>
   </ng-template>
 </p-dialog>
 

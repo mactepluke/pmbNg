@@ -4,6 +4,7 @@ import {SessionService} from "../../services/session.service";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
+import {BankAccount} from "../../model/bank-account";
 
 @Component({
   selector: 'app-profile-page',
@@ -12,7 +13,6 @@ import {UserService} from "../../services/user.service";
 })
 
 export class ProfilePageComponent implements OnInit {
-
   currentUser$!: Observable<User>;
 
   constructor(private router: Router, private userService: UserService) {

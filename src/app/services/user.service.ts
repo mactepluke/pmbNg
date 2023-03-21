@@ -27,19 +27,27 @@ export class UserService {
       bankAccounts: new Array<BankAccount>(),
       transactions: new Array<Payment>()
     }
-    return this.http.post<User>('http://localhost:8080/pmbuser/create', {"email":`${this.user.email}`, "password":`${this.user.password}`});
+    return this.http.post<User>('http://localhost:8080/pmbuser/create', {
+      "email": `${this.user.email}`,
+      "password": `${this.user.password}`
+    });
   }
 
   findUser(email: string): Observable<User> {
     return this.http.get<User>(`http://localhost:8080/pmbuser/find/${email}`);
   }
 
-  loginUser(email: string, password: string): Observable<User>  {
+  loginUser(email: string, password: string): Observable<User> {
     return this.http.get<User>(`http://localhost:8080/pmbuser/login?email=${email}&password=${password}`);
   }
 
-    updateUser(email: string, updatedUser: User): Observable<User> {
+  updateUser(email: string, updatedUser: User): Observable<User> {
     return this.http.put<User>(`http://localhost:8080/pmbuser/update?email=${email}`,
-      {"email":`${updatedUser.email}`, "password":`${updatedUser.password}`, "firstName":`${updatedUser.firstName}`, "lastName":`${updatedUser.lastName}`});
+      {
+        "email": `${updatedUser.email}`,
+        "password": `${updatedUser.password}`,
+        "firstName": `${updatedUser.firstName}`,
+        "lastName": `${updatedUser.lastName}`
+      });
   }
 }

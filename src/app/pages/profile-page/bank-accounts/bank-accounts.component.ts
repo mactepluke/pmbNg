@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BankAccount} from "../../../model/bank-account";
-import {User} from "../../../model/user";
 import {BankAccountService} from "../../../services/bank-account.service";
-import {Observable, switchMap, tap} from "rxjs";
+import {Observable, shareReplay, switchMap, tap} from "rxjs";
 import {ConfirmationService, MessageService} from "primeng/api";
+import {SessionService} from "../../../services/session.service";
 
 @Component({
   selector: 'app-bank-accounts',
@@ -11,7 +11,6 @@ import {ConfirmationService, MessageService} from "primeng/api";
   styleUrls: ['./bank-accounts.component.css']
 })
 export class BankAccountsComponent implements OnInit {
-  @Input() currentUser!: User;
   bankAccounts$!: Observable<BankAccount[]>;
   dialog!: boolean;
   submitted!: boolean;
@@ -22,7 +21,10 @@ export class BankAccountsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.bankAccounts$ = this.bankAccountService.findBankAccounts(this.currentUser).pipe(tap((banksAccounts)=> {this.bankAccountsLength = banksAccounts.length}));
+    this.bankAccounts$ = this.bankAccountService.findBankAccounts(SessionService.currentUser)
+      .pipe(tap((banksAccounts) => {
+        (banksAccounts === null) ? this.bankAccountsLength = 0 : this.bankAccountsLength = banksAccounts.length
+      }), shareReplay({bufferSize: 1, refCount: true}));
   }
 
   onAddBankAccount() {
@@ -42,8 +44,8 @@ export class BankAccountsComponent implements OnInit {
     if ((this.bankAccount.name.length > 0)
       && (this.bankAccount.iban.length <= 34)
       && (this.bankAccount.iban.length >= 30)) {
-      this.bankAccounts$ = this.bankAccountService.createBankAccount(this.currentUser, this.bankAccount.name, this.bankAccount.iban)
-        .pipe(switchMap(() => this.bankAccountService.findBankAccounts(this.currentUser)),
+      this.bankAccounts$ = this.bankAccountService.createBankAccount(SessionService.currentUser, this.bankAccount.name, this.bankAccount.iban)
+        .pipe(switchMap(() => this.bankAccountService.findBankAccounts(SessionService.currentUser)),
           tap((banksAccounts) => {
 
             if (banksAccounts.length > this.bankAccountsLength) {
@@ -54,8 +56,7 @@ export class BankAccountsComponent implements OnInit {
                 life: 3000
               });
               this.bankAccountsLength = banksAccounts.length;
-            }
-            else {
+            } else {
               this.messageService.add({
                 severity: 'error',
                 summary: 'Could not create account',
@@ -63,15 +64,17 @@ export class BankAccountsComponent implements OnInit {
                 life: 3000
               });
             }
-              this.dialog = false;
-            })
+            this.dialog = false;
+          }),
+          shareReplay({bufferSize: 1, refCount: true})
         );
     } else {
       this.messageService.add({
         severity: 'warn',
         summary: 'Cannot create account',
         detail: 'Invalid values',
-        life: 3000})
+        life: 3000
+      })
     }
   }
 
@@ -83,18 +86,29 @@ export class BankAccountsComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       key: 'bankaccountdialog',
       accept: () => {
-        this.bankAccounts$ = this.bankAccountService.deleteBankAccount(this.currentUser, bankAccount.iban)
-          .pipe(switchMap(() => this.bankAccountService.findBankAccounts(this.currentUser)),
-            tap(
-              () => {
+        this.bankAccounts$ = this.bankAccountService.deleteBankAccount(SessionService.currentUser, bankAccount.iban)
+          .pipe(switchMap(() => this.bankAccountService.findBankAccounts(SessionService.currentUser)),
+            tap((banksAccounts) => {
+
+              if (banksAccounts.length < this.bankAccountsLength) {
                 this.messageService.add({
                   severity: 'success',
                   summary: 'Successful',
-                  detail: 'Bank Account Deleted',
+                  detail: 'Bank account Deleted',
                   life: 3000
-                })
+                });
+                this.bankAccountsLength = banksAccounts.length;
+              } else {
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Could not delete account',
+                  detail: 'Internal server error',
+                  life: 3000
+                });
               }
-            ))
+              this.dialog = false;
+            }),
+            shareReplay({bufferSize: 1, refCount: true}))
       }
     });
   }
