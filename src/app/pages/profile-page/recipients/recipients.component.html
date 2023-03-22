@@ -10,7 +10,7 @@
         <th id="email" style="width:33%">Email</th>
         <th id="first-name" style="width:33%">First Name</th>
         <th id="last-name" style="width:33%">Last Name</th>
-        <th></th>
+        <th id="empty"></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-recipientUser>
@@ -28,6 +28,7 @@
 
   <div class="container button-block" [style]="{width: '1000px'}">
     <app-addbuddy-dialog [(recipientUsers$)]="recipientUsers$"></app-addbuddy-dialog>
+    <button (click)="onSendMoney()" pButton class="p-button-secondary" type="button" label="Send Money" ></button>
   </div>
 </p-card>
 

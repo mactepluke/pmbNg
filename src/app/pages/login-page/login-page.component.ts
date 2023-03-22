@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {User} from "../../model/user";
 import {SessionService} from "../../services/session.service";
 import {Router} from "@angular/router";
+import {ConfirmationService, MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-login-page',
@@ -14,11 +15,15 @@ export class LoginPageComponent implements OnInit {
   loginForm!: FormGroup;
   @Input() currentUser$!: Observable<User>;
 
-  constructor(private sessionService: SessionService, private formBuilder: FormBuilder, private router: Router) {
+  constructor(private sessionService: SessionService,
+              private formBuilder: FormBuilder,
+              private router: Router,
+              private confirmationService: ConfirmationService,
+              private messageService: MessageService) {
   }
 
   ngOnInit(): void {
-    if (SessionService.isLoggedIn)  {
+    if (SessionService.isLoggedIn) {
       this.router.navigateByUrl('paymybuddy/profile');
     }
 
@@ -32,17 +37,45 @@ export class LoginPageComponent implements OnInit {
       });
   }
 
-  onSubmitForm(): void  {
+  onSubmitForm(): void {
     console.log(this.loginForm.value);
+
     this.sessionService
       .logIn(this.loginForm.value)
-      .subscribe( user => {
-        SessionService.currentUser = user;
-        if (user != null) {
-        SessionService.isLoggedIn = true;
-        this.router.navigateByUrl('paymybuddy/profile');
-        }
-      });
-  }
+      .subscribe({
+        next: (user) => {
+          console.log(user);
 
+          if (user != null) {
+            SessionService.currentUser = user;
+            SessionService.isLoggedIn = true;
+            this.router.navigateByUrl('paymybuddy/profile').then(() => {
+              console.log("THEN");
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Successful',
+                detail: 'User logged in',
+                life: 3000
+              })
+            });
+
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Cannot log in',
+              detail: 'User not found.',
+              life: 3000
+            });
+          }
+        },
+        error: () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Cannot log in',
+            detail: 'Invalid password.',
+            life: 3000
+          });
+        }
+      })
+  }
 }

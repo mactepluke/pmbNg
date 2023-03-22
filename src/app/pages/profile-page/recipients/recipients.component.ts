@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../../model/user";
-import {RecipientService} from "../../../services/./recipient.service";
-import {Observable, switchMap, tap, publishReplay, shareReplay} from "rxjs";
+import {RecipientService} from "../../../services/recipient.service";
+import {Observable, switchMap, tap, shareReplay} from "rxjs";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {SessionService} from "../../../services/session.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-recipients',
@@ -13,7 +14,10 @@ import {SessionService} from "../../../services/session.service";
 export class RecipientsComponent implements OnInit {
   recipientUsers$!: Observable<User[]>;
 
-  constructor(private recipientService: RecipientService, private confirmationService: ConfirmationService, private messageService: MessageService) {
+  constructor(private recipientService: RecipientService,
+              private confirmationService: ConfirmationService,
+              private messageService: MessageService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -22,7 +26,10 @@ export class RecipientsComponent implements OnInit {
       .pipe(shareReplay({bufferSize: 1, refCount: true}))
   }
 
-  deleteBuddy(recipientUser: User) {
+  deleteBuddy(recipientUser
+                :
+                User
+  ) {
     console.log("Delete button is hit.");
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + recipientUser.email + '?',
@@ -46,5 +53,9 @@ export class RecipientsComponent implements OnInit {
           )
       }
     });
+  }
+
+  onSendMoney() {
+    this.router.navigateByUrl('paymybuddy/transfer');
   }
 }

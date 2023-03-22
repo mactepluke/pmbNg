@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BankAccount} from "../../../model/bank-account";
 import {BankAccountService} from "../../../services/bank-account.service";
 import {Observable, shareReplay, switchMap, tap} from "rxjs";
@@ -46,16 +46,16 @@ export class BankAccountsComponent implements OnInit {
       && (this.bankAccount.iban.length >= 30)) {
       this.bankAccounts$ = this.bankAccountService.createBankAccount(SessionService.currentUser, this.bankAccount.name, this.bankAccount.iban)
         .pipe(switchMap(() => this.bankAccountService.findBankAccounts(SessionService.currentUser)),
-          tap((banksAccounts) => {
+          tap((bankAccounts) => {
 
-            if (banksAccounts.length > this.bankAccountsLength) {
+            if (bankAccounts.length > this.bankAccountsLength) {
               this.messageService.add({
                 severity: 'success',
                 summary: 'Successful',
                 detail: 'Bank account Created',
                 life: 3000
               });
-              this.bankAccountsLength = banksAccounts.length;
+              this.bankAccountsLength = bankAccounts.length;
             } else {
               this.messageService.add({
                 severity: 'error',

@@ -40,6 +40,7 @@ import {AddbuddyDialogComponent} from './dialogs/addbuddy-dialog/addbuddy-dialog
 import {ProcessedPipe} from './pages/transfer-page/processed.pipe';
 import {TransactionPipe} from './pages/transfer-page/transaction.pipe';
 import {AmountPipe} from './pages/transfer-page/amount.pipe';
+import { FeePipe } from './pages/transfer-page/fee.pipe';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import {AmountPipe} from './pages/transfer-page/amount.pipe';
     ProcessedPipe,
     TransactionPipe,
     AmountPipe,
+    FeePipe,
   ],
   imports: [
     BrowserModule,

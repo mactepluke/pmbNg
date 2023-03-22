@@ -1,4 +1,3 @@
-
 <p-card header="Spot Accounts">
 
   <p-table *ngIf="spotAccounts$ | async as spotAccounts" [style]="{width: '1000px'}"
@@ -62,28 +61,38 @@
     <p *ngIf="!fundsCreditOrWithdrawal">Select the amount you want to withdraw from your spot account and the bank account to wish to withdraw to.</p>
 
     <div class="items">
-    <p-inputNumber *ngIf="fundsCreditOrWithdrawal" [(ngModel)]="spotAccount.credit" class="margined" [showButtons]="true" [required]="true" mode="currency" [currency]="spotAccount.currency"
-                   locale="fr-FR" [min]="0" [max]="1000"
+    <p-inputNumber *ngIf="fundsCreditOrWithdrawal" [(ngModel)]="amount"
+                   class="margined" [showButtons]="true" [required]="true"
+                   mode="currency" [currency]="spotAccount.currency"
+                   locale="fr-FR" [min]="10" [max]="2000"
                    [step]="10" placeholder="0,00"></p-inputNumber>
 
-    <p-inputNumber *ngIf="!fundsCreditOrWithdrawal" class="margined" [showButtons]="true" [required]="true" mode="currency" [currency]="spotAccount.currency"
+    <p-inputNumber *ngIf="!fundsCreditOrWithdrawal" [(ngModel)]="amount"
+                   class="margined" [showButtons]="true" [required]="true"
+                   mode="currency" [currency]="spotAccount.currency"
                    locale="fr-FR" [min]="0" [max]="spotAccount.credit"
                    [step]="10" placeholder="0,00"></p-inputNumber>
+      <small class="p-error" *ngIf="submitted && (amount === 0)">You must choose an amount.</small>
+
     </div>
 
     <div class="main-block">
       <div class="items">
       <label>Spot Account</label>
-      <p-dropdown [(ngModel)]="spotAccount.currency" inputId="currency" optionValue="currency" optionLabel="currency" [options]="alreadyAddedSpotAccounts" placeholder="Select">
+      <p-dropdown [(ngModel)]="spotAccount"
+                  inputId="currency"
+                  optionLabel="currency"
+                  [options]="alreadyAddedSpotAccounts"
+                  placeholder="Select">
         <ng-template let-option pTemplate="item">
           <span>{{option.currency}}</span>
         </ng-template>
       </p-dropdown>
     </div>
-    <div class="items">
+    <div class="items" [formGroup]="fundsForm">
     <label>Bank Account</label>
     <div *ngIf="bankAccounts$ | async as bankAccounts">
-      <p-dropdown (onChange)="setBankAccounts(bankAccounts)" placeholder="Select" [required]="true" inputId="iban" optionValue="name" optionLabel="name"
+      <p-dropdown formControlName="selectedBankAccountIban" placeholder="Select" [required]="true" inputId="iban" optionValue="iban" optionLabel="name"
                   [options]="bankAccounts">
         <ng-template let-option pTemplate="item">
           <span>{{option.name}}</span>
@@ -92,7 +101,6 @@
     </div>
     </div>
     </div>
-
 
   </ng-template>
 

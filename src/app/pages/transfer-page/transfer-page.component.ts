@@ -69,8 +69,8 @@ export class TransferPageComponent implements OnInit {
 
   OnPay() {
 
-    if ((this.paymentForm.controls['selectedEmail'].value != null)
-      && (this.paymentForm.controls['selectedCurrency'].value != null)
+    if ((this.paymentForm.controls['selectedEmail'].value != undefined)
+      && (this.paymentForm.controls['selectedCurrency'].value != undefined)
       && (this.paymentForm.controls['amount'].value > 0)) {
 
       this.confirmationService.confirm({
@@ -80,7 +80,7 @@ export class TransferPageComponent implements OnInit {
           + this.paymentForm.controls['selectedCurrency'].value
           + ' to '
           + this.paymentForm.controls['selectedEmail'].value
-          + '?',
+          + '? (the amount actually sent may be smaller if funds are insufficient to pay the fee)',
         header: 'Confirm',
         icon: 'pi pi-exclamation-triangle',
         key: 'paymentdialog',
