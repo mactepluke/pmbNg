@@ -23,16 +23,4 @@ export class SpotAccountService {
       return this.http.delete<SpotAccount>(`http://localhost:8080/spotaccount/delete?email=${user.email}&currency=${spotAccount.currency}`);
   }
 
-  creditSpotAccount(user: User, spotAccount: SpotAccount, iban: string, amount: number): Observable<SpotAccount> {
-    return this.http.put<SpotAccount>(`http://localhost:8080/spotaccount/credit?email=${user.email}&iban=${iban}&amount=${amount}`,{
-      "currency": `${spotAccount.currency}`
-    });
-  }
-
-  withdrawFunds(user: User, spotAccount: SpotAccount, iban: string, amount: number): Observable<SpotAccount> {
-    return this.http.put<SpotAccount>(`http://localhost:8080/spotaccount/withdraw?email=${user.email}&iban=${iban}&amount=${amount}`,{
-      "currency": `${spotAccount.currency}`
-    });
-  }
-
 }

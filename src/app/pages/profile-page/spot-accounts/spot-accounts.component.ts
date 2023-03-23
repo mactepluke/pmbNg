@@ -7,6 +7,7 @@ import {BankAccount} from "../../../model/bank-account";
 import {BankAccountService} from "../../../services/bank-account.service";
 import {SessionService} from "../../../services/session.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {OperationService} from "../../../services/operation.service";
 
 @Component({
   selector: 'app-spot-accounts',
@@ -23,7 +24,6 @@ export class SpotAccountsComponent implements OnInit {
   notAddedYetSpotAccounts!: string[];
   alreadyAddedSpotAccounts!: SpotAccount[];
   fundsCreditOrWithdrawal!: boolean;
-  bankAccounts!: BankAccount[];
   amount!: number;
   fundsForm!: FormGroup;
   submitted!: boolean;
@@ -31,6 +31,7 @@ export class SpotAccountsComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private spotAccountService: SpotAccountService,
               private bankAccountService: BankAccountService,
+              private operationService: OperationService,
               private confirmationService: ConfirmationService,
               private messageService: MessageService) {
   }
@@ -52,12 +53,14 @@ export class SpotAccountsComponent implements OnInit {
     this.alreadyAddedSpotAccounts = new Array<SpotAccount>;
     this.notAddedYetSpotAccounts = ['EUR', 'USD', 'GBP', 'CHF', 'AUD'];
 
-    for (let spotAccount of spotAccounts) {
-      this.spotAccount = new SpotAccount();
-      this.spotAccount.currency = spotAccount.currency;
-      this.spotAccount.credit = spotAccount.credit;
-      this.alreadyAddedSpotAccounts.push(this.spotAccount);
-      this.notAddedYetSpotAccounts = this.notAddedYetSpotAccounts.filter(currency => currency !== spotAccount.currency);
+    if (spotAccounts.length > 0) {
+      for (let spotAccount of spotAccounts) {
+        this.spotAccount = new SpotAccount();
+        this.spotAccount.currency = spotAccount.currency;
+        this.spotAccount.credit = spotAccount.credit;
+        this.alreadyAddedSpotAccounts.push(this.spotAccount);
+        this.notAddedYetSpotAccounts = this.notAddedYetSpotAccounts.filter(currency => currency !== spotAccount.currency);
+      }
     }
   }
 
@@ -122,8 +125,6 @@ export class SpotAccountsComponent implements OnInit {
     this.submitted = false;
     this.amount = 0;
     this.bankAccounts$ = this.bankAccountService.findBankAccounts(SessionService.currentUser);
-    this.spotAccount = new SpotAccount();
-    this.spotAccount.currency = 'EUR';
     this.fundsDialog = true;
   }
 
@@ -149,14 +150,14 @@ export class SpotAccountsComponent implements OnInit {
       //Process spot account credit
       if ((this.fundsForm.controls['selectedBankAccountIban'].value != undefined) && (this.amount > 0)) {
 
-        this.spotAccounts$ = this.spotAccountService.creditSpotAccount(
+        this.spotAccounts$ = this.operationService.creditSpotAccount(
           SessionService.currentUser,
           this.spotAccount,
           this.fundsForm.controls['selectedBankAccountIban'].value,
           this.amount
         )
           .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(SessionService.currentUser)),
-            tap(() => {
+            tap((spotAccounts) => {
 
                 this.messageService.add({
                   severity: 'success',
@@ -165,6 +166,7 @@ export class SpotAccountsComponent implements OnInit {
                   life: 3000
                 });
               this.hideFundsDialog();
+              this.updateCurrencies(spotAccounts);
             }),
             shareReplay({bufferSize: 1, refCount: true})
           );
@@ -182,14 +184,14 @@ export class SpotAccountsComponent implements OnInit {
       //Process funds withdrawal
       if ((this.fundsForm.controls['selectedBankAccountIban'].value != undefined) && (this.amount > 0)) {
 
-        this.spotAccounts$ = this.spotAccountService.withdrawFunds(
+        this.spotAccounts$ = this.operationService.withdrawFunds(
           SessionService.currentUser,
           this.spotAccount,
           this.fundsForm.controls['selectedBankAccountIban'].value,
           this.amount
         )
           .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(SessionService.currentUser)),
-            tap(() => {
+            tap((spotAccounts) => {
 
               this.messageService.add({
                 severity: 'success',
@@ -198,6 +200,7 @@ export class SpotAccountsComponent implements OnInit {
                 life: 3000
               });
               this.hideFundsDialog();
+              this.updateCurrencies(spotAccounts);
             }),
             shareReplay({bufferSize: 1, refCount: true})
           );
@@ -210,9 +213,5 @@ export class SpotAccountsComponent implements OnInit {
         })
       }
     }
-  }
-
-  setBankAccounts(bankAccounts: BankAccount[]) {
-    this.bankAccounts = bankAccounts;
   }
 }
