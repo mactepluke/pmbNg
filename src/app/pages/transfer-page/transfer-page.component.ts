@@ -42,7 +42,7 @@ export class TransferPageComponent implements OnInit {
     } else {
       this.currentUser = SessionService.currentUser;
       this.spotAccounts$ = this.spotAccountService.findSpotAccounts(this.currentUser);
-      this.payments$ = this.paymentService.findPayments(this.currentUser.email);
+      this.payments$ = this.paymentService.findPayments(this.currentUser);
       this.recipientUsers$ = this.recipientService
         .findRecipients(this.currentUser)
         .pipe(shareReplay({bufferSize: 1, refCount: true}))
@@ -86,7 +86,7 @@ export class TransferPageComponent implements OnInit {
         key: 'paymentdialog',
         accept: () => {
           this.payments$ = this.paymentService.createPayment(this.currentUser, this.paymentForm.controls['selectedEmail'].value, this.paymentForm.controls['description'].value, this.paymentForm.controls['amount'].value, this.paymentForm.controls['selectedCurrency'].value)
-            .pipe(switchMap(() => this.paymentService.findPayments(this.currentUser.email)),
+            .pipe(switchMap(() => this.paymentService.findPayments(this.currentUser)),
               tap(
                 () => {
                   this.messageService.add({

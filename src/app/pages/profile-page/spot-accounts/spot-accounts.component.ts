@@ -8,6 +8,7 @@ import {BankAccountService} from "../../../services/bank-account.service";
 import {SessionService} from "../../../services/session.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {OperationService} from "../../../services/operation.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-spot-accounts',
@@ -29,6 +30,7 @@ export class SpotAccountsComponent implements OnInit {
   submitted!: boolean;
 
   constructor(private fb: FormBuilder,
+              private router: Router,
               private spotAccountService: SpotAccountService,
               private bankAccountService: BankAccountService,
               private operationService: OperationService,
@@ -213,5 +215,9 @@ export class SpotAccountsComponent implements OnInit {
         })
       }
     }
+  }
+
+  onShowOperationsHistory() {
+    this.router.navigateByUrl('paymybuddy/operations-history');
   }
 }

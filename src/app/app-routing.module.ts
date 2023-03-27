@@ -7,6 +7,7 @@ import {ContactPageComponent} from "./pages/contact-page/contact-page.component"
 import {NotfoundPageComponent} from "./pages/notfound-page/notfound-page.component";
 import {LoginPageComponent} from "./pages/login-page/login-page.component";
 import {CreateAccountPageComponent} from "./pages/create-account-page/create-account-page.component";
+import {OperationsHistoryPageComponent} from "./pages/operations-history-page/operations-history-page.component";
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'paymybuddy/contact', component: ContactPageComponent},
   {path: 'paymybuddy/login', component: LoginPageComponent},
   {path: 'paymybuddy/create-account', component: CreateAccountPageComponent},
+  {path: 'paymybuddy/operations-history', component: OperationsHistoryPageComponent},
   {path: '**', component: NotfoundPageComponent},
 ]
 

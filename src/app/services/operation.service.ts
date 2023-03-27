@@ -23,4 +23,8 @@ export class OperationService {
       "currency": `${spotAccount.currency}`
     });
   }
+
+  findOperations(email: string): Observable<Operation[]> {
+    return this.http.get<Operation[]>(`http://localhost:8080/operation/findAll/${email}`);
+  }
 }

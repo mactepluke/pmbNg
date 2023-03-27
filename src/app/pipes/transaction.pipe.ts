@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {SessionService} from "../../services/session.service";
+import {SessionService} from "../services/session.service";
 
 @Pipe({
   name: 'transaction'

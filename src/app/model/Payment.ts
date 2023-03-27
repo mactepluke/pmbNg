@@ -9,7 +9,7 @@ export class Payment {
   recipientEmail!: string;
   emitterEmail!: string;
 
-  constructor(description: string,
+/*  constructor(description: string,
               grossAmount: number,
               netAmount: number,
               feePercent: number,
@@ -27,5 +27,5 @@ export class Payment {
     this.processed = processed;
     this.recipientEmail = recipientEmail;
     this.emitterEmail = emitterEmail;
-  }
+  }*/
 }

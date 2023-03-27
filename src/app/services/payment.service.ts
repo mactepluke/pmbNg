@@ -17,8 +17,8 @@ export class PaymentService {
       {"description":`${description}`, "netAmount":`${netAmount}`, "currency":`${currency}`});
   }
 
-  findPayments(email: string): Observable<Payment[]> {
-    return this.http.get<Payment[]>(`http://localhost:8080/payment/findAll/${email}`);
+  findPayments(user: User): Observable<Payment[]> {
+    return this.http.get<Payment[]>(`http://localhost:8080/payment/findAll/${user.email}`);
   }
 
 }

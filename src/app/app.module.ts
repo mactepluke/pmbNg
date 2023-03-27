@@ -37,10 +37,12 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {RippleModule} from "primeng/ripple";
 import {DialogModule} from "primeng/dialog";
 import {AddbuddyDialogComponent} from './dialogs/addbuddy-dialog/addbuddy-dialog.component';
-import {ProcessedPipe} from './pages/transfer-page/processed.pipe';
-import {TransactionPipe} from './pages/transfer-page/transaction.pipe';
-import {AmountPipe} from './pages/transfer-page/amount.pipe';
-import { FeePipe } from './pages/transfer-page/fee.pipe';
+import {ProcessedPipe} from './pipes/processed.pipe';
+import {TransactionPipe} from './pipes/transaction.pipe';
+import {AmountPipe} from './pipes/amount.pipe';
+import { FeePipe } from './pipes/fee.pipe';
+import { OperationsHistoryPageComponent } from './pages/operations-history-page/operations-history-page.component';
+import { OperationtypePipe } from './pipes/operationtype.pipe';
 
 
 @NgModule({
@@ -64,6 +66,8 @@ import { FeePipe } from './pages/transfer-page/fee.pipe';
     TransactionPipe,
     AmountPipe,
     FeePipe,
+    OperationsHistoryPageComponent,
+    OperationtypePipe,
   ],
   imports: [
     BrowserModule,
