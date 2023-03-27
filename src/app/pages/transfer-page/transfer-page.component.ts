@@ -28,6 +28,7 @@ export class TransferPageComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private router: Router,
+              private sessionService: SessionService,
               private userService: UserService,
               private paymentService: PaymentService,
               private recipientService: RecipientService,
@@ -37,10 +38,10 @@ export class TransferPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!SessionService.isLoggedIn) {
+    if (!this.sessionService.isLoggedIn) {
       this.router.navigateByUrl('paymybuddy/login');
     } else {
-      this.currentUser = SessionService.currentUser;
+      this.currentUser = this.sessionService.currentUser;
       this.spotAccounts$ = this.spotAccountService.findSpotAccounts(this.currentUser);
       this.payments$ = this.paymentService.findPayments(this.currentUser);
       this.recipientUsers$ = this.recipientService

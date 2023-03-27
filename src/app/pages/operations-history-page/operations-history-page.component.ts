@@ -14,16 +14,18 @@ export class OperationsHistoryPageComponent implements OnInit {
 
   operations$!: Observable<Operation[]>;
 
-  constructor(private router: Router, private operationService: OperationService) {
+  constructor(private router: Router,
+              private sessionService: SessionService,
+              private operationService: OperationService) {
   }
 
 
   ngOnInit(): void {
 
-    if (!SessionService.isLoggedIn) {
+    if (!this.sessionService.isLoggedIn) {
       this.router.navigateByUrl('paymybuddy/login');
     } else {
-      this.operations$ = this.operationService.findOperations(SessionService.currentUser.email);
+      this.operations$ = this.operationService.findOperations(this.sessionService.currentUser.email);
 
     }
 

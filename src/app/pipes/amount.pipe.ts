@@ -6,13 +6,16 @@ import {SessionService} from "../services/session.service";
 })
 export class AmountPipe implements PipeTransform {
 
+  constructor(private sessionService: SessionService) {
+  }
+
   transform(amount: string | null, param: string): string {
 
     let credit = '+' + amount;
     let debit = '-' + amount;
     let result: string;
 
-    if (param === SessionService.currentUser.email || param === 'Credit') {
+    if (param === this.sessionService.currentUser.email || param === 'Credit') {
       result = credit;
     } else {
       result = debit;

@@ -23,7 +23,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (SessionService.isLoggedIn) {
+    if (this.sessionService.isLoggedIn) {
       this.router.navigateByUrl('paymybuddy/profile');
     }
 
@@ -47,8 +47,8 @@ export class LoginPageComponent implements OnInit {
           console.log(user);
 
           if (user != null) {
-            SessionService.currentUser = user;
-            SessionService.isLoggedIn = true;
+            this.sessionService.currentUser = user;
+            this.sessionService.isLoggedIn = true;
             this.router.navigateByUrl('paymybuddy/profile').then(() => {
               console.log("THEN");
               this.messageService.add({

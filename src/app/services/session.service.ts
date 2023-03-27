@@ -1,7 +1,7 @@
 import {User} from "../model/user";
 import {Injectable} from "@angular/core";
 import {UserService} from "./user.service";
-import {EMPTY, exhaustMap, NEVER, Observable, of, Subject, switchMap, takeUntil, tap} from "rxjs";
+import {Observable} from "rxjs";
 import {Recipient} from "../model/recipient";
 import {SpotAccount} from "../model/spot-account";
 import {BankAccount} from "../model/bank-account";
@@ -11,27 +11,27 @@ import {Payment} from "../model/Payment";
   providedIn: 'root'
 })
 export class SessionService {
-  private static _currentUser: User;
-  private static _isLoggedIn = false;
+  private _currentUser!: User;
+  private _isLoggedIn = false;
 
-  static get currentUser(): User {
+  get currentUser(): User {
     return this._currentUser;
   }
 
-  static set currentUser(value: User) {
+  set currentUser(value: User) {
     this._currentUser = value;
   }
 
-  static get isLoggedIn(): boolean {
+  get isLoggedIn(): boolean {
     return this._isLoggedIn;
   }
 
-  static set isLoggedIn(value: boolean) {
+  set isLoggedIn(value: boolean) {
     this._isLoggedIn = value;
   }
 
   constructor(private userService: UserService) {
-    console.log(SessionService.currentUser);
+    console.log(this._currentUser);
   }
 
 
@@ -54,7 +54,7 @@ export class SessionService {
 
 //TODO rajouter des unsubscribe partout où il faut
   logOut() {
-    SessionService.isLoggedIn = false;
+    this._isLoggedIn = false;
     console.log('User logged out.')
   }
 

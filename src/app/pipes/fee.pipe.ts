@@ -6,8 +6,11 @@ import {SessionService} from "../services/session.service";
 })
 export class FeePipe implements PipeTransform {
 
+  constructor(private sessionService: SessionService) {
+  }
+
   transform(fee: string | null, recipientEmail: string): string {
-    return recipientEmail === SessionService.currentUser.email ? '-' : '' + fee;
+    return recipientEmail === this.sessionService.currentUser.email ? '-' : '' + fee;
   }
 
 }

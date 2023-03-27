@@ -31,6 +31,7 @@ export class SpotAccountsComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private router: Router,
+              private sessionService: SessionService,
               private spotAccountService: SpotAccountService,
               private bankAccountService: BankAccountService,
               private operationService: OperationService,
@@ -41,7 +42,7 @@ export class SpotAccountsComponent implements OnInit {
   ngOnInit(): void {
     this.spotAccount = new SpotAccount();
     this.spotAccounts$ = this.spotAccountService
-      .findSpotAccounts(SessionService.currentUser)
+      .findSpotAccounts(this.sessionService.currentUser)
       .pipe(shareReplay({bufferSize: 1, refCount: true}),
         tap((spotAccounts) => this.updateCurrencies(spotAccounts)));
 
@@ -76,8 +77,8 @@ export class SpotAccountsComponent implements OnInit {
   }
 
   saveSpotAccount() {
-    this.spotAccounts$ = this.spotAccountService.createSpotAccount(SessionService.currentUser, this.spotAccount)
-      .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(SessionService.currentUser).pipe(shareReplay({
+    this.spotAccounts$ = this.spotAccountService.createSpotAccount(this.sessionService.currentUser, this.spotAccount)
+      .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.sessionService.currentUser).pipe(shareReplay({
           bufferSize: 1,
           refCount: true
         }))),
@@ -103,8 +104,8 @@ export class SpotAccountsComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       key: 'spotaccountdialog',
       accept: () => {
-        this.spotAccounts$ = this.spotAccountService.deleteSpotAccount(SessionService.currentUser, spotAccount)
-          .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(SessionService.currentUser).pipe(shareReplay({
+        this.spotAccounts$ = this.spotAccountService.deleteSpotAccount(this.sessionService.currentUser, spotAccount)
+          .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.sessionService.currentUser).pipe(shareReplay({
               bufferSize: 1,
               refCount: true
             }))),
@@ -126,7 +127,7 @@ export class SpotAccountsComponent implements OnInit {
   initializeFundsDialog() {
     this.submitted = false;
     this.amount = 0;
-    this.bankAccounts$ = this.bankAccountService.findBankAccounts(SessionService.currentUser);
+    this.bankAccounts$ = this.bankAccountService.findBankAccounts(this.sessionService.currentUser);
     this.fundsDialog = true;
   }
 
@@ -153,12 +154,12 @@ export class SpotAccountsComponent implements OnInit {
       if ((this.fundsForm.controls['selectedBankAccountIban'].value != undefined) && (this.amount > 0)) {
 
         this.spotAccounts$ = this.operationService.creditSpotAccount(
-          SessionService.currentUser,
+          this.sessionService.currentUser,
           this.spotAccount,
           this.fundsForm.controls['selectedBankAccountIban'].value,
           this.amount
         )
-          .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(SessionService.currentUser)),
+          .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.sessionService.currentUser)),
             tap((spotAccounts) => {
 
                 this.messageService.add({
@@ -187,12 +188,12 @@ export class SpotAccountsComponent implements OnInit {
       if ((this.fundsForm.controls['selectedBankAccountIban'].value != undefined) && (this.amount > 0)) {
 
         this.spotAccounts$ = this.operationService.withdrawFunds(
-          SessionService.currentUser,
+          this.sessionService.currentUser,
           this.spotAccount,
           this.fundsForm.controls['selectedBankAccountIban'].value,
           this.amount
         )
-          .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(SessionService.currentUser)),
+          .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.sessionService.currentUser)),
             tap((spotAccounts) => {
 
               this.messageService.add({

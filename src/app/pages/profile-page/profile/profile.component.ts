@@ -28,16 +28,16 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.oldEmail = SessionService.currentUser.email;
-    this.email = SessionService.currentUser.email;
-    this.password = SessionService.currentUser.password;
-    this.firstName = SessionService.currentUser.firstName;
-    this.lastName = SessionService.currentUser.lastName;
+    this.oldEmail = this.sessionService.currentUser.email;
+    this.email = this.sessionService.currentUser.email;
+    this.password = this.sessionService.currentUser.password;
+    this.firstName = this.sessionService.currentUser.firstName;
+    this.lastName = this.sessionService.currentUser.lastName;
     this.confirmedPassword = '';
   }
 
   currentUser(): User{
-    return SessionService.currentUser;
+    return this.sessionService.currentUser;
   }
 
   onLogout() {
@@ -65,7 +65,7 @@ export class ProfileComponent implements OnInit {
     ) {
 
       let updatedUser = new User();
-      updatedUser = SessionService.currentUser;
+      updatedUser = this.sessionService.currentUser;
       updatedUser.email = this.email;
       updatedUser.password = this.password;
       updatedUser.firstName = this.firstName;
@@ -82,7 +82,7 @@ export class ProfileComponent implements OnInit {
               }
             );
             this.oldEmail = this.email;
-            SessionService.currentUser = updatedUser;
+            this.sessionService.currentUser = updatedUser;
             this.dialog = false;
             this.confirmedPassword = '';
           },

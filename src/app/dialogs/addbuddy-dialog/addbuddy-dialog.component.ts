@@ -19,7 +19,10 @@ export class AddbuddyDialogComponent {
   @Input() recipientUsers$!: Observable<User[]>;
   @Output() recipientUsers$Change: EventEmitter<Observable<User[]>> = new EventEmitter<Observable<User[]>>();
 
-  constructor(private recipientService: RecipientService, private confirmationService: ConfirmationService, private messageService: MessageService) {
+  constructor(private recipientService: RecipientService,
+              private sessionService: SessionService,
+              private confirmationService: ConfirmationService,
+              private messageService: MessageService) {
   }
 
   onAddBuddy() {
@@ -38,8 +41,8 @@ export class AddbuddyDialogComponent {
     this.submitted = true;
 
    if (this.recipientUser.email.length != 0) {
-      this.recipientUsers$ = this.recipientService.createRecipient(SessionService.currentUser, this.recipientUser.email)
-        .pipe(switchMap(() => this.recipientService.findRecipients(SessionService.currentUser)),
+      this.recipientUsers$ = this.recipientService.createRecipient(this.sessionService.currentUser, this.recipientUser.email)
+        .pipe(switchMap(() => this.recipientService.findRecipients(this.sessionService.currentUser)),
           tap(
             () => {
               this.recipientUsers$Change.emit(this.recipientUsers$);

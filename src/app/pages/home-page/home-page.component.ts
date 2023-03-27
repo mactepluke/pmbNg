@@ -9,7 +9,8 @@ import {SessionService} from "../../services/session.service";
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private sessionService: SessionService) {
   }
 
   onLogin() {
@@ -17,7 +18,7 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (SessionService.isLoggedIn)  {
+    if (this.sessionService.isLoggedIn)  {
       this.router.navigateByUrl('paymybuddy/profile');
     }
   }

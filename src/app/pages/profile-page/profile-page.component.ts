@@ -4,7 +4,6 @@ import {SessionService} from "../../services/session.service";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
-import {BankAccount} from "../../model/bank-account";
 
 @Component({
   selector: 'app-profile-page',
@@ -15,14 +14,14 @@ import {BankAccount} from "../../model/bank-account";
 export class ProfilePageComponent implements OnInit {
   currentUser$!: Observable<User>;
 
-  constructor(private router: Router, private userService: UserService) {
+  constructor(private sessionService: SessionService, private router: Router, private userService: UserService) {
   }
 
   ngOnInit(): void {
-    if (!SessionService.isLoggedIn) {
+    if (!this.sessionService.isLoggedIn) {
       this.router.navigateByUrl('paymybuddy/login');
     } else {
-      this.currentUser$ = this.userService.findUser(SessionService.currentUser.email);
+      this.currentUser$ = this.userService.findUser(this.sessionService.currentUser.email);
     }
   }
 }

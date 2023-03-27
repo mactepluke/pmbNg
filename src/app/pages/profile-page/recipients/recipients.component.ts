@@ -14,7 +14,8 @@ import {Router} from "@angular/router";
 export class RecipientsComponent implements OnInit {
   recipientUsers$!: Observable<User[]>;
 
-  constructor(private recipientService: RecipientService,
+  constructor(private sessionService: SessionService,
+              private recipientService: RecipientService,
               private confirmationService: ConfirmationService,
               private messageService: MessageService,
               private router: Router) {
@@ -22,7 +23,7 @@ export class RecipientsComponent implements OnInit {
 
   ngOnInit(): void {
     this.recipientUsers$ = this.recipientService
-      .findRecipients(SessionService.currentUser)
+      .findRecipients(this.sessionService.currentUser)
       .pipe(shareReplay({bufferSize: 1, refCount: true}))
   }
 
@@ -37,8 +38,8 @@ export class RecipientsComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       key: 'recipientdialog',
       accept: () => {
-        this.recipientUsers$ = this.recipientService.deleteRecipient(SessionService.currentUser, recipientUser.email)
-          .pipe(switchMap(() => this.recipientService.findRecipients(SessionService.currentUser)),
+        this.recipientUsers$ = this.recipientService.deleteRecipient(this.sessionService.currentUser, recipientUser.email)
+          .pipe(switchMap(() => this.recipientService.findRecipients(this.sessionService.currentUser)),
             tap(
               () => {
                 this.messageService.add({

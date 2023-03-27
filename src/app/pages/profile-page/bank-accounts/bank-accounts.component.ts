@@ -17,11 +17,14 @@ export class BankAccountsComponent implements OnInit {
   bankAccount!: BankAccount;
   bankAccountsLength!: number;
 
-  constructor(private bankAccountService: BankAccountService, private confirmationService: ConfirmationService, private messageService: MessageService) {
+  constructor(private bankAccountService: BankAccountService,
+              private sessionService: SessionService,
+              private confirmationService: ConfirmationService,
+              private messageService: MessageService) {
   }
 
   ngOnInit(): void {
-    this.bankAccounts$ = this.bankAccountService.findBankAccounts(SessionService.currentUser)
+    this.bankAccounts$ = this.bankAccountService.findBankAccounts(this.sessionService.currentUser)
       .pipe(tap((banksAccounts) => {
         (banksAccounts === null) ? this.bankAccountsLength = 0 : this.bankAccountsLength = banksAccounts.length
       }), shareReplay({bufferSize: 1, refCount: true}));
@@ -44,8 +47,8 @@ export class BankAccountsComponent implements OnInit {
     if ((this.bankAccount.name.length > 0)
       && (this.bankAccount.iban.length <= 34)
       && (this.bankAccount.iban.length >= 30)) {
-      this.bankAccounts$ = this.bankAccountService.createBankAccount(SessionService.currentUser, this.bankAccount.name, this.bankAccount.iban)
-        .pipe(switchMap(() => this.bankAccountService.findBankAccounts(SessionService.currentUser)),
+      this.bankAccounts$ = this.bankAccountService.createBankAccount(this.sessionService.currentUser, this.bankAccount.name, this.bankAccount.iban)
+        .pipe(switchMap(() => this.bankAccountService.findBankAccounts(this.sessionService.currentUser)),
           tap((bankAccounts) => {
 
             if (bankAccounts.length > this.bankAccountsLength) {
@@ -86,8 +89,8 @@ export class BankAccountsComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       key: 'bankaccountdialog',
       accept: () => {
-        this.bankAccounts$ = this.bankAccountService.deleteBankAccount(SessionService.currentUser, bankAccount.iban)
-          .pipe(switchMap(() => this.bankAccountService.findBankAccounts(SessionService.currentUser)),
+        this.bankAccounts$ = this.bankAccountService.deleteBankAccount(this.sessionService.currentUser, bankAccount.iban)
+          .pipe(switchMap(() => this.bankAccountService.findBankAccounts(this.sessionService.currentUser)),
             tap((banksAccounts) => {
 
               if (banksAccounts.length < this.bankAccountsLength) {
