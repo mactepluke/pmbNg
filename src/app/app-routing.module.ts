@@ -1,13 +1,13 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HomePageComponent} from "./pages/home-page/home-page.component";
-import {TransferPageComponent} from "./pages/transfer-page/transfer-page.component";
-import {ProfilePageComponent} from "./pages/profile-page/profile-page.component";
-import {ContactPageComponent} from "./pages/contact-page/contact-page.component";
-import {NotfoundPageComponent} from "./pages/notfound-page/notfound-page.component";
-import {LoginPageComponent} from "./pages/login-page/login-page.component";
-import {CreateAccountPageComponent} from "./pages/create-account-page/create-account-page.component";
-import {OperationsHistoryPageComponent} from "./pages/operations-history-page/operations-history-page.component";
+import {HomePageComponent} from "./core/pages/home-page/home-page.component";
+import {TransferPageComponent} from "./pmb/pmb/pages/transfer-page/transfer-page.component";
+import {ProfilePageComponent} from "./pmb/pmb/pages/profile-page/profile-page.component";
+import {ContactPageComponent} from "./core/pages/contact-page/contact-page.component";
+import {NotfoundPageComponent} from "./core/pages/notfound-page/notfound-page.component";
+import {LoginPageComponent} from "./core/pages/login-page/login-page.component";
+import {CreateAccountPageComponent} from "./core/pages/create-account-page/create-account-page.component";
+import {OperationsHistoryPageComponent} from "./pmb/pmb/pages/operations-history-page/operations-history-page.component";
 
 
 const routes: Routes = [
