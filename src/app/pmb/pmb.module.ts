@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {ProcessedPipe} from "./pipes/processed.pipe";
 import {TransactionPipe} from "./pipes/transaction.pipe";
 import {AmountPipe} from "./pipes/amount.pipe";
@@ -19,22 +18,13 @@ import {InputNumberModule} from "primeng/inputnumber";
 import {TableModule} from "primeng/table";
 import {AvatarModule} from "primeng/avatar";
 import {TagModule} from "primeng/tag";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {InputTextModule} from "primeng/inputtext";
-import {ToastModule} from "primeng/toast";
-import {ConfirmDialogModule} from "primeng/confirmdialog";
-import {RippleModule} from "primeng/ripple";
-import {DialogModule} from "primeng/dialog";
-import {RouterModule} from "@angular/router";
-import {ButtonModule} from "primeng/button";
-import {CardModule} from "primeng/card";
-import {PasswordModule} from "primeng/password";
 import {PmbRoutingModule} from "./pmb-routing.module";
 import {BankAccountService} from "./services/bank-account.service";
 import {OperationService} from "./services/operation.service";
 import {PaymentService} from "./services/payment.service";
 import {RecipientService} from "./services/recipient.service";
 import {SpotAccountService} from "./services/spot-account.service";
+import {SharedModule} from "../shared/shared.module";
 
 
 @NgModule({
@@ -54,25 +44,14 @@ import {SpotAccountService} from "./services/spot-account.service";
     OperationsHistoryPageComponent
   ],
   imports: [
-    CommonModule,
-    RouterModule,
     PmbRoutingModule,
-    ButtonModule,
-    CardModule,
-    PasswordModule,
+    SharedModule,
     CascadeSelectModule,
     DropdownModule,
     InputNumberModule,
     TableModule,
     AvatarModule,
-    TagModule,
-    FormsModule,
-    ReactiveFormsModule,
-    InputTextModule,
-    ToastModule,
-    ConfirmDialogModule,
-    RippleModule,
-    DialogModule,
+    TagModule
   ],
   providers: [
     BankAccountService,

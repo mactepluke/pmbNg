@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {User} from "../../models/user";
-import {SpotAccount} from "../../models/spot-account";
+import {User} from "../models/user";
+import {SpotAccount} from "../models/spot-account";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {Operation} from "../../models/operation";
+import {Operation} from "../models/operation";
 
 @Injectable()
 export class OperationService {

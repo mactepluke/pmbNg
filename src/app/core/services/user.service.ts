@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {User} from "../../models/user";
-import {Recipient} from "../../models/recipient";
-import {SpotAccount} from "../../models/spot-account";
-import {BankAccount} from "../../models/bank-account";
-import {Payment} from "../../models/Payment";
+import {User} from "../../pmb/models/user";
+import {Recipient} from "../../pmb/models/recipient";
+import {SpotAccount} from "../../pmb/models/spot-account";
+import {BankAccount} from "../../pmb/models/bank-account";
+import {Payment} from "../../pmb/models/Payment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 

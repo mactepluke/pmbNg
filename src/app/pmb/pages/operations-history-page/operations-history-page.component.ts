@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SessionService} from "../../../core/services/session.service";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
-import {Operation} from "../../../models/operation";
+import {Operation} from "../../models/operation";
 import {OperationService} from "../../services/operation.service";
 
 @Component({

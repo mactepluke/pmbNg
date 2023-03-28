@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {SpotAccount} from "../../models/spot-account";
+import {SpotAccount} from "../models/spot-account";
 import {Observable} from "rxjs";
-import {User} from "../../models/user";
+import {User} from "../models/user";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable()

@@ -7,6 +7,7 @@ import {RouterModule} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AuthModule} from "./auth/auth.module";
+import {ToastModule} from "primeng/toast";
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {AuthModule} from "./auth/auth.module";
     HttpClientModule,
     RouterModule,
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastModule
   ],
   bootstrap: [AppComponent]
 })

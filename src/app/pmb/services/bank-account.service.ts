@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {User} from "../../models/user";
+import {User} from "../models/user";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {BankAccount} from "../../models/bank-account";
+import {BankAccount} from "../models/bank-account";
 
 @Injectable()
 export class BankAccountService {

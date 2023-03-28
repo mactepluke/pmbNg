@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../../../models/user";
+import {User} from "../../models/user";
 import {SessionService} from "../../../core/services/session.service";
 import {Observable, shareReplay, switchMap, tap} from "rxjs";
 import {Router} from "@angular/router";
 import {UserService} from "../../../core/services/user.service";
-import {Payment} from "../../../models/Payment";
+import {Payment} from "../../models/Payment";
 import {PaymentService} from "../../services/payment.service";
 import {RecipientService} from "../../services/recipient.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {SpotAccount} from "../../../models/spot-account";
+import {SpotAccount} from "../../models/spot-account";
 import {SpotAccountService} from "../../services/spot-account.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 

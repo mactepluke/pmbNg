@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BankAccount} from "../../../../models/bank-account";
+import {BankAccount} from "../../../models/bank-account";
 import {BankAccountService} from "../../../services/bank-account.service";
 import {Observable, shareReplay, switchMap, tap} from "rxjs";
 import {ConfirmationService, MessageService} from "primeng/api";
