@@ -23,7 +23,6 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {RippleModule} from "primeng/ripple";
 import {DialogModule} from "primeng/dialog";
 import {ConfirmationService, MessageService} from "primeng/api";
-import {PmbModule} from "../pmb/pmb.module";
 import {SessionService} from "./services/session.service";
 import {UserService} from "./services/user.service";
 
@@ -54,7 +53,6 @@ import {UserService} from "./services/user.service";
     ConfirmDialogModule,
     RippleModule,
     DialogModule,
-    PmbModule
   ],
   exports:  [
     HeaderComponent,
