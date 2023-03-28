@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../models/user";
-import {SessionService} from "../../../core/services/session.service";
+import {AuthService} from "../../../core/services/auth.service";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {UserService} from "../../../core/services/user.service";
@@ -14,14 +14,10 @@ import {UserService} from "../../../core/services/user.service";
 export class ProfilePageComponent implements OnInit {
   currentUser$!: Observable<User>;
 
-  constructor(private sessionService: SessionService, private router: Router, private userService: UserService) {
+  constructor(private authService: AuthService, private router: Router, private userService: UserService) {
   }
 
   ngOnInit(): void {
-    if (!this.sessionService.isLoggedIn) {
-      this.router.navigateByUrl('paymybuddy/login');
-    } else {
-      this.currentUser$ = this.userService.findUser(this.sessionService.currentUser.email);
-    }
+      this.currentUser$ = this.userService.findUser(this.authService.currentUser.email);
   }
 }

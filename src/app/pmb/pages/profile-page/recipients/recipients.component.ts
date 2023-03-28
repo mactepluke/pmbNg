@@ -3,7 +3,7 @@ import {User} from "../../../models/user";
 import {RecipientService} from "../../../services/recipient.service";
 import {Observable, switchMap, tap, shareReplay} from "rxjs";
 import {ConfirmationService, MessageService} from "primeng/api";
-import {SessionService} from "../../../../core/services/session.service";
+import {AuthService} from "../../../../core/services/auth.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -14,7 +14,7 @@ import {Router} from "@angular/router";
 export class RecipientsComponent implements OnInit {
   recipientUsers$!: Observable<User[]>;
 
-  constructor(private sessionService: SessionService,
+  constructor(private authService: AuthService,
               private recipientService: RecipientService,
               private confirmationService: ConfirmationService,
               private messageService: MessageService,
@@ -23,7 +23,7 @@ export class RecipientsComponent implements OnInit {
 
   ngOnInit(): void {
     this.recipientUsers$ = this.recipientService
-      .findRecipients(this.sessionService.currentUser)
+      .findRecipients(this.authService.currentUser)
       .pipe(shareReplay({bufferSize: 1, refCount: true}))
   }
 
@@ -38,8 +38,8 @@ export class RecipientsComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       key: 'recipientdialog',
       accept: () => {
-        this.recipientUsers$ = this.recipientService.deleteRecipient(this.sessionService.currentUser, recipientUser.email)
-          .pipe(switchMap(() => this.recipientService.findRecipients(this.sessionService.currentUser)),
+        this.recipientUsers$ = this.recipientService.deleteRecipient(this.authService.currentUser, recipientUser.email)
+          .pipe(switchMap(() => this.recipientService.findRecipients(this.authService.currentUser)),
             tap(
               () => {
                 this.messageService.add({

@@ -3,7 +3,7 @@ import {BankAccount} from "../../../models/bank-account";
 import {BankAccountService} from "../../../services/bank-account.service";
 import {Observable, shareReplay, switchMap, tap} from "rxjs";
 import {ConfirmationService, MessageService} from "primeng/api";
-import {SessionService} from "../../../../core/services/session.service";
+import {AuthService} from "../../../../core/services/auth.service";
 
 @Component({
   selector: 'app-bank-accounts',
@@ -18,13 +18,13 @@ export class BankAccountsComponent implements OnInit {
   bankAccountsLength!: number;
 
   constructor(private bankAccountService: BankAccountService,
-              private sessionService: SessionService,
+              private authService: AuthService,
               private confirmationService: ConfirmationService,
               private messageService: MessageService) {
   }
 
   ngOnInit(): void {
-    this.bankAccounts$ = this.bankAccountService.findBankAccounts(this.sessionService.currentUser)
+    this.bankAccounts$ = this.bankAccountService.findBankAccounts(this.authService.currentUser)
       .pipe(tap((banksAccounts) => {
         (banksAccounts === null) ? this.bankAccountsLength = 0 : this.bankAccountsLength = banksAccounts.length
       }), shareReplay({bufferSize: 1, refCount: true}));
@@ -47,8 +47,8 @@ export class BankAccountsComponent implements OnInit {
     if ((this.bankAccount.name.length > 0)
       && (this.bankAccount.iban.length <= 34)
       && (this.bankAccount.iban.length >= 30)) {
-      this.bankAccounts$ = this.bankAccountService.createBankAccount(this.sessionService.currentUser, this.bankAccount.name, this.bankAccount.iban)
-        .pipe(switchMap(() => this.bankAccountService.findBankAccounts(this.sessionService.currentUser)),
+      this.bankAccounts$ = this.bankAccountService.createBankAccount(this.authService.currentUser, this.bankAccount.name, this.bankAccount.iban)
+        .pipe(switchMap(() => this.bankAccountService.findBankAccounts(this.authService.currentUser)),
           tap((bankAccounts) => {
 
             if (bankAccounts.length > this.bankAccountsLength) {
@@ -89,8 +89,8 @@ export class BankAccountsComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       key: 'bankaccountdialog',
       accept: () => {
-        this.bankAccounts$ = this.bankAccountService.deleteBankAccount(this.sessionService.currentUser, bankAccount.iban)
-          .pipe(switchMap(() => this.bankAccountService.findBankAccounts(this.sessionService.currentUser)),
+        this.bankAccounts$ = this.bankAccountService.deleteBankAccount(this.authService.currentUser, bankAccount.iban)
+          .pipe(switchMap(() => this.bankAccountService.findBankAccounts(this.authService.currentUser)),
             tap((banksAccounts) => {
 
               if (banksAccounts.length < this.bankAccountsLength) {

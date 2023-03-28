@@ -8,7 +8,7 @@ import {BankAccount} from "../../pmb/models/bank-account";
 import {Payment} from "../../pmb/models/Payment";
 
 @Injectable()
-export class SessionService {
+export class AuthService {
   private _currentUser!: User;
   private _isLoggedIn = false;
 
@@ -50,9 +50,8 @@ export class SessionService {
     return this.userService.loginUser(attemptUser.email, attemptUser.password);
   }
 
-//TODO rajouter des unsubscribe partout où il faut
   logOut() {
-    this._isLoggedIn = false;
+    this.isLoggedIn = false;
     console.log('User logged out.')
   }
 

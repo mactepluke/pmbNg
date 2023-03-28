@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {SessionService} from "../../core/services/session.service";
+import {AuthService} from "../../core/services/auth.service";
 
 @Pipe({
   name: 'amount'
 })
 export class AmountPipe implements PipeTransform {
 
-  constructor(private sessionService: SessionService) {
+  constructor(private authService: AuthService) {
   }
 
   transform(amount: string | null, param: string): string {
@@ -15,7 +15,7 @@ export class AmountPipe implements PipeTransform {
     let debit = '-' + amount;
     let result: string;
 
-    if (param === this.sessionService.currentUser.email || param === 'Credit') {
+    if (param === this.authService.currentUser.email || param === 'Credit') {
       result = credit;
     } else {
       result = debit;

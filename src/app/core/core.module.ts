@@ -6,10 +6,10 @@ import {ContactPageComponent} from "./pages/contact-page/contact-page.component"
 import {NotfoundPageComponent} from "./pages/notfound-page/notfound-page.component";
 import * as fr from "@angular/common/locales/fr";
 import {ConfirmationService, MessageService} from "primeng/api";
-import {SessionService} from "./services/session.service";
-import {UserService} from "./services/user.service";
 import {SharedModule} from "../shared/shared.module";
 import {registerLocaleData} from "@angular/common";
+import {UserService} from "./services/user.service";
+import {AuthService} from "./services/auth.service";
 
 
 @NgModule({
@@ -30,8 +30,8 @@ import {registerLocaleData} from "@angular/common";
     {provide: LOCALE_ID, useValue: 'fr-FR'},
     ConfirmationService,
     MessageService,
-    SessionService,
-    UserService
+    UserService,
+    AuthService
   ]
 })
 export class CoreModule {

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../../models/user";
-import {SessionService} from "../../../../core/services/session.service";
+import {AuthService} from "../../../../core/services/auth.service";
 import {Router} from "@angular/router";
 import {UserService} from "../../../../core/services/user.service";
 import {ConfirmationService, MessageService} from "primeng/api";
@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
   firstName!: string;
   lastName!: string;
 
-  constructor(private sessionService: SessionService,
+  constructor(private authService: AuthService,
               private router: Router,
               private userService: UserService,
               private confirmationService: ConfirmationService,
@@ -28,20 +28,20 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.oldEmail = this.sessionService.currentUser.email;
-    this.email = this.sessionService.currentUser.email;
-    this.password = this.sessionService.currentUser.password;
-    this.firstName = this.sessionService.currentUser.firstName;
-    this.lastName = this.sessionService.currentUser.lastName;
+    this.oldEmail = this.authService.currentUser.email;
+    this.email = this.authService.currentUser.email;
+    this.password = this.authService.currentUser.password;
+    this.firstName = this.authService.currentUser.firstName;
+    this.lastName = this.authService.currentUser.lastName;
     this.confirmedPassword = '';
   }
 
   currentUser(): User{
-    return this.sessionService.currentUser;
+    return this.authService.currentUser;
   }
 
   onLogout() {
-    this.sessionService.logOut();
+    this.authService.logOut();
     this.router.navigateByUrl('paymybuddy');
   }
 
@@ -65,7 +65,7 @@ export class ProfileComponent implements OnInit {
     ) {
 
       let updatedUser = new User();
-      updatedUser = this.sessionService.currentUser;
+      updatedUser = this.authService.currentUser;
       updatedUser.email = this.email;
       updatedUser.password = this.password;
       updatedUser.firstName = this.firstName;
@@ -82,7 +82,7 @@ export class ProfileComponent implements OnInit {
               }
             );
             this.oldEmail = this.email;
-            this.sessionService.currentUser = updatedUser;
+            this.authService.currentUser = updatedUser;
             this.dialog = false;
             this.confirmedPassword = '';
           },

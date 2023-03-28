@@ -1,15 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {SessionService} from "../../core/services/session.service";
+import {AuthService} from "../../core/services/auth.service";
 
 @Pipe({
   name: 'transaction'
 })
 export class TransactionPipe implements PipeTransform {
 
-  constructor(private sessionService: SessionService) {
+  constructor(private authService: AuthService) {
   }
 
   transform(recipientEmail: string, emitterEmail: string): string {
-    return recipientEmail === this.sessionService.currentUser.email ? 'Received from ' + emitterEmail : 'Sent to ' + recipientEmail;
+    return recipientEmail === this.authService.currentUser.email ? 'Received from ' + emitterEmail : 'Sent to ' + recipientEmail;
   }
 }

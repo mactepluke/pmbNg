@@ -5,7 +5,7 @@ import {Observable, shareReplay, switchMap, tap} from "rxjs";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {BankAccount} from "../../../models/bank-account";
 import {BankAccountService} from "../../../services/bank-account.service";
-import {SessionService} from "../../../../core/services/session.service";
+import {AuthService} from "../../../../core/services/auth.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {OperationService} from "../../../services/operation.service";
 import {Router} from "@angular/router";
@@ -31,7 +31,7 @@ export class SpotAccountsComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private sessionService: SessionService,
+              private authService: AuthService,
               private spotAccountService: SpotAccountService,
               private bankAccountService: BankAccountService,
               private operationService: OperationService,
@@ -42,7 +42,7 @@ export class SpotAccountsComponent implements OnInit {
   ngOnInit(): void {
     this.spotAccount = new SpotAccount();
     this.spotAccounts$ = this.spotAccountService
-      .findSpotAccounts(this.sessionService.currentUser)
+      .findSpotAccounts(this.authService.currentUser)
       .pipe(shareReplay({bufferSize: 1, refCount: true}),
         tap((spotAccounts) => this.updateCurrencies(spotAccounts)));
 
@@ -77,8 +77,8 @@ export class SpotAccountsComponent implements OnInit {
   }
 
   saveSpotAccount() {
-    this.spotAccounts$ = this.spotAccountService.createSpotAccount(this.sessionService.currentUser, this.spotAccount)
-      .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.sessionService.currentUser).pipe(shareReplay({
+    this.spotAccounts$ = this.spotAccountService.createSpotAccount(this.authService.currentUser, this.spotAccount)
+      .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.authService.currentUser).pipe(shareReplay({
           bufferSize: 1,
           refCount: true
         }))),
@@ -104,8 +104,8 @@ export class SpotAccountsComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       key: 'spotaccountdialog',
       accept: () => {
-        this.spotAccounts$ = this.spotAccountService.deleteSpotAccount(this.sessionService.currentUser, spotAccount)
-          .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.sessionService.currentUser).pipe(shareReplay({
+        this.spotAccounts$ = this.spotAccountService.deleteSpotAccount(this.authService.currentUser, spotAccount)
+          .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.authService.currentUser).pipe(shareReplay({
               bufferSize: 1,
               refCount: true
             }))),
@@ -127,7 +127,7 @@ export class SpotAccountsComponent implements OnInit {
   initializeFundsDialog() {
     this.submitted = false;
     this.amount = 0;
-    this.bankAccounts$ = this.bankAccountService.findBankAccounts(this.sessionService.currentUser);
+    this.bankAccounts$ = this.bankAccountService.findBankAccounts(this.authService.currentUser);
     this.fundsDialog = true;
   }
 
@@ -154,12 +154,12 @@ export class SpotAccountsComponent implements OnInit {
       if ((this.fundsForm.controls['selectedBankAccountIban'].value != undefined) && (this.amount > 0)) {
 
         this.spotAccounts$ = this.operationService.creditSpotAccount(
-          this.sessionService.currentUser,
+          this.authService.currentUser,
           this.spotAccount,
           this.fundsForm.controls['selectedBankAccountIban'].value,
           this.amount
         )
-          .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.sessionService.currentUser)),
+          .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.authService.currentUser)),
             tap((spotAccounts) => {
 
                 this.messageService.add({
@@ -188,12 +188,12 @@ export class SpotAccountsComponent implements OnInit {
       if ((this.fundsForm.controls['selectedBankAccountIban'].value != undefined) && (this.amount > 0)) {
 
         this.spotAccounts$ = this.operationService.withdrawFunds(
-          this.sessionService.currentUser,
+          this.authService.currentUser,
           this.spotAccount,
           this.fundsForm.controls['selectedBankAccountIban'].value,
           this.amount
         )
-          .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.sessionService.currentUser)),
+          .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.authService.currentUser)),
             tap((spotAccounts) => {
 
               this.messageService.add({

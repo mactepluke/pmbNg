@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../models/user";
-import {SessionService} from "../../../core/services/session.service";
+import {AuthService} from "../../../core/services/auth.service";
 import {Observable, shareReplay, switchMap, tap} from "rxjs";
 import {Router} from "@angular/router";
 import {UserService} from "../../../core/services/user.service";
@@ -28,7 +28,7 @@ export class TransferPageComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private sessionService: SessionService,
+              private authService: AuthService,
               private userService: UserService,
               private paymentService: PaymentService,
               private recipientService: RecipientService,
@@ -38,16 +38,13 @@ export class TransferPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.sessionService.isLoggedIn) {
-      this.router.navigateByUrl('paymybuddy/login');
-    } else {
-      this.currentUser = this.sessionService.currentUser;
+      this.currentUser = this.authService.currentUser;
       this.spotAccounts$ = this.spotAccountService.findSpotAccounts(this.currentUser);
       this.payments$ = this.paymentService.findPayments(this.currentUser);
       this.recipientUsers$ = this.recipientService
         .findRecipients(this.currentUser)
         .pipe(shareReplay({bufferSize: 1, refCount: true}))
-    }
+
     this.paymentForm = new FormGroup({
       selectedEmail: new FormControl(),
       selectedCurrency: new FormControl(),

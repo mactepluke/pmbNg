@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {SessionService} from "../../../core/services/session.service";
+import {AuthService} from "../../../core/services/auth.service";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {Operation} from "../../models/operation";
@@ -15,20 +15,13 @@ export class OperationsHistoryPageComponent implements OnInit {
   operations$!: Observable<Operation[]>;
 
   constructor(private router: Router,
-              private sessionService: SessionService,
+              private authService: AuthService,
               private operationService: OperationService) {
   }
 
 
   ngOnInit(): void {
-
-    if (!this.sessionService.isLoggedIn) {
-      this.router.navigateByUrl('paymybuddy/login');
-    } else {
-      this.operations$ = this.operationService.findOperations(this.sessionService.currentUser.email);
-
-    }
-
+    this.operations$ = this.operationService.findOperations(this.authService.currentUser.email);
   }
 
   onBackToProfile() {

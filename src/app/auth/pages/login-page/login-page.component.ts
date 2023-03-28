@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
 import {User} from "../../../pmb/models/user";
-import {SessionService} from "../../../core/services/session.service";
+import {AuthService} from "../../../core/services/auth.service";
 import {Router} from "@angular/router";
 import {ConfirmationService, MessageService} from "primeng/api";
 
@@ -15,7 +15,7 @@ export class LoginPageComponent implements OnInit {
   loginForm!: FormGroup;
   @Input() currentUser$!: Observable<User>;
 
-  constructor(private sessionService: SessionService,
+  constructor(private authService: AuthService,
               private formBuilder: FormBuilder,
               private router: Router,
               private confirmationService: ConfirmationService,
@@ -23,9 +23,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.sessionService.isLoggedIn) {
-      this.router.navigateByUrl('paymybuddy/pmb/profile');
-    }
 
     this.loginForm = this.formBuilder.group({
         email: [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
@@ -38,19 +35,16 @@ export class LoginPageComponent implements OnInit {
   }
 
   onSubmitForm(): void {
-    console.log(this.loginForm.value);
 
-    this.sessionService
+    this.authService
       .logIn(this.loginForm.value)
       .subscribe({
         next: (user) => {
-          console.log(user);
 
           if (user != null) {
-            this.sessionService.currentUser = user;
-            this.sessionService.isLoggedIn = true;
+            this.authService.currentUser = user;
+            this.authService.isLoggedIn = true;
             this.router.navigateByUrl('paymybuddy/pmb/profile').then(() => {
-              console.log("THEN");
               this.messageService.add({
                 severity: 'success',
                 summary: 'Successful',
