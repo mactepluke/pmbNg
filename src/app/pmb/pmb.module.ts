@@ -32,7 +32,6 @@ import {PasswordModule} from "primeng/password";
 import {PmbRoutingModule} from "./pmb-routing.module";
 
 
-
 @NgModule({
   declarations: [
     ProcessedPipe,

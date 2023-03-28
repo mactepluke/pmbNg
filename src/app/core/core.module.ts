@@ -55,7 +55,9 @@ import {PmbModule} from "../pmb/pmb.module";
     PmbModule
   ],
   exports:  [
-    HeaderComponent
+    HeaderComponent,
+    RouterModule,
+    ToastModule
   ],
   providers: [
     httpInterceptorProviders,
