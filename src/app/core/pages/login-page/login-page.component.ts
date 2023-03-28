@@ -24,7 +24,7 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.sessionService.isLoggedIn) {
-      this.router.navigateByUrl('paymybuddy/profile');
+      this.router.navigateByUrl('paymybuddy/pmb/profile');
     }
 
     this.loginForm = this.formBuilder.group({
@@ -49,7 +49,7 @@ export class LoginPageComponent implements OnInit {
           if (user != null) {
             this.sessionService.currentUser = user;
             this.sessionService.isLoggedIn = true;
-            this.router.navigateByUrl('paymybuddy/profile').then(() => {
+            this.router.navigateByUrl('paymybuddy/pmb/profile').then(() => {
               console.log("THEN");
               this.messageService.add({
                 severity: 'success',

@@ -23,7 +23,7 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {RippleModule} from "primeng/ripple";
 import {DialogModule} from "primeng/dialog";
 import {ConfirmationService, MessageService} from "primeng/api";
-import {PmbModule} from "../pmb/pmb/pmb.module";
+import {PmbModule} from "../pmb/pmb.module";
 
 
 @NgModule({

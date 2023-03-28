@@ -19,7 +19,7 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.sessionService.isLoggedIn)  {
-      this.router.navigateByUrl('paymybuddy/profile');
+      this.router.navigateByUrl('paymybuddy/pmb/profile');
     }
   }
 }

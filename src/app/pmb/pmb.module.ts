@@ -26,12 +26,10 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {RippleModule} from "primeng/ripple";
 import {DialogModule} from "primeng/dialog";
 import {RouterModule} from "@angular/router";
-import {BrowserModule} from "@angular/platform-browser";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {AppRoutingModule} from "../../app-routing.module";
 import {ButtonModule} from "primeng/button";
 import {CardModule} from "primeng/card";
 import {PasswordModule} from "primeng/password";
+import {PmbRoutingModule} from "./pmb-routing.module";
 
 
 
@@ -54,9 +52,7 @@ import {PasswordModule} from "primeng/password";
   imports: [
     CommonModule,
     RouterModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
+    PmbRoutingModule,
     ButtonModule,
     CardModule,
     PasswordModule,

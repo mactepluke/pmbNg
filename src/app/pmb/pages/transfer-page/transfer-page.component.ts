@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../../../../core/models/user";
-import {SessionService} from "../../../../core/services/session.service";
+import {User} from "../../../core/models/user";
+import {SessionService} from "../../../core/services/session.service";
 import {Observable, shareReplay, switchMap, tap} from "rxjs";
 import {Router} from "@angular/router";
-import {UserService} from "../../../../core/services/user.service";
-import {Payment} from "../../../../core/models/Payment";
-import {PaymentService} from "../../../../core/services/payment.service";
-import {RecipientService} from "../../../../core/services/recipient.service";
+import {UserService} from "../../../core/services/user.service";
+import {Payment} from "../../../core/models/Payment";
+import {PaymentService} from "../../../core/services/payment.service";
+import {RecipientService} from "../../../core/services/recipient.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {SpotAccount} from "../../../../core/models/spot-account";
-import {SpotAccountService} from "../../../../core/services/spot-account.service";
+import {SpotAccount} from "../../../core/models/spot-account";
+import {SpotAccountService} from "../../../core/services/spot-account.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 
 @Component({

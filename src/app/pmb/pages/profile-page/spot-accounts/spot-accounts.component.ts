@@ -1,13 +1,13 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {SpotAccount} from "../../../../../core/models/spot-account";
-import {SpotAccountService} from "../../../../../core/services/spot-account.service";
+import {SpotAccount} from "../../../../core/models/spot-account";
+import {SpotAccountService} from "../../../../core/services/spot-account.service";
 import {Observable, shareReplay, switchMap, tap} from "rxjs";
 import {ConfirmationService, MessageService} from "primeng/api";
-import {BankAccount} from "../../../../../core/models/bank-account";
-import {BankAccountService} from "../../../../../core/services/bank-account.service";
-import {SessionService} from "../../../../../core/services/session.service";
+import {BankAccount} from "../../../../core/models/bank-account";
+import {BankAccountService} from "../../../../core/services/bank-account.service";
+import {SessionService} from "../../../../core/services/session.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {OperationService} from "../../../../../core/services/operation.service";
+import {OperationService} from "../../../../core/services/operation.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -219,6 +219,6 @@ export class SpotAccountsComponent implements OnInit {
   }
 
   onShowOperationsHistory() {
-    this.router.navigateByUrl('paymybuddy/operations-history');
+    this.router.navigateByUrl('paymybuddy/pmb/operations-history');
   }
 }

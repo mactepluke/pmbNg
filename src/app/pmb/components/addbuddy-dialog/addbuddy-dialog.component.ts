@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {User} from "../../../../core/models/user";
+import {User} from "../../../core/models/user";
 import {Observable, shareReplay, switchMap, tap} from "rxjs";
-import {RecipientService} from "../../../../core/services/recipient.service";
+import {RecipientService} from "../../../core/services/recipient.service";
 import {ConfirmationService, MessageService} from "primeng/api";
-import {SessionService} from "../../../../core/services/session.service";
-import {Recipient} from "../../../../core/models/recipient";
+import {SessionService} from "../../../core/services/session.service";
+import {Recipient} from "../../../core/models/recipient";
 
 @Component({
   selector: 'app-addbuddy-dialog',

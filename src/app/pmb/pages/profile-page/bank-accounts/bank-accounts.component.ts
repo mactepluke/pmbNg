@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {BankAccount} from "../../../../../core/models/bank-account";
-import {BankAccountService} from "../../../../../core/services/bank-account.service";
+import {BankAccount} from "../../../../core/models/bank-account";
+import {BankAccountService} from "../../../../core/services/bank-account.service";
 import {Observable, shareReplay, switchMap, tap} from "rxjs";
 import {ConfirmationService, MessageService} from "primeng/api";
-import {SessionService} from "../../../../../core/services/session.service";
+import {SessionService} from "../../../../core/services/session.service";
 
 @Component({
   selector: 'app-bank-accounts',
