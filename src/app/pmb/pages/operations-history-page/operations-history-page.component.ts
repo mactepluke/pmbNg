@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {SessionService} from "../../../core/services/session.service";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
-import {Operation} from "../../../core/models/operation";
-import {OperationService} from "../../../core/services/operation.service";
+import {Operation} from "../../../models/operation";
+import {OperationService} from "../../services/operation.service";
 
 @Component({
   selector: 'app-operations-history-page',

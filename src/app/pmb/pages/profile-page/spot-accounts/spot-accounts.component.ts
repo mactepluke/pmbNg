@@ -1,13 +1,13 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {SpotAccount} from "../../../../core/models/spot-account";
-import {SpotAccountService} from "../../../../core/services/spot-account.service";
+import {SpotAccount} from "../../../../models/spot-account";
+import {SpotAccountService} from "../../../services/spot-account.service";
 import {Observable, shareReplay, switchMap, tap} from "rxjs";
 import {ConfirmationService, MessageService} from "primeng/api";
-import {BankAccount} from "../../../../core/models/bank-account";
-import {BankAccountService} from "../../../../core/services/bank-account.service";
+import {BankAccount} from "../../../../models/bank-account";
+import {BankAccountService} from "../../../services/bank-account.service";
 import {SessionService} from "../../../../core/services/session.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {OperationService} from "../../../../core/services/operation.service";
+import {OperationService} from "../../../services/operation.service";
 import {Router} from "@angular/router";
 
 @Component({

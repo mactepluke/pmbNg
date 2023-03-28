@@ -24,6 +24,8 @@ import {RippleModule} from "primeng/ripple";
 import {DialogModule} from "primeng/dialog";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {PmbModule} from "../pmb/pmb.module";
+import {SessionService} from "./services/session.service";
+import {UserService} from "./services/user.service";
 
 
 @NgModule({
@@ -63,7 +65,9 @@ import {PmbModule} from "../pmb/pmb.module";
     httpInterceptorProviders,
     {provide: LOCALE_ID, useValue: 'fr-FR'},
     ConfirmationService,
-    MessageService
+    MessageService,
+    SessionService,
+    UserService
   ]
 })
 export class CoreModule {

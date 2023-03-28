@@ -1,15 +1,13 @@
 import {Injectable} from '@angular/core';
-import {User} from "../models/user";
-import {Recipient} from "../models/recipient";
-import {SpotAccount} from "../models/spot-account";
-import {BankAccount} from "../models/bank-account";
-import {Payment} from "../models/Payment";
+import {User} from "../../models/user";
+import {Recipient} from "../../models/recipient";
+import {SpotAccount} from "../../models/spot-account";
+import {BankAccount} from "../../models/bank-account";
+import {Payment} from "../../models/Payment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UserService {
   user!: User;
 

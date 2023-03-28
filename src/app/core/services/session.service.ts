@@ -1,15 +1,13 @@
-import {User} from "../models/user";
+import {User} from "../../models/user";
 import {Injectable} from "@angular/core";
 import {UserService} from "./user.service";
 import {Observable} from "rxjs";
-import {Recipient} from "../models/recipient";
-import {SpotAccount} from "../models/spot-account";
-import {BankAccount} from "../models/bank-account";
-import {Payment} from "../models/Payment";
+import {Recipient} from "../../models/recipient";
+import {SpotAccount} from "../../models/spot-account";
+import {BankAccount} from "../../models/bank-account";
+import {Payment} from "../../models/Payment";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SessionService {
   private _currentUser!: User;
   private _isLoggedIn = false;

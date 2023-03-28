@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
-import {User} from "../../models/user";
+import {User} from "../../../models/user";
 import {SessionService} from "../../services/session.service";
 import {Router} from "@angular/router";
 import {ConfirmationService, MessageService} from "primeng/api";

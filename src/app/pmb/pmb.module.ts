@@ -30,6 +30,11 @@ import {ButtonModule} from "primeng/button";
 import {CardModule} from "primeng/card";
 import {PasswordModule} from "primeng/password";
 import {PmbRoutingModule} from "./pmb-routing.module";
+import {BankAccountService} from "./services/bank-account.service";
+import {OperationService} from "./services/operation.service";
+import {PaymentService} from "./services/payment.service";
+import {RecipientService} from "./services/recipient.service";
+import {SpotAccountService} from "./services/spot-account.service";
 
 
 @NgModule({
@@ -68,6 +73,13 @@ import {PmbRoutingModule} from "./pmb-routing.module";
     ConfirmDialogModule,
     RippleModule,
     DialogModule,
+  ],
+  providers: [
+    BankAccountService,
+    OperationService,
+    PaymentService,
+    RecipientService,
+    SpotAccountService
   ]
 })
 export class PmbModule { }

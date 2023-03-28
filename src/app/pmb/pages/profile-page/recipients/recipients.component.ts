@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../../../../core/models/user";
-import {RecipientService} from "../../../../core/services/recipient.service";
+import {User} from "../../../../models/user";
+import {RecipientService} from "../../../services/recipient.service";
 import {Observable, switchMap, tap, shareReplay} from "rxjs";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {SessionService} from "../../../../core/services/session.service";
