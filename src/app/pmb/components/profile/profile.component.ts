@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../../../models/user";
-import {AuthService} from "../../../../core/services/auth.service";
+import {User} from "../../models/user";
+import {AuthService} from "../../../core/services/auth.service";
 import {Router} from "@angular/router";
-import {UserService} from "../../../../core/services/user.service";
+import {UserService} from "../../../core/services/user.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 
 @Component({

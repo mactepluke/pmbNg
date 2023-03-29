@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../../../models/user";
-import {RecipientService} from "../../../services/recipient.service";
+import {User} from "../../models/user";
+import {RecipientService} from "../../services/recipient.service";
 import {Observable, switchMap, tap, shareReplay} from "rxjs";
 import {ConfirmationService, MessageService} from "primeng/api";
-import {AuthService} from "../../../../core/services/auth.service";
+import {AuthService} from "../../../core/services/auth.service";
 import {Router} from "@angular/router";
 
 @Component({
