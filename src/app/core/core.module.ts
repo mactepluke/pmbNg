@@ -10,6 +10,8 @@ import {SharedModule} from "../shared/shared.module";
 import {registerLocaleData} from "@angular/common";
 import {UserService} from "./services/user.service";
 import {AuthService} from "./services/auth.service";
+import {RouterModule} from "@angular/router";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -20,6 +22,8 @@ import {AuthService} from "./services/auth.service";
     NotfoundPageComponent
   ],
   imports: [
+    RouterModule,
+    HttpClientModule,
     SharedModule
   ],
   exports:  [

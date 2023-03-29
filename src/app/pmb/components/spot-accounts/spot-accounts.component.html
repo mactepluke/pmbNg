@@ -1,6 +1,7 @@
 <p-card header="Spot Accounts">
 
   <p-table *ngIf="spotAccounts$ | async as spotAccounts" [style]="{width: '1000px'}"
+           sortField="credit" [sortOrder]="-1"
            [value]="spotAccounts" [paginator]="true" [rows]="3" [showCurrentPageReport]="true"
            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
            [rowsPerPageOptions]="[3,5,10]">
@@ -76,6 +77,7 @@
                    locale="fr-FR" [min]="0" [max]="spotAccount.credit"
                    [step]="10" placeholder="0,00"></p-inputNumber>
       <small class="p-error" *ngIf="submitted && (amount === 0)">You must choose an amount.</small>
+      <small class="p-error" *ngIf="amount > spotAccount.credit">Not enough funds on this account.</small>
 
     </div>
 

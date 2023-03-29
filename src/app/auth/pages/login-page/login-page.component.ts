@@ -26,8 +26,7 @@ export class LoginPageComponent implements OnInit {
 
     this.loginForm = this.formBuilder.group({
         email: [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-        password: [null, Validators.required],
-        rememberMe: [false]
+        password: [null, Validators.required]
       },
       {
         updateOn: 'blur'

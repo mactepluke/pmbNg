@@ -29,7 +29,6 @@ export class AuthService {
   }
 
   constructor(private userService: UserService) {
-    console.log(this._currentUser);
   }
 
 
@@ -46,7 +45,7 @@ export class AuthService {
       bankAccounts: new Array<BankAccount>(),
       transactions: new Array<Payment>()
     };
-
+    console.log(attemptUser)
     return this.userService.loginUser(attemptUser.email, attemptUser.password);
   }
 

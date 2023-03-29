@@ -10,7 +10,6 @@ import {ProfileComponent} from "./components/profile/profile.component";
 import {SpotAccountsComponent} from "./components/spot-accounts/spot-accounts.component";
 import {BankAccountsComponent} from "./components/bank-accounts/bank-accounts.component";
 import {RecipientsComponent} from "./components/recipients/recipients.component";
-import {AddbuddyDialogComponent} from "./components/addbuddy-dialog/addbuddy-dialog.component";
 import {OperationsHistoryPageComponent} from "./pages/operations-history-page/operations-history-page.component";
 import {CascadeSelectModule} from "primeng/cascadeselect";
 import {DropdownModule} from "primeng/dropdown";
@@ -40,7 +39,6 @@ import {SharedModule} from "../shared/shared.module";
     SpotAccountsComponent,
     BankAccountsComponent,
     RecipientsComponent,
-    AddbuddyDialogComponent,
     OperationsHistoryPageComponent
   ],
   imports: [

@@ -97,7 +97,6 @@ export class SpotAccountsComponent implements OnInit {
   }
 
   deleteSpotAccount(spotAccount: SpotAccount) {
-    console.log("Delete button is hit.");
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + spotAccount.currency + '?',
       header: 'Confirm',
@@ -162,12 +161,12 @@ export class SpotAccountsComponent implements OnInit {
           .pipe(switchMap(() => this.spotAccountService.findSpotAccounts(this.authService.currentUser)),
             tap((spotAccounts) => {
 
-                this.messageService.add({
-                  severity: 'success',
-                  summary: 'Successful',
-                  detail: 'Credit request sent to bank.',
-                  life: 3000
-                });
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Successful',
+                detail: 'Credit request sent to bank.',
+                life: 3000
+              });
               this.hideFundsDialog();
               this.updateCurrencies(spotAccounts);
             }),
@@ -185,7 +184,7 @@ export class SpotAccountsComponent implements OnInit {
 
     } else {
       //Process funds withdrawal
-      if ((this.fundsForm.controls['selectedBankAccountIban'].value != undefined) && (this.amount > 0)) {
+      if ((this.fundsForm.controls['selectedBankAccountIban'].value != undefined) && (this.amount > 0) && (this.amount <= this.spotAccount.credit)) {
 
         this.spotAccounts$ = this.operationService.withdrawFunds(
           this.authService.currentUser,

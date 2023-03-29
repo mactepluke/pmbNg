@@ -21,7 +21,6 @@ export class AuthInterceptor implements HttpInterceptor {
       headers: req.headers
         .set('Authorization', `Basic ${credentials}`)
     });
-    console.log('Interceptor works');
     return next.handle(modifiedReq);
   }
 }

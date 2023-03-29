@@ -1,10 +1,9 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {User} from "../../models/user";
+import {User} from "../../../pmb/models/user";
 import {Observable, shareReplay, switchMap, tap} from "rxjs";
-import {RecipientService} from "../../services/recipient.service";
+import {RecipientService} from "../../../pmb/services/recipient.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {AuthService} from "../../../core/services/auth.service";
-import {Recipient} from "../../models/recipient";
 
 @Component({
   selector: 'app-addbuddy-dialog',
@@ -15,7 +14,6 @@ export class AddbuddyDialogComponent {
   dialog!: boolean;
   submitted!: boolean;
   recipientUser!: User;
-  recipient!: Recipient;
   @Input() recipientUsers$!: Observable<User[]>;
   @Output() recipientUsers$Change: EventEmitter<Observable<User[]>> = new EventEmitter<Observable<User[]>>();
 

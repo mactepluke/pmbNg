@@ -6,6 +6,7 @@ import {BankAccount} from "../../pmb/models/bank-account";
 import {Payment} from "../../pmb/models/Payment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class UserService {
@@ -32,15 +33,15 @@ export class UserService {
   }
 
   findUser(email: string): Observable<User> {
-    return this.http.get<User>(`http://localhost:8080/pmbuser/find/${email}`);
+    return this.http.get<User>(`${environment.apiUrl}/pmbuser/find/${email}`);
   }
 
   loginUser(email: string, password: string): Observable<User> {
-    return this.http.get<User>(`http://localhost:8080/pmbuser/login?email=${email}&password=${password}`);
+    return this.http.get<User>(`${environment.apiUrl}/pmbuser/login?email=${email}&password=${password}`);
   }
 
   updateUser(email: string, updatedUser: User): Observable<User> {
-    return this.http.put<User>(`http://localhost:8080/pmbuser/update?email=${email}`,
+    return this.http.put<User>(`${environment.apiUrl}/pmbuser/update?email=${email}`,
       {
         "email": `${updatedUser.email}`,
         "password": `${updatedUser.password}`,

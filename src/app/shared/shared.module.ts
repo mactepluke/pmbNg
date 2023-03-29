@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
+import {CommonModule} from "@angular/common";
 import {ButtonModule} from "primeng/button";
 import {CardModule} from "primeng/card";
 import {PasswordModule} from "primeng/password";
@@ -7,29 +8,27 @@ import {InputTextModule} from "primeng/inputtext";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {RippleModule} from "primeng/ripple";
 import {DialogModule} from "primeng/dialog";
-import {CommonModule} from "@angular/common";
-import {RouterModule} from "@angular/router";
-
+import {AddbuddyDialogComponent} from "./components/addbuddy-dialog/addbuddy-dialog.component";
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    AddbuddyDialogComponent
+  ],
   imports: [
+    /** These imports are only mandatory because we are using them into the shared component 'addbuddy-dialog,
+     *  otherwise we can only have the 'import' statements at the top and add them to the 'exports',
+     *  so they can be used by the modules that import the shared module.
+     * */
     CommonModule,
-    RouterModule,
     ButtonModule,
-    CardModule,
-    PasswordModule,
+    DialogModule,
     FormsModule,
     ReactiveFormsModule,
-    InputTextModule,
-    ConfirmDialogModule,
-    RippleModule,
-    DialogModule
+    InputTextModule
   ],
   exports: [
     CommonModule,
-    RouterModule,
     ButtonModule,
     CardModule,
     PasswordModule,
@@ -38,7 +37,9 @@ import {RouterModule} from "@angular/router";
     InputTextModule,
     ConfirmDialogModule,
     RippleModule,
-    DialogModule
+    DialogModule,
+    AddbuddyDialogComponent
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+}
